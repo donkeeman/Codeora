@@ -4,6 +4,8 @@ import {
     GithubAuthProvider,
     signInWithEmailAndPassword,
     signInWithPopup,
+    createUserWithEmailAndPassword,
+    updateProfile,
     UserCredential,
 } from "firebase/auth";
 
@@ -39,6 +41,30 @@ export const signInGithub = async (): Promise<UserCredential | undefined> => {
     try {
         const result = await signInWithPopup(auth, githubProvider);
         return result;
+    } catch (error) {
+        if (error instanceof Error) {
+            console.log(error.message);
+        }
+    }
+};
+
+export const createAccount = async (
+    email: string,
+    password: string,
+    userName: string,
+    profileImg = ""
+): Promise<void> => {
+    try {
+        const result = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+        const updatedResult = await updateProfile(result.user, {
+            displayName: userName,
+            photoURL: profileImg,
+        });
+        return updatedResult;
     } catch (error) {
         if (error instanceof Error) {
             console.log(error.message);
