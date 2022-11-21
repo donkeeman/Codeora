@@ -1,11 +1,9 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { RecoilRoot } from "recoil";
-import SignIn from "./Pages/SignIn";
-import SignUp from "./Pages/SignUp";
 import GlobalStyle from "./GlobalStyle";
+import Router from "./Router";
 
 function App() {
     const queryClient = new QueryClient();
@@ -14,12 +12,7 @@ function App() {
             <RecoilRoot>
                 <div className="App">
                     <GlobalStyle />
-                    <BrowserRouter>
-                        <Routes>
-                            <Route path="/signin" element={<SignIn />} />
-                            <Route path="/signup" element={<SignUp />} />
-                        </Routes>
-                    </BrowserRouter>
+                    <Router />
                     <ReactQueryDevtools />
                 </div>
             </RecoilRoot>
