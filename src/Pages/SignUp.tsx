@@ -1,9 +1,18 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createAccount } from "../Hooks/auth";
 import StringInput from "../Components/StringInput";
+import Button from "../Components/Button";
 
 const SignUp = () => {
+    const [signUpData, setSignUpData] = useState({
+        email: "",
+        password: "",
+        confirmPassword: "",
+        userName: "",
+        profileImg: "",
+    });
+
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
     const confirmPasswordRef = useRef<HTMLInputElement | null>(null);
@@ -26,7 +35,7 @@ const SignUp = () => {
 
     return (
         <>
-            <h2>회원 가입</h2>
+            <h2>코더라에 가입하여 나의 코드를 저장해 보세요.</h2>
             <input
                 type="file"
                 name="profileImg"
@@ -40,7 +49,9 @@ const SignUp = () => {
                 innerRef={userNameRef}
                 minLength={2}
                 maxLength={10}
-                message={"2~10자 사이의 한글, 영어 및 숫자의 조합만 가능합니다."}
+                message={
+                    "2~10자 사이의 한글, 영어 및 숫자의 조합만 가능합니다."
+                }
             />
             <StringInput
                 type="text"
@@ -67,7 +78,9 @@ const SignUp = () => {
                 innerRef={passwordRef}
                 minLength={6}
                 maxLength={20}
-                message={"6~20자 사이의 영어 대소문자, 숫자 및 특수 기호의 조합만 가능합니다."}
+                message={
+                    "6~20자 사이의 영어 대소문자, 숫자 및 특수 기호의 조합만 가능합니다."
+                }
             />
             <StringInput
                 type="confirmPassword"
@@ -78,7 +91,17 @@ const SignUp = () => {
                 maxLength={20}
                 message={"비밀번호가 일치하지 않습니다."}
             />
-            <button onClick={signUpHandler}>가입하기</button>
+            <Button
+                disabled={
+                    !(
+                        signUpData.email &&
+                        signUpData.password &&
+                        signUpData.userName
+                    )
+                }
+                content="가입하기"
+                onClickFunction={signUpHandler}
+            />
             <p>이미 계정이 있으신가요? </p>
             <Link to={"/signin"}>로그인</Link>
         </>

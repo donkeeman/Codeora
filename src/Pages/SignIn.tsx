@@ -1,19 +1,43 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { User } from "firebase/auth";
 import { currentUserState } from "../atoms";
 import { signInEmail, signInGoogle, signInGithub } from "../Hooks/auth";
 import StringInput from "../Components/StringInput";
+import Button from "../Components/Button";
 
 const SignIn = () => {
+    const [signInData, setsignInData] = useState({ email: "", password: "" });
+
+    // focus, blur 할 때 필요 없다면 ref는 지워도 됨
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
+    
     const setUserData = useSetRecoilState(currentUserState);
+
     const navigate = useNavigate();
 
-    const signInHandler = (userData: User) => {
-        setUserData(userData);
+    const signInHandler = async (signInType: string) => {
+        let userData;
+        switch (signInType) {
+            case "email":
+                if (signInData.email && signInData.password) {
+                    userData = await signInEmail(
+                        signInData.email,
+                        signInData.password
+                    );
+                }
+                break;
+            case "google":
+                userData = await signInGoogle();
+                break;
+            case "github":
+                userData = await signInGithub();
+                break;
+        }
+        if (userData) {
+            setUserData(userData.user);
+        }
         navigate("/");
     };
     return (
@@ -47,42 +71,22 @@ const SignIn = () => {
                 maxLength={20}
                 message={"이메일 또는 비밀번호가 일치하지 않습니다."}
             />
-            <button
-                onClick={async () => {
-                    if (emailRef.current && passwordRef.current) {
-                        const userData = await signInEmail(
-                            emailRef.current.value,
-                            passwordRef.current.value
-                        );
-                        if (userData) {
-                            signInHandler(userData.user);
-                        }
-                    }
-                }}
-            >
-                로그인
-            </button>
+            <Button
+                disabled={!(signInData.email && signInData.password)}
+                content={"로그인"}
+                onClickFunction={() => signInHandler("email")}
+            />
             <p>또는</p>
-            <button
-                onClick={async () => {
-                    const userData = await signInGoogle();
-                    if (userData) {
-                        signInHandler(userData.user);
-                    }
-                }}
-            >
-                구글 계정으로 로그인
-            </button>
-            <button
-                onClick={async () => {
-                    const userData = await signInGithub();
-                    if (userData) {
-                        signInHandler(userData.user);
-                    }
-                }}
-            >
-                깃허브 계정으로 로그인
-            </button>
+            <Button
+                disabled={false}
+                content={"구글 계정으로 로그인"}
+                onClickFunction={() => signInHandler("google")}
+            />
+            <Button
+                disabled={false}
+                content={"깃허브 계정으로 로그인"}
+                onClickFunction={() => signInHandler("github")}
+            />
             <p>계정이 없으신가요? </p>
             <Link to={"/signup"}>회원 가입</Link>
         </>
