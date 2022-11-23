@@ -8,14 +8,19 @@ import Button from "../Components/Button";
 
 const SignIn = () => {
     const [signInData, setsignInData] = useState({ email: "", password: "" });
-
+    
     // focus, blur 할 때 필요 없다면 ref는 지워도 됨
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
-    
     const setUserData = useSetRecoilState(currentUserState);
-
     const navigate = useNavigate();
+
+    const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setsignInData({
+            ...signInData,
+            [event.target.id]: event.target.value,
+        });
+    };
 
     const signInHandler = async (signInType: string) => {
         let userData;
@@ -52,6 +57,7 @@ const SignIn = () => {
                 minLength={6}
                 maxLength={20}
                 message={""}
+                onChangeFunction={inputHandler}
             />
             <span>@</span>
             <select>
@@ -70,6 +76,7 @@ const SignIn = () => {
                 minLength={6}
                 maxLength={20}
                 message={"이메일 또는 비밀번호가 일치하지 않습니다."}
+                onChangeFunction={inputHandler}
             />
             <Button
                 disabled={!(signInData.email && signInData.password)}

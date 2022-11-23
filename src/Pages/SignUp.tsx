@@ -21,6 +21,10 @@ const SignUp = () => {
 
     const navigate = useNavigate();
 
+    const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSignUpData({ ...signUpData, [event.target.id]: event.target.value });
+    };
+
     const signUpHandler = async () => {
         if (emailRef.current && passwordRef.current && userNameRef.current) {
             await createAccount(
@@ -52,6 +56,7 @@ const SignUp = () => {
                 message={
                     "2~10자 사이의 한글, 영어 및 숫자의 조합만 가능합니다."
                 }
+                onChangeFunction={inputHandler}
             />
             <StringInput
                 type="text"
@@ -61,6 +66,7 @@ const SignUp = () => {
                 minLength={6}
                 maxLength={20}
                 message={""}
+                onChangeFunction={inputHandler}
             />
             <span>@</span>
             <select>
@@ -81,6 +87,7 @@ const SignUp = () => {
                 message={
                     "6~20자 사이의 영어 대소문자, 숫자 및 특수 기호의 조합만 가능합니다."
                 }
+                onChangeFunction={inputHandler}
             />
             <StringInput
                 type="confirmPassword"
@@ -90,6 +97,7 @@ const SignUp = () => {
                 minLength={6}
                 maxLength={20}
                 message={"비밀번호가 일치하지 않습니다."}
+                onChangeFunction={inputHandler}
             />
             <Button
                 disabled={
@@ -97,7 +105,7 @@ const SignUp = () => {
                         signUpData.email &&
                         signUpData.password &&
                         signUpData.userName
-                    )
+                    ) || signUpData.password !== signUpData.confirmPassword
                 }
                 content="가입하기"
                 onClickFunction={signUpHandler}

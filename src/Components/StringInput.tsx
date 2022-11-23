@@ -5,6 +5,7 @@ const InputWrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 6px;
+    text-align: left;
 `;
 
 const InputLabel = styled.label`
@@ -15,6 +16,7 @@ const InputLabel = styled.label`
 
 const Input = styled.input`
     box-sizing: border-box;
+    text-align: left;
     font-size: 20px;
     padding: 6px;
     border: 3px solid gray;
@@ -23,7 +25,6 @@ const Input = styled.input`
 
 const ErrorMessage = styled.p`
     margin-left: 4px;
-    font-size: 14px;
     color: red;
 `;
 
@@ -35,6 +36,7 @@ type inputData = {
     minLength: number;
     maxLength: number;
     message: string;
+    onChangeFunction: React.ChangeEventHandler<HTMLInputElement>;
 };
 
 const StringInput = ({
@@ -45,12 +47,11 @@ const StringInput = ({
     minLength,
     maxLength,
     message,
+    onChangeFunction,
 }: inputData) => {
     return (
         <InputWrapper>
-            <InputLabel htmlFor={id}>
-                {labelName}
-            </InputLabel>
+            <InputLabel htmlFor={id}>{labelName}</InputLabel>
             <Input
                 type={type}
                 name={id}
@@ -58,6 +59,7 @@ const StringInput = ({
                 ref={innerRef}
                 minLength={minLength}
                 maxLength={maxLength}
+                onChange={onChangeFunction}
             />
             <ErrorMessage>{message}</ErrorMessage>
         </InputWrapper>
