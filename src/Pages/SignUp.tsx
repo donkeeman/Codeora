@@ -1,23 +1,24 @@
 import React, { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createAccount } from "../Hooks/auth";
+import StringInput from "../Components/StringInput";
 
 const SignUp = () => {
-    const email = useRef<HTMLInputElement | null>(null);
-    const password = useRef<HTMLInputElement | null>(null);
-    const confirmPassword = useRef<HTMLInputElement | null>(null);
-    const userName = useRef<HTMLInputElement | null>(null);
-    const profileImg = useRef<HTMLInputElement | null>(null);
+    const emailRef = useRef<HTMLInputElement | null>(null);
+    const passwordRef = useRef<HTMLInputElement | null>(null);
+    const confirmPasswordRef = useRef<HTMLInputElement | null>(null);
+    const userNameRef = useRef<HTMLInputElement | null>(null);
+    const profileImgRef = useRef<HTMLInputElement | null>(null);
 
     const navigate = useNavigate();
 
     const signUpHandler = async () => {
-        if (email.current && password.current && userName.current) {
+        if (emailRef.current && passwordRef.current && userNameRef.current) {
             await createAccount(
-                email.current.value,
-                password.current.value,
-                userName.current.value,
-                profileImg.current?.value
+                emailRef.current.value,
+                passwordRef.current.value,
+                userNameRef.current.value,
+                profileImgRef.current?.value
             );
             navigate("/login");
         }
@@ -30,26 +31,53 @@ const SignUp = () => {
                 type="file"
                 name="profileImg"
                 id="profileImg"
-                ref={profileImg}
+                ref={profileImgRef}
             />
-            <label htmlFor="email">이메일</label>
-            <input type="text" name="email" id="email" ref={email} />
-            <label htmlFor="password">비밀번호</label>
-            <input
+            <StringInput
+                type="text"
+                id="userName"
+                labelName="닉네임 (2~10자 사이의 한글, 영어 및 숫자)"
+                innerRef={userNameRef}
+                minLength={2}
+                maxLength={10}
+                message={"2~10자 사이의 한글, 영어 및 숫자의 조합만 가능합니다."}
+            />
+            <StringInput
+                type="text"
+                id="email"
+                labelName="이메일"
+                innerRef={emailRef}
+                minLength={6}
+                maxLength={20}
+                message={""}
+            />
+            <span>@</span>
+            <select>
+                <option disabled selected>
+                    메일 선택
+                </option>
+                <option value="gmail.com">gmail.com</option>
+                <option value="naver.com">naver.com</option>
+                <option value="kakao.com">kakao.com</option>
+            </select>
+            <StringInput
                 type="password"
-                name="password"
                 id="password"
-                ref={password}
+                labelName="비밀번호 (6~20자 사이의 영어 대소문자, 숫자 및 특수 기호)"
+                innerRef={passwordRef}
+                minLength={6}
+                maxLength={20}
+                message={"6~20자 사이의 영어 대소문자, 숫자 및 특수 기호의 조합만 가능합니다."}
             />
-            <label htmlFor="confirmPassword">비밀번호 확인</label>
-            <input
-                type="password"
-                name="confirmPassword"
+            <StringInput
+                type="confirmPassword"
                 id="confirmPassword"
-                ref={confirmPassword}
+                labelName="비밀번호 확인"
+                innerRef={confirmPasswordRef}
+                minLength={6}
+                maxLength={20}
+                message={"비밀번호가 일치하지 않습니다."}
             />
-            <label htmlFor="userName">닉네임</label>
-            <input type="text" name="userName" id="userName" ref={userName} />
             <button onClick={signUpHandler}>가입하기</button>
             <p>이미 계정이 있으신가요? </p>
             <Link to={"/signin"}>로그인</Link>
