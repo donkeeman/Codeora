@@ -2,6 +2,7 @@ import React, { MutableRefObject } from "react";
 import styled from "styled-components";
 
 const InputWrapper = styled.div`
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -24,6 +25,8 @@ const Input = styled.input`
 `;
 
 const ErrorMessage = styled.p`
+    position: absolute;
+    bottom: -18px;
     margin-left: 4px;
     color: red;
 `;
@@ -33,8 +36,6 @@ type inputData = {
     id: string;
     labelName: string;
     innerRef: MutableRefObject<HTMLInputElement | null>;
-    minLength: number;
-    maxLength: number;
     message: string;
     onChangeFunction: React.ChangeEventHandler<HTMLInputElement>;
 };
@@ -44,8 +45,6 @@ const StringInput = ({
     id,
     labelName,
     innerRef,
-    minLength,
-    maxLength,
     message,
     onChangeFunction,
 }: inputData) => {
@@ -57,8 +56,6 @@ const StringInput = ({
                 name={id}
                 id={id}
                 ref={innerRef}
-                minLength={minLength}
-                maxLength={maxLength}
                 onChange={onChangeFunction}
             />
             <ErrorMessage>{message}</ErrorMessage>

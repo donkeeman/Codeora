@@ -16,36 +16,18 @@ export const signInEmail = async (
     email: string,
     password: string
 ): Promise<UserCredential | undefined> => {
-    try {
-        const result = await signInWithEmailAndPassword(auth, email, password);
-        return result;
-    } catch (error) {
-        if (error instanceof Error) {
-            console.log(error.message);
-        }
-    }
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    return result;
 };
 
 export const signInGoogle = async (): Promise<UserCredential | undefined> => {
-    try {
-        const result = await signInWithPopup(auth, googleProvider);
-        return result;
-    } catch (error) {
-        if (error instanceof Error) {
-            console.log(error.message);
-        }
-    }
+    const result = await signInWithPopup(auth, googleProvider);
+    return result;
 };
 
 export const signInGithub = async (): Promise<UserCredential | undefined> => {
-    try {
-        const result = await signInWithPopup(auth, githubProvider);
-        return result;
-    } catch (error) {
-        if (error instanceof Error) {
-            console.log(error.message);
-        }
-    }
+    const result = await signInWithPopup(auth, githubProvider);
+    return result;
 };
 
 export const createAccount = async (
@@ -54,20 +36,10 @@ export const createAccount = async (
     userName: string,
     profileImg = ""
 ): Promise<void> => {
-    try {
-        const result = await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
-        const updatedResult = await updateProfile(result.user, {
-            displayName: userName,
-            photoURL: profileImg,
-        });
-        return updatedResult;
-    } catch (error) {
-        if (error instanceof Error) {
-            console.log(error.message);
-        }
-    }
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+    const updatedResult = await updateProfile(result.user, {
+        displayName: userName,
+        photoURL: profileImg,
+    });
+    return updatedResult;
 };
