@@ -7,6 +7,7 @@ const InputWrapper = styled.div`
     flex-direction: column;
     gap: 6px;
     text-align: left;
+    margin-bottom: 10px;
 `;
 
 const InputLabel = styled.label`
@@ -57,6 +58,7 @@ const StringInput = ({
                 id={id}
                 ref={innerRef}
                 onChange={onChangeFunction}
+                autoComplete="off"
             />
             <ErrorMessage>{message}</ErrorMessage>
         </InputWrapper>
