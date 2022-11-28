@@ -2,11 +2,40 @@ import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { currentUserState } from "../atoms";
+import { FirebaseError } from "firebase/app";
 import { signInEmail, signInGoogle, signInGithub } from "../Hooks/auth";
+import styled from "styled-components";
 import StringInput from "../Components/StringInput";
 import Button from "../Components/Button";
 import { regExps } from "../Constants/regExps";
-import { FirebaseError } from "firebase/app";
+
+const SignInWrapper = styled.section`
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 800px;
+    gap: 20px;
+`;
+
+const OrMessage = styled.p`
+    position: relative;
+    overflow: hidden;
+    &::before,
+    &::after {
+        position: absolute;
+        top: 50%;
+        content: "";
+        width: 50%;
+        height: 2px;
+        background-color: gray;
+    }
+    &::before {
+        left: -20px;
+    }
+    &::after {
+        right: -20px;
+    }
+`;
 
 const SignIn = () => {
     const [signInData, setsignInData] = useState({ email: "", password: "" });
@@ -79,10 +108,12 @@ const SignIn = () => {
         }
         navigate("/");
     };
+
     return (
-        <>
-            <h2>코더라에 오신 것을 환영합니다.</h2>
-            <h2>로그인하여 나의 코드를 저장해 보세요.</h2>
+        <SignInWrapper>
+            <h2>
+                코더라에 오신 것을 환영합니다.
+            </h2>
             <StringInput
                 type="email"
                 id="email"
@@ -104,20 +135,24 @@ const SignIn = () => {
                 content={"로그인"}
                 onClickFunction={() => signInHandler("email")}
             />
-            <p>또는</p>
+            <OrMessage>또는</OrMessage>
             <Button
                 disabled={false}
                 content={"구글 계정으로 로그인"}
                 onClickFunction={() => signInHandler("google")}
+                social="google"
+                backgroundColor="#4285F4"
             />
             <Button
                 disabled={false}
                 content={"깃허브 계정으로 로그인"}
                 onClickFunction={() => signInHandler("github")}
+                social="github"
+                backgroundColor="black"
             />
             <p>계정이 없으신가요? </p>
             <Link to={"/signup"}>회원 가입</Link>
-        </>
+        </SignInWrapper>
     );
 };
 
