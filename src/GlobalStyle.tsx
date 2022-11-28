@@ -8,11 +8,12 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
     }
     body, button, input {
+        background-color: ${colorVariants.black};
         text-align: center;
         font-family: 'Noto Sans KR', sans-serif;
         font-size: 14px;
         letter-spacing: -0.8px;
-        color: ${colorVariants.black};
+        color: ${colorVariants.white};
     }
     body {
         padding: 20px;
@@ -23,6 +24,7 @@ const GlobalStyle = createGlobalStyle`
     }
     a, a:visited, a:hover{
         color: inherit;
+        text-decoration: underline;
     }
 `;
 
