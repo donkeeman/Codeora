@@ -5,9 +5,10 @@ import { currentUserState } from "../atoms";
 import { FirebaseError } from "firebase/app";
 import { signInEmail, signInGoogle, signInGithub } from "../Hooks/auth";
 import styled from "styled-components";
-import StringInput from "../Components/StringInput";
-import Button from "../Components/Button";
 import { regExps } from "../Constants/regExps";
+import Button from "../Components/Button";
+import StringInput from "../Components/StringInput";
+import Title from "../Components/Title";
 
 const SignInWrapper = styled.section`
     display: flex;
@@ -111,9 +112,7 @@ const SignIn = () => {
 
     return (
         <SignInWrapper>
-            <h2>
-                코더라에 오신 것을 환영합니다.
-            </h2>
+            <Title title="코더라에 오신 것을 환영합니다." />
             <StringInput
                 type="email"
                 id="email"
