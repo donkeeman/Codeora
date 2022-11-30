@@ -12,7 +12,6 @@ const InputWrapper = styled.div`
 
 const InputLabel = styled.label`
     font-size: 18px;
-    font-weight: bold;
     margin-left: 4px;
 `;
 
