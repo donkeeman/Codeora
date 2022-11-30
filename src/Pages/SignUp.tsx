@@ -1,8 +1,9 @@
 import React, { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { createAccount } from "../Hooks/auth";
 import styled from "styled-components";
 import Button from "../Components/Button";
+import LinkMsgWrapper from "../Components/LinkMsgWrapper";
 import StringInput from "../Components/StringInput";
 import Title from "../Components/Title";
 
@@ -103,8 +104,11 @@ const SignUp = () => {
                 content="가입하기"
                 onClickFunction={signUpHandler}
             />
-            <p>이미 계정이 있으신가요? </p>
-            <Link to={"/signin"}>로그인</Link>
+            <LinkMsgWrapper
+                message="이미 계정이 있으신가요?"
+                linkRoute="/signin"
+                linkMessage="로그인"
+            />
         </SignUpWrapper>
     );
 };

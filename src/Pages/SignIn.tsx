@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { currentUserState } from "../atoms";
 import { FirebaseError } from "firebase/app";
@@ -7,6 +7,7 @@ import { signInEmail, signInGoogle, signInGithub } from "../Hooks/auth";
 import styled from "styled-components";
 import { regExps } from "../Constants/regExps";
 import Button from "../Components/Button";
+import LinkMsgWrapper from "../Components/LinkMsgWrapper";
 import StringInput from "../Components/StringInput";
 import Title from "../Components/Title";
 
@@ -57,17 +58,17 @@ const SignIn = () => {
     };
 
     const signInHandler = async (signInType: string) => {
-        if (!regExps.email.test(signInData.email)) {
-            setSignInError({
-                ...signInError,
-                email: "이메일 형식이 올바르지 않습니다.",
-            });
-            return;
-        }
         let userData;
         try {
             switch (signInType) {
                 case "email":
+                    if (!regExps.email.test(signInData.email)) {
+                        setSignInError({
+                            ...signInError,
+                            email: "이메일 형식이 올바르지 않습니다.",
+                        });
+                        return;
+                    }
                     if (signInData.email && signInData.password) {
                         userData = await signInEmail(
                             signInData.email,
@@ -149,8 +150,11 @@ const SignIn = () => {
                 social="github"
                 backgroundColor="black"
             />
-            <p>계정이 없으신가요? </p>
-            <Link to={"/signup"}>회원 가입</Link>
+            <LinkMsgWrapper
+                message="계정이 없으신가요?"
+                linkRoute="/signup"
+                linkMessage="회원 가입"
+            ></LinkMsgWrapper>
         </SignInWrapper>
     );
 };
