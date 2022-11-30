@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
         font-size: 14px;
         letter-spacing: -0.8px;
         color: ${colorVariants.white};
+        word-break: keep-all;
     }
     body {
         padding: 20px;
