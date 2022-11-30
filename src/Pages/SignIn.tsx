@@ -43,7 +43,6 @@ const SignIn = () => {
     const [signInData, setsignInData] = useState({ email: "", password: "" });
     const [signInError, setSignInError] = useState({ email: "", password: "" });
 
-    // focus, blur 할 때 필요 없다면 ref는 지워도 됨
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
     const setUserData = useSetRecoilState(currentUserState);
@@ -67,6 +66,7 @@ const SignIn = () => {
                             ...signInError,
                             email: "이메일 형식이 올바르지 않습니다.",
                         });
+                        emailRef.current?.focus();
                         return;
                     }
                     if (signInData.email && signInData.password) {
@@ -93,9 +93,11 @@ const SignIn = () => {
                         break;
                     case "auth/user-not-found":
                         errorMessage = "존재하지 않는 이메일입니다.";
+                        emailRef.current?.focus();
                         break;
                     case "auth/wrong-password":
                         errorMessage = "비밀번호가 일치하지 않습니다.";
+                        passwordRef.current?.focus();
                         break;
                 }
                 setSignInError({
