@@ -6,4 +6,8 @@ const currentUserState = atom<User | undefined>({
     default: undefined,
 });
 
-export { currentUserState };
+const persistLoginState = atom<boolean>({
+    key: "persistLoginState",
+    default: false,
+});
+export { currentUserState, persistLoginState };
