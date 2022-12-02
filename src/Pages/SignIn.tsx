@@ -7,6 +7,7 @@ import { signInEmail, signInGoogle, signInGithub } from "../Hooks/auth";
 import styled from "styled-components";
 import { regExps } from "../Constants/regExps";
 import Button from "../Components/Button";
+import CheckBox from "../Components/CheckBox";
 import LinkMsgWrapper from "../Components/LinkMsgWrapper";
 import StringInput from "../Components/StringInput";
 import Title from "../Components/Title";
@@ -17,6 +18,11 @@ const SignInWrapper = styled.section`
     margin: 0 auto;
     max-width: 800px;
     gap: 20px;
+`;
+
+const CheckBoxWrapper = styled.div`
+    display: flex;
+    gap: 24px;
 `;
 
 const OrMessage = styled.p`
@@ -132,6 +138,10 @@ const SignIn = () => {
                 message={signInError.password}
                 onChangeFunction={inputHandler}
             />
+            <CheckBoxWrapper>
+                <CheckBox id="saveEmail" labelName="이메일 저장" />
+                <CheckBox id="persistLogin" labelName="로그인 유지" />
+            </CheckBoxWrapper>
             <Button
                 disabled={!(signInData.email && signInData.password)}
                 content={"로그인"}
