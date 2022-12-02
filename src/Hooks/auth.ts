@@ -39,7 +39,6 @@ export const createAccount = async (
     const result = await createUserWithEmailAndPassword(auth, email, password);
     const updatedResult = await updateProfile(result.user, {
         displayName: userName,
-        photoURL: profileImg,
     });
     return updatedResult;
 };
