@@ -1,23 +1,26 @@
-import React from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
+import React, { useEffect } from "react";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { RecoilRoot } from "recoil";
-import GlobalStyle from "./GlobalStyle";
-import Router from "./Router";
+import { useSetRecoilState } from "recoil";
+import { currentUserState } from "./Configs/atoms";
+import GlobalStyle from "./Configs/GlobalStyle";
+import Router from "./Configs/Router";
 
-function App() {
-    const queryClient = new QueryClient();
+const App = () => {
+    const setUserData = useSetRecoilState(currentUserState);
+    useEffect(() => {
+        const localUser = window.localStorage.getItem("user");
+        if (localUser) {
+            setUserData(JSON.parse(localUser));
+        }
+    }, [setUserData]);
+
     return (
-        <QueryClientProvider client={queryClient}>
-            <RecoilRoot>
-                <div className="App">
-                    <GlobalStyle />
-                    <Router />
-                    <ReactQueryDevtools />
-                </div>
-            </RecoilRoot>
-        </QueryClientProvider>
+        <div className="App">
+            <GlobalStyle />
+            <Router />
+            <ReactQueryDevtools />
+        </div>
     );
-}
+};
 
 export default App;

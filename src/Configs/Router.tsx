@@ -4,7 +4,7 @@ import Main from "../Pages/Main";
 import SignIn from "../Pages/SignIn";
 import SignUp from "../Pages/SignUp";
 
-function Router() {
+const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
@@ -14,6 +14,6 @@ function Router() {
             </Routes>
         </BrowserRouter>
     );
-}
+};
 
 export default Router;

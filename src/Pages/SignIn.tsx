@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { currentUserState } from "../atoms";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { currentUserState } from "../Configs/atoms";
 import { FirebaseError } from "firebase/app";
 import { signInEmail, signInGoogle, signInGithub } from "../Hooks/auth";
 import styled from "styled-components";
@@ -48,10 +48,12 @@ const OrMessage = styled.p`
 const SignIn = () => {
     const [signInData, setsignInData] = useState({ email: "", password: "" });
     const [signInError, setSignInError] = useState({ email: "", password: "" });
+    const [persistLogin, setPersistLogin] = useState(false);
+    // const [saveEmail, setSaveEmail] = useState(false);
 
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
-    const setUserData = useSetRecoilState(currentUserState);
+    const [userData, setUserData] = useRecoilState(currentUserState);
     const navigate = useNavigate();
 
     const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,6 +63,14 @@ const SignIn = () => {
         });
         setSignInError({ email: "", password: "" });
     };
+
+    const persistLoginHandler = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setPersistLogin(event.target.checked);
+    };
+
+    const saveEmailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {};
 
     const signInHandler = async (signInType: string) => {
         let userData;
@@ -84,9 +94,11 @@ const SignIn = () => {
                     break;
                 case "google":
                     userData = await signInGoogle();
+                    setPersistLogin(true);
                     break;
                 case "github":
                     userData = await signInGithub();
+                    setPersistLogin(true);
                     break;
             }
         } catch (error) {
@@ -115,11 +127,19 @@ const SignIn = () => {
         }
         if (userData) {
             setUserData(userData.user);
+            if (persistLogin) {
+                window.localStorage.setItem(
+                    "user",
+                    JSON.stringify(userData.user)
+                );
+            }
         }
         navigate("/");
     };
 
-    return (
+    return userData ? (
+        <Navigate to="/" />
+    ) : (
         <SignInWrapper>
             <Title title="코더라에 오신 것을 환영합니다." />
             <StringInput
@@ -139,8 +159,16 @@ const SignIn = () => {
                 onChangeFunction={inputHandler}
             />
             <CheckBoxWrapper>
-                <CheckBox id="saveEmail" labelName="이메일 저장" />
-                <CheckBox id="persistLogin" labelName="로그인 유지" />
+                <CheckBox
+                    id="saveEmail"
+                    labelName="이메일 저장"
+                    onChangeFunction={saveEmailHandler}
+                />
+                <CheckBox
+                    id="persistLogin"
+                    labelName="로그인 유지"
+                    onChangeFunction={persistLoginHandler}
+                />
             </CheckBoxWrapper>
             <Button
                 disabled={!(signInData.email && signInData.password)}
