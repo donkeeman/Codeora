@@ -16,16 +16,19 @@ const GlobalStyle = createGlobalStyle`
         color: ${colorVariants.white};
         word-break: keep-all;
     }
-    body {
-        padding: 20px;
+    body{
+        padding: 30px 8%;
     }
     h1, h2 {
-        font-size: 20px;
         font-weight: bold;
     }
     a, a:visited, a:hover{
         color: inherit;
         text-decoration: underline;
+    }
+    .App{
+        max-width: 800px;
+        margin: 0 auto;
     }
 `;
 
