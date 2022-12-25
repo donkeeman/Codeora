@@ -141,7 +141,7 @@ const SignIn = () => {
         <Navigate to="/" />
     ) : (
         <SignInWrapper>
-            <Title title="코더라에 오신 것을 환영합니다." />
+            <Title title="로그인" subTitle="코더라에 오신 것을 환영합니다." />
             <StringInput
                 type="email"
                 id="email"

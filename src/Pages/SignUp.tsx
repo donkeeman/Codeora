@@ -61,8 +61,7 @@ const SignUp = () => {
         if (!regExps.email.test(signUpData.email)) {
             setSignUpError({
                 ...signUpError,
-                email:
-                    "이메일 형식이 올바르지 않습니다.",
+                email: "이메일 형식이 올바르지 않습니다.",
             });
             emailRef.current?.focus();
             return;
@@ -99,7 +98,6 @@ const SignUp = () => {
             }
         } catch (error) {
             if (error instanceof FirebaseError) {
-                // console.log(error);
                 let errorMessage = "";
                 switch (error.code) {
                     case "auth/email-already-in-use":
@@ -113,14 +111,9 @@ const SignUp = () => {
 
     return (
         <SignUpWrapper>
-            <Title title="코더라에 가입하여 나의 코드를 저장해 보세요." />
-            <StringInput
-                type="text"
-                id="userName"
-                labelName="닉네임 (2~10자 사이의 한글, 영어 대소문자, 숫자 및 언더바 ( _ ))"
-                innerRef={userNameRef}
-                message={signUpError.userName}
-                onChangeFunction={inputHandler}
+            <Title
+                title="회원 가입"
+                subTitle="코더라에 가입하여 나의 코드를 저장해 보세요."
             />
             <StringInput
                 type="email"
@@ -144,6 +137,14 @@ const SignUp = () => {
                 labelName="비밀번호 확인"
                 innerRef={confirmPasswordRef}
                 message={signUpError.confirmPassword}
+                onChangeFunction={inputHandler}
+            />
+            <StringInput
+                type="text"
+                id="userName"
+                labelName="닉네임 (2~10자 사이의 한글, 영어 대소문자, 숫자 및 언더바 ( _ ))"
+                innerRef={userNameRef}
+                message={signUpError.userName}
                 onChangeFunction={inputHandler}
             />
             <Button
