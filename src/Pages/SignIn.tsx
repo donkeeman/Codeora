@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { currentUserState } from "../Configs/atoms";
@@ -48,7 +48,15 @@ const SignIn = () => {
     const [signInData, setsignInData] = useState({ email: "", password: "" });
     const [signInError, setSignInError] = useState({ email: "", password: "" });
     const [persistLogin, setPersistLogin] = useState(false);
-    // const [saveEmail, setSaveEmail] = useState(false);
+    const [saveEmail, setSaveEmail] = useState({ save: false, email: "" });
+
+    useEffect(() => {
+        const savedEmail = window.localStorage.getItem("email");
+        if (savedEmail) {
+            setSaveEmail({ save: true, email: savedEmail });
+            setsignInData({ email: savedEmail, password: "" });
+        }
+    }, []);
 
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -69,7 +77,11 @@ const SignIn = () => {
         setPersistLogin(event.target.checked);
     };
 
-    const saveEmailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {};
+    const saveEmailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (emailRef.current) {
+            setSaveEmail({ ...saveEmail, save: event.target.checked });
+        }
+    };
 
     const signInHandler = async (signInType: string) => {
         let userData;
@@ -126,6 +138,11 @@ const SignIn = () => {
         }
         if (userData) {
             setUserData(userData.user);
+            if (saveEmail.save) {
+                window.localStorage.setItem("email", signInData.email);
+            } else {
+                window.localStorage.removeItem("email");
+            }
             if (persistLogin) {
                 window.localStorage.setItem(
                     "user",
@@ -148,6 +165,7 @@ const SignIn = () => {
                 innerRef={emailRef}
                 message={signInError.email}
                 onChangeFunction={inputHandler}
+                value={saveEmail.email}
             />
             <StringInput
                 type="password"
@@ -162,6 +180,7 @@ const SignIn = () => {
                     id="saveEmail"
                     labelName="이메일 저장"
                     onChangeFunction={saveEmailHandler}
+                    checked={saveEmail.save}
                 />
                 <CheckBox
                     id="persistLogin"

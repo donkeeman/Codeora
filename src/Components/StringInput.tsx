@@ -38,6 +38,7 @@ type inputData = {
     innerRef: MutableRefObject<HTMLInputElement | null>;
     message: string;
     onChangeFunction: React.ChangeEventHandler<HTMLInputElement>;
+    value?: string;
 };
 
 const StringInput = ({
@@ -47,6 +48,7 @@ const StringInput = ({
     innerRef,
     message,
     onChangeFunction,
+    value,
 }: inputData) => {
     return (
         <InputWrapper>
@@ -57,6 +59,7 @@ const StringInput = ({
                 id={id}
                 ref={innerRef}
                 onChange={onChangeFunction}
+                defaultValue={value}
                 autoComplete="off"
             />
             <ErrorMessage>{message}</ErrorMessage>

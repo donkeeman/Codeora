@@ -22,9 +22,15 @@ type inputData = {
     id: string;
     labelName: string;
     onChangeFunction: React.ChangeEventHandler<HTMLInputElement>;
+    checked?: boolean;
 };
 
-const CheckBox = ({ id, labelName, onChangeFunction }: inputData) => {
+const CheckBox = ({
+    id,
+    labelName,
+    onChangeFunction,
+    checked,
+}: inputData) => {
     return (
         <CheckBoxWrapper>
             <CheckBoxInput
@@ -32,6 +38,7 @@ const CheckBox = ({ id, labelName, onChangeFunction }: inputData) => {
                 name={id}
                 id={id}
                 onChange={onChangeFunction}
+                checked={checked}
             />
             <CheckBoxLabel htmlFor={id}>{labelName}</CheckBoxLabel>
         </CheckBoxWrapper>
