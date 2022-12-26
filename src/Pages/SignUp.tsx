@@ -12,8 +12,7 @@ import { regExps } from "../Constants/regExps";
 const SignUpWrapper = styled.section`
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
-    max-width: 800px;
+    width: 100%;
     gap: 20px;
 `;
 
@@ -94,7 +93,7 @@ const SignUp = () => {
                     signUpData.password,
                     signUpData.userName
                 );
-                navigate("/signIn");
+                navigate("/signup-success");
             }
         } catch (error) {
             if (error instanceof FirebaseError) {

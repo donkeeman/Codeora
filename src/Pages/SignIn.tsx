@@ -15,8 +15,7 @@ import Title from "../Components/Title";
 const SignInWrapper = styled.section`
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
-    max-width: 800px;
+    width: 100%;
     gap: 20px;
 `;
 
