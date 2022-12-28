@@ -16,17 +16,31 @@ const GlobalStyle = createGlobalStyle`
         color: ${colorVariants.white};
         word-break: keep-all;
     }
-    body{
+    body {
         padding: 30px 8%;
     }
     h1, h2 {
         font-weight: bold;
     }
-    a, a:visited, a:hover{
+    a, a:visited, a:hover {
         color: inherit;
         text-decoration: underline;
     }
-    .App{
+    .codeEditor {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        font-size: 16px;
+        letter-spacing: 1px;
+        &.pre {
+            border: 2px solid ${colorVariants.disabledColor};
+        }
+    }
+
+    .App {
         max-width: 800px;
         margin: 0 auto;
     }

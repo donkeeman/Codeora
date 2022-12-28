@@ -1,11 +1,13 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { currentUserState } from "../Configs/atoms";
 import { useRecoilState } from "recoil";
 import { signOutUser } from "../Hooks/auth";
 
 const Main = () => {
     const [userData, setUserData] = useRecoilState(currentUserState);
+    const navigate = useNavigate();
+
     return userData ? (
         <>
             <p>{userData.displayName}님, 어서 오세요!</p>
@@ -18,6 +20,7 @@ const Main = () => {
             >
                 로그아웃
             </button>
+            <button onClick={() => navigate("/write")}>글쓰기</button>
         </>
     ) : (
         <>
