@@ -39,6 +39,9 @@ const GlobalStyle = createGlobalStyle`
         color: inherit;
         text-decoration: underline;
     }
+    button {
+        cursor: pointer;
+    }
     .codeEditor {
         position: absolute;
         top: 0;
