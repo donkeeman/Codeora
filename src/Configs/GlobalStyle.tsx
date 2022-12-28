@@ -18,17 +18,25 @@ const GlobalStyle = createGlobalStyle`
     }
     body {
         padding: 30px 8%;
+        & * {
+            box-sizing: border-box;
+        }
         &::-webkit-scrollbar, & *::-webkit-scrollbar {
-            width: 12px;
+            width: 10px;
+            height: 10px;
+            cursor: pointer;
         }
         &::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb {
             background-color: ${colorVariants.disabledColor};
             background-clip: padding-box;
-            border: 2px solid transparent;
+            border: 1px solid transparent;
             border-radius: 10px;
             height: 20%;
         }
         &::-webkit-scrollbar-track, & *::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+        &::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner {
             background-color: transparent;
         }
     }
@@ -52,11 +60,10 @@ const GlobalStyle = createGlobalStyle`
         font-size: 16px;
         letter-spacing: 1px;
         &.pre {
-            border: 2px solid ${colorVariants.disabledColor};
-            height: 100%;
-        }
-        &.textarea::-webkit-scrollbar {
-            display: none;
+            border: 3px solid gray;
+            &::-webkit-scrollbar {
+                background: transparent;
+            }
         }
     }
     .App {

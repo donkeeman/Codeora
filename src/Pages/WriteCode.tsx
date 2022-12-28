@@ -7,24 +7,37 @@ import { colorVariants } from "../Constants/colorVariants";
 const CodeEditorWrapper = styled.div`
     position: relative;
     min-height: 300px;
+    margin: 0;
+    padding: 10px;
 `;
 
 const CodeEditor = styled.textarea`
     background-color: transparent;
     color: transparent;
-    border: none;
-    outline: none;
-    white-space: pre;
-    caret-color: ${colorVariants.white};
-    padding: 1em;
-    margin: 0.5em 0px;
-    line-height: 1.5;
-    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    border: 3px solid transparent;
     resize: none;
+    caret-color: ${colorVariants.white};
+    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    text-align: left;
+    white-space: pre-wrap;
+    word-spacing: normal;
+    word-break: normal;
+    overflow-wrap: normal;
+    line-height: 1.5;
+    tab-size: 4;
+    hyphens: none;
+    overflow: auto;
+    border-radius: 6px;
+    padding: 10px;
 `;
 
 const WriteCode = () => {
-    const [code, setCode] = useState("");
+    const [posting, setPosting] = useState({
+        title: "",
+        code: "",
+        lang: "",
+        tag: [],
+    });
     const wrapperRef = useRef<HTMLDivElement | null>(null);
     const preRef =
         wrapperRef.current &&
@@ -33,13 +46,14 @@ const WriteCode = () => {
     const codeInputHandler = (
         event: React.ChangeEvent<HTMLTextAreaElement>
     ) => {
-        setCode(event.target.value);
+        setPosting({ ...posting, code: event.target.value });
     };
 
     const syncScrollHandler = (event: React.UIEvent<HTMLTextAreaElement>) => {
         const textarea = event.currentTarget as HTMLTextAreaElement;
         if (preRef) {
             preRef.scrollTop = textarea.scrollTop;
+            preRef.scrollLeft = textarea.scrollLeft;
         }
     };
 
@@ -49,8 +63,14 @@ const WriteCode = () => {
                 className="codeEditor pre"
                 language="javascript"
                 style={a11yDark}
+                wrapLongLines={true}
+                customStyle={{
+                    margin: 0,
+                    padding: "10px",
+                    borderRadius: "6px",
+                }}
             >
-                {code}
+                {posting.code}
             </SyntaxHighlighter>
             <CodeEditor
                 className="codeEditor textarea"
