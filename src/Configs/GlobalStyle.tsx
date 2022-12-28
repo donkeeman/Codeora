@@ -18,6 +18,19 @@ const GlobalStyle = createGlobalStyle`
     }
     body {
         padding: 30px 8%;
+        &::-webkit-scrollbar, & *::-webkit-scrollbar {
+            width: 12px;
+        }
+        &::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb {
+            background-color: ${colorVariants.disabledColor};
+            background-clip: padding-box;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            height: 20%;
+        }
+        &::-webkit-scrollbar-track, & *::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
     }
     h1, h2 {
         font-weight: bold;
@@ -37,9 +50,12 @@ const GlobalStyle = createGlobalStyle`
         letter-spacing: 1px;
         &.pre {
             border: 2px solid ${colorVariants.disabledColor};
+            height: 100%;
+        }
+        &.textarea::-webkit-scrollbar {
+            display: none;
         }
     }
-
     .App {
         max-width: 800px;
         margin: 0 auto;

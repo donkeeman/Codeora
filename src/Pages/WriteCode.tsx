@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import styled from "styled-components";
@@ -7,10 +7,6 @@ import { colorVariants } from "../Constants/colorVariants";
 const CodeEditorWrapper = styled.div`
     position: relative;
     min-height: 300px;
-    white-space: pre;
-    line-height: 1.5;
-    tab-size: 4;
-    hyphens: none;
 `;
 
 const CodeEditor = styled.textarea`
@@ -29,6 +25,10 @@ const CodeEditor = styled.textarea`
 
 const WriteCode = () => {
     const [code, setCode] = useState("");
+    const wrapperRef = useRef<HTMLDivElement | null>(null);
+    const preRef =
+        wrapperRef.current &&
+        (wrapperRef.current.firstElementChild as HTMLPreElement);
 
     const codeInputHandler = (
         event: React.ChangeEvent<HTMLTextAreaElement>
@@ -36,8 +36,15 @@ const WriteCode = () => {
         setCode(event.target.value);
     };
 
+    const syncScrollHandler = (event: React.UIEvent<HTMLTextAreaElement>) => {
+        const textarea = event.currentTarget as HTMLTextAreaElement;
+        if (preRef) {
+            preRef.scrollTop = textarea.scrollTop;
+        }
+    };
+
     return (
-        <CodeEditorWrapper>
+        <CodeEditorWrapper ref={wrapperRef}>
             <SyntaxHighlighter
                 className="codeEditor pre"
                 language="javascript"
@@ -49,6 +56,7 @@ const WriteCode = () => {
                 className="codeEditor textarea"
                 onChange={codeInputHandler}
                 spellCheck={false}
+                onScroll={syncScrollHandler}
             ></CodeEditor>
         </CodeEditorWrapper>
     );
