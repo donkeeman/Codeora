@@ -13,39 +13,26 @@ const WriteCode = () => {
         tag: [],
     });
 
-    const titleInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPosting({ ...posting, title: event.target.value });
-    };
-
-    const descriptionInputHandler = (
-        event: React.ChangeEvent<HTMLTextAreaElement>
+    const codeHandler = (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
-        setPosting({ ...posting, title: event.target.value });
-    };
-
-    const codeInputHandler = (
-        event: React.ChangeEvent<HTMLTextAreaElement>
-    ) => {
-        setPosting({ ...posting, code: event.target.value });
+        setPosting({ ...posting, [event.target.id]: event.target.value });
     };
 
     return (
         <>
             <Title title="코드 작성하기" />
-            <CodeEditor
-                code={posting.code}
-                onChangeFunction={codeInputHandler}
-            />
+            <CodeEditor code={posting.code} onChangeFunction={codeHandler} />
             <StringInput
                 type="text"
                 id="title"
                 labelName="제목"
-                onChangeFunction={titleInputHandler}
+                onChangeFunction={codeHandler}
             />
             <Textarea
                 id="description"
                 labelName="코드 설명"
-                onChangeFunction={descriptionInputHandler}
+                onChangeFunction={codeHandler}
             />
         </>
     );
