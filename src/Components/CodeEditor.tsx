@@ -15,7 +15,6 @@ const Editor = styled.textarea`
     background-color: transparent;
     color: transparent;
     border: 3px solid transparent;
-    resize: none;
     caret-color: ${colorVariants.white};
     font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     text-align: left;
@@ -65,15 +64,15 @@ const CodeEditor = ({ code, onChangeFunction }: textareaData) => {
             >
                 {code}
             </SyntaxHighlighter>
-            <label htmlFor="editor" className="a11y-hidden">코드 작성</label>
+            <label htmlFor="code" className="a11y-hidden">코드 작성</label>
             <Editor
                 className="codeEditor textarea"
                 onChange={onChangeFunction}
                 spellCheck={false}
                 onScroll={syncScrollHandler}
                 autoComplete="off"
-                id="editor"
-                name="editor"
+                id="code"
+                name="code"
                 placeholder="// 코드를 작성해 보세요." // 언어에 따라 주석 형식 변경하기
             ></Editor>
         </CodeEditorWrapper>

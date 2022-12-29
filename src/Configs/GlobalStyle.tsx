@@ -50,6 +50,9 @@ const GlobalStyle = createGlobalStyle`
     button {
         cursor: pointer;
     }
+    textarea {
+        resize: none;
+    }
     .a11y-hidden {
         position: absolute;
         width: 1px;

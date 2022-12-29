@@ -13,14 +13,14 @@ const SubTitle = styled.p`
 
 type titleData = {
     title: string;
-    subTitle: string;
+    subTitle?: string;
 };
 
 const Title = ({ title, subTitle }: titleData) => {
     return (
         <>
             <MainTitle>{title}</MainTitle>
-            <SubTitle>{subTitle}</SubTitle>
+            {subTitle && <SubTitle>{subTitle}</SubTitle>}
         </>
     );
 };

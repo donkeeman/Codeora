@@ -16,7 +16,6 @@ const InputLabel = styled.label`
 `;
 
 const Input = styled.input`
-    box-sizing: border-box;
     text-align: left;
     font-size: 20px;
     padding: 6px;
@@ -35,9 +34,9 @@ type inputData = {
     type: string;
     id: string;
     labelName: string;
-    innerRef: MutableRefObject<HTMLInputElement | null>;
-    message: string;
+    innerRef?: MutableRefObject<HTMLInputElement | null>;
     onChangeFunction: React.ChangeEventHandler<HTMLInputElement>;
+    message?: string;
     value?: string;
 };
 
