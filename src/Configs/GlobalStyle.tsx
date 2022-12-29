@@ -50,6 +50,14 @@ const GlobalStyle = createGlobalStyle`
     button {
         cursor: pointer;
     }
+    .a11y-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        clip: rect(0, 0, 0, 0);
+        margin: -1px;
+        overflow: hidden;
+    }
     .codeEditor {
         position: absolute;
         top: 0;
@@ -62,6 +70,9 @@ const GlobalStyle = createGlobalStyle`
         &.pre {
             border: 3px solid gray;
             &::-webkit-scrollbar {
+                background: transparent;
+            }
+            &::-webkit-scrollbar-thumb {
                 background: transparent;
             }
         }
