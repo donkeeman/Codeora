@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
     * {
         box-sizing: border-box;
     }
-    body, button, input {
+    body, button, input, textarea {
         background-color: ${colorVariants.black};
         text-align: center;
         font-family: 'Noto Sans KR', sans-serif;
