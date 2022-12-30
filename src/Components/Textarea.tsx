@@ -18,7 +18,7 @@ const TextareaLabel = styled.label`
 const ContentTextarea = styled.textarea`
     display: block;
     text-align: left;
-    font-size: 20px;
+    font-size: 16px;
     padding: 6px;
     border: 3px solid gray;
     border-radius: 6px;
@@ -31,6 +31,7 @@ type textareaData = {
     labelName: string;
     innerRef?: MutableRefObject<HTMLTextAreaElement>;
     onChangeFunction: React.ChangeEventHandler<HTMLTextAreaElement>;
+    rows: number;
 };
 
 const Textarea = ({
@@ -38,6 +39,7 @@ const Textarea = ({
     labelName,
     innerRef,
     onChangeFunction,
+    rows
 }: textareaData) => {
     return (
         <TextareaWrapper>
@@ -46,6 +48,7 @@ const Textarea = ({
                 id={id}
                 ref={innerRef}
                 onChange={onChangeFunction}
+                rows={rows}
             />
         </TextareaWrapper>
     );

@@ -6,9 +6,10 @@ import { colorVariants } from "../Constants/colorVariants";
 
 const CodeEditorWrapper = styled.div`
     position: relative;
-    min-height: 400px;
+    min-height: 500px;
     margin: 0;
     padding: 10px;
+    flex: 0.9 0 0;
 `;
 
 const Editor = styled.textarea`
@@ -64,7 +65,9 @@ const CodeEditor = ({ code, onChangeFunction }: textareaData) => {
             >
                 {code}
             </SyntaxHighlighter>
-            <label htmlFor="code" className="a11y-hidden">코드 작성</label>
+            <label htmlFor="code" className="a11y-hidden">
+                코드 작성
+            </label>
             <Editor
                 className="codeEditor textarea"
                 onChange={onChangeFunction}
@@ -74,7 +77,8 @@ const CodeEditor = ({ code, onChangeFunction }: textareaData) => {
                 id="code"
                 name="code"
                 placeholder="// 코드를 작성해 보세요." // 언어에 따라 주석 형식 변경하기
-            ></Editor>
+            />
+            {/* 언어 선택 추가 (select) */}
         </CodeEditorWrapper>
     );
 };
