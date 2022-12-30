@@ -12,7 +12,8 @@ import { regExps } from "../Constants/regExps";
 const SignUpWrapper = styled.section`
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 80%;
+    margin: 0 auto;
     gap: 20px;
 `;
 
