@@ -27,15 +27,17 @@ const CodeInfoWrapper = styled.div`
     flex-direction: column;
     gap: 6px;
     flex: 0.8 0 0;
+    overflow: hidden;
 `;
 
 const TagList = styled.ul`
-    height: 28px;
+    width: 100%;
+    height: 36px;
     font-size: 16px;
     display: flex;
     align-items: center;
     gap: 6px;
-    margin-bottom: 10px;
+    overflow-x: scroll;
 `;
 
 const WriteCode = () => {
@@ -44,7 +46,11 @@ const WriteCode = () => {
         code: "",
         description: "",
         language: "",
-        tag: ["자바스크립트", "알고리즘"],
+        tag: [
+            "자바스크립트",
+            "알고리즘",
+            "아주_아주_길고_길고_길고_긴_태그_태그",
+        ],
     });
     const navigate = useNavigate();
 
@@ -52,6 +58,11 @@ const WriteCode = () => {
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
         setPosting({ ...posting, [event.target.id]: event.target.value });
+    };
+
+    const deleteTagHandler = (index: number) => {
+        posting.tag.splice(index, 1);
+        setPosting({ ...posting });
     };
 
     return (
@@ -83,7 +94,15 @@ const WriteCode = () => {
                     />
                     <TagList>
                         {posting.tag.map((tag, index) => {
-                            return <Tag key={index} keyword={tag}></Tag>;
+                            return (
+                                <Tag
+                                    key={index}
+                                    keyword={tag}
+                                    onClickFunction={() => {
+                                        deleteTagHandler(index);
+                                    }}
+                                ></Tag>
+                            );
                         })}
                     </TagList>
                     <Button

@@ -5,10 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const TagLi = styled.li`
-display: flex;
-align-items: center;
-gap: 4px;
-    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 12px;
+    height: 100%;
+    white-space: nowrap;
     border-radius: 24px;
     background-color: ${colorVariants.mainColor};
     color: ${colorVariants.black};
@@ -23,13 +25,14 @@ const DeleteButton = styled.button`
 
 type tagData = {
     keyword: string;
+    onClickFunction: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-const Tag = ({ keyword }: tagData) => {
+const Tag = ({ keyword, onClickFunction }: tagData) => {
     return (
         <TagLi>
             {keyword}
-            <DeleteButton>
+            <DeleteButton onClick={onClickFunction}>
                 <FontAwesomeIcon icon={faXmark} />
             </DeleteButton>
         </TagLi>
