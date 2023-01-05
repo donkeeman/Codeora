@@ -35,7 +35,8 @@ type inputData = {
     id: string;
     labelName: string;
     innerRef?: MutableRefObject<HTMLInputElement | null>;
-    onChangeFunction: React.ChangeEventHandler<HTMLInputElement>;
+    onChangeFunction?: React.ChangeEventHandler<HTMLInputElement>;
+    onKeyDownFunction?: React.KeyboardEventHandler<HTMLInputElement>;
     message?: string;
     value?: string;
 };
@@ -47,6 +48,7 @@ const StringInput = ({
     innerRef,
     message,
     onChangeFunction,
+    onKeyDownFunction,
     value,
 }: inputData) => {
     return (
@@ -58,6 +60,7 @@ const StringInput = ({
                 id={id}
                 ref={innerRef}
                 onChange={onChangeFunction}
+                onKeyDown={onKeyDownFunction}
                 defaultValue={value}
                 autoComplete="off"
             />

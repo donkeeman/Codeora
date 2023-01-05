@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../Components/Button";
@@ -46,18 +46,29 @@ const WriteCode = () => {
         code: "",
         description: "",
         language: "",
-        tag: [
-            "자바스크립트",
-            "알고리즘",
-            "아주_아주_길고_길고_길고_긴_태그_태그",
-        ],
+        tag: [] as string[],
     });
     const navigate = useNavigate();
+    const tagRef = useRef<HTMLInputElement>(null);
 
     const codeHandler = (
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
         setPosting({ ...posting, [event.target.id]: event.target.value });
+    };
+
+    const addTagHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (tagRef.current) {
+            if (event.key === " " || event.key === "Enter") {
+                if (posting.tag.length < 3) {
+                    posting.tag.push(tagRef.current.value.trim());
+                    setPosting({ ...posting });
+                } else {
+                    alert("태그는 최대 3개까지 입력 가능합니다.");
+                }
+                tagRef.current.value = "";
+            }
+        }
     };
 
     const deleteTagHandler = (index: number) => {
@@ -90,7 +101,8 @@ const WriteCode = () => {
                         type="text"
                         id="tag"
                         labelName="태그 (최대 3개)"
-                        onChangeFunction={() => {}}
+                        onKeyDownFunction={addTagHandler}
+                        innerRef={tagRef}
                     />
                     <TagList>
                         {posting.tag.map((tag, index) => {
