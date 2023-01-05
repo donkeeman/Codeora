@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
-import { createAccount } from "../Hooks/auth";
+import { createAccount } from "../Services/auth";
 import styled from "styled-components";
 import Button from "../Components/Button";
 import LinkMsgWrapper from "../Components/LinkMsgWrapper";

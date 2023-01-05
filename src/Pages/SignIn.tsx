@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { currentUserState } from "../Configs/atoms";
 import { FirebaseError } from "firebase/app";
-import { signInEmail, signInGoogle, signInGithub } from "../Hooks/auth";
+import { signInEmail, signInGoogle, signInGithub } from "../Services/auth";
 import styled from "styled-components";
 import { regExps } from "../Constants/regExps";
 import Button from "../Components/Button";

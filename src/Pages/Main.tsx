@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { currentUserState } from "../Configs/atoms";
 import { useRecoilState } from "recoil";
-import { signOutUser } from "../Hooks/auth";
+import { signOutUser } from "../Services/auth";
 
 const Main = () => {
     const [userData, setUserData] = useRecoilState(currentUserState);
