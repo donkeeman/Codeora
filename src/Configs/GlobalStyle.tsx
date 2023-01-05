@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
     * {
         box-sizing: border-box;
     }
-    body, button, input, textarea {
+    body, button, input, textarea, select {
         background-color: ${colorVariants.black};
         text-align: center;
         font-family: 'Noto Sans KR', sans-serif;
@@ -71,7 +71,7 @@ const GlobalStyle = createGlobalStyle`
         font-size: 16px;
         letter-spacing: 1px;
         &.pre {
-            border: 3px solid gray;
+            border: 3px solid transparent;
             &::-webkit-scrollbar {
                 background: transparent;
             }

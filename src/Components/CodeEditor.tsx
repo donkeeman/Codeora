@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import styled from "styled-components";
@@ -8,14 +8,13 @@ const CodeEditorWrapper = styled.div`
     position: relative;
     min-height: 500px;
     margin: 0;
-    padding: 10px;
     flex: 0.9 0 0;
 `;
 
 const Editor = styled.textarea`
     background-color: transparent;
     color: transparent;
-    border: 3px solid transparent;
+    border: 3px solid gray;
     caret-color: ${colorVariants.white};
     font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     text-align: left;
@@ -28,7 +27,17 @@ const Editor = styled.textarea`
     hyphens: none;
     overflow: auto;
     border-radius: 6px;
-    padding: 10px;
+    padding: 16px;
+`;
+
+const Select = styled.select`
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 3px solid gray;
+    border-radius: 6px;
+    width: 100px;
+    z-index: 100;
 `;
 
 type textareaData = {
@@ -38,9 +47,34 @@ type textareaData = {
 
 const CodeEditor = ({ code, onChangeFunction }: textareaData) => {
     const wrapperRef = useRef<HTMLDivElement | null>(null);
+    const [codeLanguage, setCodeLanguage] = useState("");
     const preRef =
         wrapperRef.current &&
         (wrapperRef.current.firstElementChild as HTMLPreElement);
+
+    const languageList = [
+        "Bash",
+        "C",
+        "C++",
+        "C#",
+        "CSS",
+        "Go",
+        "HTML",
+        "Java",
+        "JavaScript",
+        "JSON",
+        "Kotlin",
+        "Lua",
+        "Markdown",
+        "PlainText",
+        "Python",
+        "Ruby",
+        "Rust",
+        "SQL",
+        "Swift",
+        "Vim",
+        "Xml",
+    ];
 
     const syncScrollHandler = (event: React.UIEvent<HTMLTextAreaElement>) => {
         const textarea = event.target as HTMLTextAreaElement;
@@ -50,16 +84,33 @@ const CodeEditor = ({ code, onChangeFunction }: textareaData) => {
         }
     };
 
+    const selectHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setCodeLanguage(event.target.value);
+    };
+
     return (
         <CodeEditorWrapper ref={wrapperRef}>
+            <Select onChange={selectHandler}>
+                {languageList.map((language) => (
+                    <option
+                        key={language}
+                        value={language
+                            .toLowerCase()
+                            .replace("++", "pp")
+                            .replace("#", "sharp")}
+                    >
+                        {language}
+                    </option>
+                ))}
+            </Select>
             <SyntaxHighlighter
                 className="codeEditor pre"
-                language="javascript"
+                language={codeLanguage}
                 style={a11yDark}
                 wrapLongLines={true}
                 customStyle={{
                     margin: 0,
-                    padding: "10px",
+                    padding: "16px",
                     borderRadius: "6px",
                 }}
             >
@@ -76,9 +127,9 @@ const CodeEditor = ({ code, onChangeFunction }: textareaData) => {
                 autoComplete="off"
                 id="code"
                 name="code"
-                placeholder="// 코드를 작성해 보세요." // 언어에 따라 주석 형식 변경하기
+                // placeholder="// 코드를 작성해 보세요." // 언어에 따라 주석 형식 변경하기
+                placeholder={codeLanguage}
             />
-            {/* 언어 선택 추가 (select) */}
         </CodeEditorWrapper>
     );
 };
