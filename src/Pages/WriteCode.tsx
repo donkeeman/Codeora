@@ -99,6 +99,7 @@ const WriteCode = () => {
                         onClickFunction={() => {}}
                     />
                     <Button
+                        type="secondary"
                         disabled={false}
                         content="작성 취소"
                         onClickFunction={() => navigate(-1)}

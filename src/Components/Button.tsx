@@ -3,29 +3,38 @@ import styled from "styled-components";
 import { colorVariants } from "../Constants/colorVariants";
 import { iconPaths } from "../Constants/iconPaths";
 
-const StyledButton = styled.button<{
-    backgroundColor: string;
-}>`
+const StyledButton = styled.button`
     position: relative;
     font-size: 20px;
     font-weight: bold;
-    background-color: inherit;
     width: 100%;
     padding: 12px 20px;
     border: none;
     border-radius: 6px;
-    &,
-    &:hover,
-    &:focus {
-        background-color: ${(props) =>
-            props.backgroundColor || colorVariants.mainColor};
+    &.primary {
+        background-color: ${colorVariants.mainColor};
+        color: ${colorVariants.black};
+        &:disabled,
+        &:disabled:hover,
+        &:disabled:focus {
+            color: darkgray;
+            background-color: ${colorVariants.disabledColor};
+            cursor: not-allowed;
+        }
     }
-    &:disabled,
-    &:disabled:hover,
-    &:disabled:focus {
-        color: darkgray;
-        background-color: ${colorVariants.disabledColor};
-        cursor: not-allowed;
+    &.secondary {
+        border: 2px solid ${colorVariants.mainColor};
+        background-color: ${colorVariants.black};
+        color: ${colorVariants.mainColor};
+    }
+    &.social {
+        color: ${colorVariants.white};
+        &.google {
+            background-color: #4285f4;
+        }
+        &.github {
+            background-color: black;
+        }
     }
     .icon {
         width: 52px;
@@ -42,22 +51,22 @@ type buttonData = {
     onClickFunction: React.MouseEventHandler<HTMLButtonElement>;
     disabled: boolean;
     social?: string;
-    backgroundColor?: string;
+    type?: string;
 };
 
 const Button = ({
+    type = "primary",
     disabled,
     content,
     onClickFunction,
     social,
-    backgroundColor,
 }: buttonData) => {
     return (
         <>
             <StyledButton
+                className={[type, social].join(" ")}
                 disabled={disabled}
                 onClick={onClickFunction}
-                backgroundColor={backgroundColor!}
             >
                 {social && (
                     <img
