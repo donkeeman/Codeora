@@ -23,7 +23,7 @@ const StyledButton = styled.button`
         }
     }
     &.secondary {
-        border: 2px solid ${colorVariants.mainColor};
+        border: 3px solid ${colorVariants.mainColor};
         background-color: ${colorVariants.black};
         color: ${colorVariants.mainColor};
     }
