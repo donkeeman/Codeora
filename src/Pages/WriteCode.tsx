@@ -45,7 +45,7 @@ const WriteCode = () => {
         title: "",
         code: "",
         description: "",
-        language: "",
+        language: "JavaScript",
         tag: [] as string[],
     });
     const navigate = useNavigate();
@@ -54,6 +54,10 @@ const WriteCode = () => {
     const codeHandler = (
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
+        setPosting({ ...posting, [event.target.id]: event.target.value });
+    };
+
+    const selectHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setPosting({ ...posting, [event.target.id]: event.target.value });
     };
 
@@ -82,7 +86,9 @@ const WriteCode = () => {
             <CodeWrapper>
                 <CodeEditor
                     code={posting.code}
+                    language={posting.language}
                     onChangeFunction={codeHandler}
+                    onSelectFunction={selectHandler}
                 />
                 <CodeInfoWrapper>
                     <StringInput
@@ -127,7 +133,9 @@ const WriteCode = () => {
                             )
                         }
                         content="코드 작성"
-                        onClickFunction={() => {}}
+                        onClickFunction={() => {
+                            console.log(posting);
+                        }}
                     />
                     <Button
                         type="secondary"

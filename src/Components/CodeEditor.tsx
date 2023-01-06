@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import styled from "styled-components";
@@ -27,7 +27,7 @@ const Editor = styled.textarea`
     hyphens: none;
     overflow: auto;
     border-radius: 6px;
-    padding: 16px;
+    padding: 24px 20px;
 `;
 
 const Select = styled.select`
@@ -42,12 +42,18 @@ const Select = styled.select`
 
 type textareaData = {
     code: string;
+    language: string;
     onChangeFunction: React.ChangeEventHandler<HTMLTextAreaElement>;
+    onSelectFunction: React.ChangeEventHandler<HTMLSelectElement>;
 };
 
-const CodeEditor = ({ code, onChangeFunction }: textareaData) => {
+const CodeEditor = ({
+    code,
+    language,
+    onChangeFunction,
+    onSelectFunction,
+}: textareaData) => {
     const wrapperRef = useRef<HTMLDivElement | null>(null);
-    const [codeLanguage, setCodeLanguage] = useState("");
     const preRef =
         wrapperRef.current &&
         (wrapperRef.current.firstElementChild as HTMLPreElement);
@@ -84,13 +90,13 @@ const CodeEditor = ({ code, onChangeFunction }: textareaData) => {
         }
     };
 
-    const selectHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setCodeLanguage(event.target.value);
-    };
-
     return (
         <CodeEditorWrapper ref={wrapperRef}>
-            <Select onChange={selectHandler}>
+            <Select
+                onChange={onSelectFunction}
+                id="language"
+                defaultValue="javascript"
+            >
                 {languageList.map((language) => (
                     <option
                         key={language}
@@ -105,12 +111,12 @@ const CodeEditor = ({ code, onChangeFunction }: textareaData) => {
             </Select>
             <SyntaxHighlighter
                 className="codeEditor pre"
-                language={codeLanguage}
+                language={language}
                 style={a11yDark}
                 wrapLongLines={true}
                 customStyle={{
                     margin: 0,
-                    padding: "16px",
+                    padding: "24px 20px",
                     borderRadius: "6px",
                 }}
             >
@@ -127,8 +133,7 @@ const CodeEditor = ({ code, onChangeFunction }: textareaData) => {
                 autoComplete="off"
                 id="code"
                 name="code"
-                // placeholder="// 코드를 작성해 보세요." // 언어에 따라 주석 형식 변경하기
-                placeholder={codeLanguage}
+                placeholder={language}
             />
         </CodeEditorWrapper>
     );
