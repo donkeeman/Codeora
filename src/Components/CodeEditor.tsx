@@ -111,6 +111,7 @@ const CodeEditor = ({
                 autoComplete="off"
                 id="code"
                 name="code"
+                disabled={!language}
                 placeholder={language && getComment(language)}
             />
         </CodeEditorWrapper>
