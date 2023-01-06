@@ -3,6 +3,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import styled from "styled-components";
 import { colorVariants } from "../Constants/colorVariants";
+import { languageMap } from "../Constants/languageMap";
 
 const CodeEditorWrapper = styled.div`
     position: relative;
@@ -58,29 +59,11 @@ const CodeEditor = ({
         wrapperRef.current &&
         (wrapperRef.current.firstElementChild as HTMLPreElement);
 
-    const languageList = [
-        "Bash",
-        "C",
-        "C++",
-        "C#",
-        "CSS",
-        "Go",
-        "HTML",
-        "Java",
-        "JavaScript",
-        "JSON",
-        "Kotlin",
-        "Lua",
-        "Markdown",
-        "PlainText",
-        "Python",
-        "Ruby",
-        "Rust",
-        "SQL",
-        "Swift",
-        "Vim",
-        "Xml",
-    ];
+    const getComment = (language: string) => {
+        return `${
+            languageMap.get(language)?.commentStart
+        }코드를 작성해 보세요.${languageMap.get(language)?.commentEnd}`;
+    };
 
     const syncScrollHandler = (event: React.UIEvent<HTMLTextAreaElement>) => {
         const textarea = event.target as HTMLTextAreaElement;
@@ -95,17 +78,12 @@ const CodeEditor = ({
             <Select
                 onChange={onSelectFunction}
                 id="language"
-                defaultValue="javascript"
+                defaultValue="언어 선택"
             >
-                {languageList.map((language) => (
-                    <option
-                        key={language}
-                        value={language
-                            .toLowerCase()
-                            .replace("++", "pp")
-                            .replace("#", "sharp")}
-                    >
-                        {language}
+                <option disabled>언어 선택</option>
+                {Array.from(languageMap.keys()).map((language) => (
+                    <option key={language} value={language}>
+                        {languageMap.get(language)?.name}
                     </option>
                 ))}
             </Select>
@@ -133,7 +111,7 @@ const CodeEditor = ({
                 autoComplete="off"
                 id="code"
                 name="code"
-                placeholder={language}
+                placeholder={language && getComment(language)}
             />
         </CodeEditorWrapper>
     );

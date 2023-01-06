@@ -45,7 +45,7 @@ const WriteCode = () => {
         title: "",
         code: "",
         description: "",
-        language: "JavaScript",
+        language: "",
         tag: [] as string[],
     });
     const navigate = useNavigate();
