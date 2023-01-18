@@ -1,12 +1,16 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useRecoilValue } from "recoil";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../Configs/firebase";
 import Button from "../Components/Button";
 import CodeEditor from "../Components/CodeEditor";
 import StringInput from "../Components/StringInput";
 import Tag from "../Components/Tag";
 import Textarea from "../Components/Textarea";
 import Title from "../Components/Title";
+import { currentUserState } from "../Configs/atoms";
 
 const WriteCodeWrapper = styled.section`
     width: 100%;
@@ -41,6 +45,7 @@ const TagList = styled.ul`
 `;
 
 const WriteCode = () => {
+    const userData = useRecoilValue(currentUserState);
     const [posting, setPosting] = useState({
         title: "",
         code: "",
@@ -78,6 +83,18 @@ const WriteCode = () => {
     const deleteTagHandler = (index: number) => {
         posting.tag.splice(index, 1);
         setPosting({ ...posting });
+    };
+
+    const uploadCodeHandler = async () => {
+        if (userData) {
+            const result = await addDoc(
+                collection(db, `user/${userData.uid}/codes`),
+                posting
+            );
+            if (result) {
+                navigate("/");
+            }
+        }
     };
 
     return (
@@ -133,9 +150,7 @@ const WriteCode = () => {
                             )
                         }
                         content="코드 작성"
-                        onClickFunction={() => {
-                            console.log(posting);
-                        }}
+                        onClickFunction={uploadCodeHandler}
                     />
                     <Button
                         type="secondary"
