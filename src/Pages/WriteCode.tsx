@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../Configs/firebase";
 import Button from "../Components/Button";
 import CodeEditor from "../Components/CodeEditor";
@@ -89,7 +89,7 @@ const WriteCode = () => {
         if (userData) {
             const result = await addDoc(
                 collection(db, `user/${userData.uid}/codes`),
-                posting
+                {...posting, timestamp: serverTimestamp()}
             );
             if (result) {
                 navigate("/");
