@@ -24,6 +24,10 @@ const CodeWrapper = styled.div`
     display: flex;
     margin: 16px auto;
     gap: 20px;
+    @media screen and (max-width: 900px) {
+        flex-direction: column;
+        gap: 12px;
+    }
 `;
 
 const CodeInfoWrapper = styled.div`
@@ -31,7 +35,6 @@ const CodeInfoWrapper = styled.div`
     flex-direction: column;
     gap: 6px;
     flex: 0.8 0 0;
-    overflow: hidden;
 `;
 
 const TagList = styled.ul`
@@ -56,7 +59,7 @@ const WriteCode = () => {
     const navigate = useNavigate();
     const tagRef = useRef<HTMLInputElement>(null);
 
-    const codeHandler = (
+    const postingHandler = (
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
         setPosting({ ...posting, [event.target.id]: event.target.value });
@@ -89,7 +92,7 @@ const WriteCode = () => {
         if (userData) {
             const result = await addDoc(
                 collection(db, `user/${userData.uid}/codes`),
-                {...posting, timestamp: serverTimestamp()}
+                { ...posting, timestamp: serverTimestamp() }
             );
             if (result) {
                 navigate("/");
@@ -104,7 +107,7 @@ const WriteCode = () => {
                 <CodeEditor
                     code={posting.code}
                     language={posting.language}
-                    onChangeFunction={codeHandler}
+                    onChangeFunction={postingHandler}
                     onSelectFunction={selectHandler}
                 />
                 <CodeInfoWrapper>
@@ -112,12 +115,12 @@ const WriteCode = () => {
                         type="text"
                         id="title"
                         labelName="제목"
-                        onChangeFunction={codeHandler}
+                        onChangeFunction={postingHandler}
                     />
                     <Textarea
                         id="description"
                         labelName="코드 설명"
-                        onChangeFunction={codeHandler}
+                        onChangeFunction={postingHandler}
                         rows={5}
                     />
                     <StringInput
