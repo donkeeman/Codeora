@@ -11,12 +11,15 @@ const StyledButton = styled.button`
     padding: 12px 20px;
     border: none;
     border-radius: 6px;
+    transition: all 0.2s ease;
     &.primary {
+        border: 3px solid ${colorVariants.mainColor};
         background-color: ${colorVariants.mainColor};
         color: ${colorVariants.black};
         &:disabled,
         &:disabled:hover,
         &:disabled:focus {
+            border-color: ${colorVariants.disabledColor};
             color: darkgray;
             background-color: ${colorVariants.disabledColor};
             cursor: not-allowed;
@@ -35,6 +38,10 @@ const StyledButton = styled.button`
         &.github {
             background-color: black;
         }
+    }
+    &:focus-visible {
+        outline-style: none;
+        font-size: 22px;
     }
     .icon {
         width: 52px;
@@ -64,7 +71,7 @@ const Button = ({
     return (
         <>
             <StyledButton
-                className={[type, social].join(" ")}
+                className={[type, social].join(" ").trim()}
                 disabled={disabled}
                 onClick={onClickFunction}
             >

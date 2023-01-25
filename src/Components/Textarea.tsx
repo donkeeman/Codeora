@@ -24,6 +24,10 @@ const ContentTextarea = styled.textarea`
     border-radius: 6px;
     background-color: transparent;
     caret-color: ${colorVariants.white};
+    &:focus-visible {
+        outline-style: none;
+        border-color: ${colorVariants.mainColor};
+    }
 `;
 
 type textareaData = {

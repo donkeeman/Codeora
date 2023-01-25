@@ -1,5 +1,6 @@
 import React, { MutableRefObject } from "react";
 import styled from "styled-components";
+import { colorVariants } from "../Constants/colorVariants";
 
 const InputWrapper = styled.div`
     position: relative;
@@ -21,6 +22,10 @@ const Input = styled.input`
     padding: 6px;
     border: 3px solid gray;
     border-radius: 6px;
+    &:focus-visible {
+        outline-style: none;
+        border-color: ${colorVariants.mainColor};
+    }
 `;
 
 const ErrorMessage = styled.p`

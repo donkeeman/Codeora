@@ -29,6 +29,10 @@ const Editor = styled.textarea`
     overflow: auto;
     border-radius: 6px;
     padding: 24px 20px;
+    &:focus-visible {
+        outline-style: none;
+        border-color: ${colorVariants.mainColor};
+    }
 `;
 
 const Select = styled.select`
@@ -39,6 +43,10 @@ const Select = styled.select`
     border-radius: 6px;
     width: 100px;
     z-index: 100;
+    &:focus-visible {
+        outline-style: none;
+        border-color: ${colorVariants.mainColor};
+    }
 `;
 
 type textareaData = {
