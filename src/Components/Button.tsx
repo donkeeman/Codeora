@@ -17,8 +17,7 @@ const StyledButton = styled.button`
         background-color: ${colorVariants.mainColor};
         color: ${colorVariants.black};
         &:disabled,
-        &:disabled:hover,
-        &:disabled:focus {
+        &:disabled:hover {
             border-color: ${colorVariants.disabledColor};
             color: darkgray;
             background-color: ${colorVariants.disabledColor};
