@@ -1,8 +1,9 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import styled from "styled-components";
+import { currentUserState } from "../Configs/atoms";
 import { db } from "../Configs/firebase";
 import Button from "../Components/Button";
 import CodeEditor from "../Components/CodeEditor";
@@ -10,7 +11,6 @@ import StringInput from "../Components/StringInput";
 import Tag from "../Components/Tag";
 import Textarea from "../Components/Textarea";
 import Title from "../Components/Title";
-import { currentUserState } from "../Configs/atoms";
 
 const WriteCodeWrapper = styled.section`
     width: 100%;
@@ -35,6 +35,7 @@ const CodeInfoWrapper = styled.div`
     flex-direction: column;
     gap: 6px;
     flex: 0.8 0 0;
+    overflow: hidden;
 `;
 
 const TagList = styled.ul`
