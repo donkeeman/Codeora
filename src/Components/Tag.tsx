@@ -25,16 +25,18 @@ const DeleteButton = styled.button`
 
 type tagData = {
     keyword: string;
-    onClickFunction: React.MouseEventHandler<HTMLButtonElement>;
+    onClickFunction?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 const Tag = ({ keyword, onClickFunction }: tagData) => {
     return (
         <TagLi>
             {keyword}
-            <DeleteButton onClick={onClickFunction}>
-                <FontAwesomeIcon icon={faXmark} />
-            </DeleteButton>
+            {onClickFunction && (
+                <DeleteButton onClick={onClickFunction}>
+                    <FontAwesomeIcon icon={faXmark} />
+                </DeleteButton>
+            )}
         </TagLi>
     );
 };
