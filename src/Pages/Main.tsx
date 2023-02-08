@@ -3,11 +3,46 @@ import { useNavigate, Navigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { useQuery } from "react-query";
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
+import styled from "styled-components";
 import CodeCard from "../Components/CodeCard";
 import { currentUserState } from "../Configs/atoms";
 import { db } from "../Configs/firebase";
 import { queryKeys } from "../Constants/queryKeys";
 import { signOutUser } from "../Services/auth";
+
+const MainWrapper = styled.section`
+    width: 100%;
+`;
+
+const CodeList = styled.ol`
+    display: grid;
+    /* background-color: orange; */
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: center;
+    justify-items: center;
+    row-gap: 8px;
+    & > li {
+        width: 230px;
+        height: 250px;
+    }
+    @media screen and (max-width: 1100px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    @media screen and (max-width: 830px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media screen and (max-width: 540px) {
+        grid-template-columns: 1fr;
+        & > li {
+            width: 350px;
+        }
+    }
+    @media screen and (max-width: 400px) {
+        & > li {
+            width: 230px;
+        }
+    }
+`;
 
 const Main = () => {
     const [userData, setUserData] = useRecoilState(currentUserState);
@@ -28,7 +63,7 @@ const Main = () => {
     const { data, isLoading } = useQuery(queryKeys.codes, getData);
 
     return userData ? (
-        <>
+        <MainWrapper>
             <p>{userData.displayName}님, 어서 오세요!</p>
             <button
                 onClick={async () => {
@@ -40,7 +75,7 @@ const Main = () => {
                 로그아웃
             </button>
             <button onClick={() => navigate("/write")}>글쓰기</button>
-            <ol>
+            <CodeList>
                 {!isLoading &&
                     data?.map((doc) => {
                         const codeData = doc.data();
@@ -56,8 +91,8 @@ const Main = () => {
                             </li>
                         );
                     })}
-            </ol>
-        </>
+            </CodeList>
+        </MainWrapper>
     ) : (
         <>
             <Navigate to="/signin" />
