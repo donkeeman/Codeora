@@ -7,8 +7,8 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 const TagLi = styled.li`
     display: flex;
     align-items: center;
-    gap: 4px;
     padding: 0 12px;
+    width: fit-content;
     height: 100%;
     white-space: nowrap;
     border-radius: 24px;
@@ -32,7 +32,7 @@ type tagData = {
 const Tag = ({ keyword, onClickFunction }: tagData) => {
     return (
         <TagLi>
-            {keyword}
+            <span>{keyword}</span>
             {onClickFunction && (
                 <DeleteButton onClick={onClickFunction}>
                     <FontAwesomeIcon icon={faXmark} />
