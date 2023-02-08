@@ -12,6 +12,7 @@ const TagLi = styled.li`
     height: 100%;
     white-space: nowrap;
     border-radius: 24px;
+    outline: 2px solid ${colorVariants.black};
     background-color: ${colorVariants.mainColor};
     color: ${colorVariants.black};
 `;
