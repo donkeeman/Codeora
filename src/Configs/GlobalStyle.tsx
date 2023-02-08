@@ -45,7 +45,7 @@ const GlobalStyle = createGlobalStyle`
     }
     a, a:visited, a:hover {
         color: inherit;
-        text-decoration: underline;
+        text-decoration: none;
     }
     button {
         cursor: pointer;
