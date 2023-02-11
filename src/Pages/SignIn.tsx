@@ -175,6 +175,11 @@ const SignIn = () => {
                 innerRef={passwordRef}
                 message={signInError.password}
                 onChangeFunction={inputHandler}
+                onKeyDownFunction={(event) => {
+                    if (event.key === "Enter") {
+                        signInHandler("email");
+                    }
+                }}
             />
             <CheckBoxWrapper>
                 <CheckBox
