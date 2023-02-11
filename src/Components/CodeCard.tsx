@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { currentCodeState } from "../Configs/atoms";
 import { colorVariants } from "../Constants/colorVariants";
 import { languageMap } from "../Constants/languageMap";
 import Tag from "./Tag";
@@ -83,16 +85,39 @@ const LangDateContainer = styled.div`
 `;
 
 type codeData = {
+    id: string;
     title: string;
     description: string;
+    code: string;
     tags: Array<string>;
     language: string;
     date: Date;
 };
 
-const CodeCard = ({ title, description, tags, language, date }: codeData) => {
+const CodeCard = ({
+    id,
+    title,
+    description,
+    code,
+    tags,
+    language,
+    date,
+}: codeData) => {
+    const setCodeData = useSetRecoilState(currentCodeState);
     return (
-        <Card to="">
+        <Card
+            to=""
+            onClick={() => {
+                setCodeData({
+                    title,
+                    description,
+                    code,
+                    tags,
+                    language,
+                    date,
+                });
+            }}
+        >
             <CardTitle>{title}</CardTitle>
             <CardDesc>{description}</CardDesc>
             <TagList>

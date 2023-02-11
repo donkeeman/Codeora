@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { useQuery } from "react-query";
@@ -84,8 +84,10 @@ const Main = () => {
                         return (
                             <li key={doc.id}>
                                 <CodeCard
+                                    id={doc.id}
                                     title={codeData.title}
                                     description={codeData.description}
+                                    code={codeData.code}
                                     tags={codeData.tag}
                                     language={codeData.language}
                                     date={codeData.timestamp.toDate()}

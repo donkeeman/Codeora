@@ -13,4 +13,9 @@ const currentUserState = atom<User | undefined>({
     effects_UNSTABLE: [persistAtom],
 });
 
-export { currentUserState };
+const currentCodeState = atom<Object | undefined>({
+    key: "currnetCodeState",
+    default: undefined,
+});
+
+export { currentUserState, currentCodeState };
