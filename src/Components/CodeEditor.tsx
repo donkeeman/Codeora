@@ -10,6 +10,9 @@ const CodeEditorWrapper = styled.div`
     min-height: 500px;
     margin: 0;
     flex: 0.9 0 0;
+    @media screen and (max-width: 800px) {
+        min-height: 300px;
+    }
 `;
 
 const Editor = styled.textarea`
