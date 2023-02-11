@@ -51,6 +51,7 @@ const CardDesc = styled.p`
     -webkit-box-orient: vertical;
     overflow: hidden;
     line-height: 1.4;
+    white-space: pre-wrap;
 `;
 
 const TagList = styled.ul`
