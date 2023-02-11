@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { useQuery } from "react-query";
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import styled from "styled-components";
 import CodeCard from "../Components/CodeCard";
+import Loading from "../Components/Loading";
 import { currentUserState } from "../Configs/atoms";
 import { db } from "../Configs/firebase";
 import { queryKeys } from "../Constants/queryKeys";
@@ -16,7 +17,6 @@ const MainWrapper = styled.section`
 
 const CodeList = styled.ol`
     display: grid;
-    /* background-color: orange; */
     grid-template-columns: repeat(4, 1fr);
     justify-content: center;
     justify-items: center;
@@ -75,9 +75,11 @@ const Main = () => {
                 로그아웃
             </button>
             <button onClick={() => navigate("/write")}>글쓰기</button>
-            <CodeList>
-                {!isLoading &&
-                    data?.map((doc) => {
+            {isLoading ? (
+                <Loading message="코드 목록을 불러오는 중..." />
+            ) : (
+                <CodeList>
+                    {data?.map((doc) => {
                         const codeData = doc.data();
                         return (
                             <li key={doc.id}>
@@ -91,7 +93,8 @@ const Main = () => {
                             </li>
                         );
                     })}
-            </CodeList>
+                </CodeList>
+            )}
         </MainWrapper>
     ) : (
         <>
