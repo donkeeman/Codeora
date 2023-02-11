@@ -24,7 +24,7 @@ const CodeWrapper = styled.div`
     display: flex;
     margin: 16px auto;
     gap: 20px;
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 800px) {
         flex-direction: column;
         gap: 12px;
     }
@@ -36,6 +36,9 @@ const CodeInfoWrapper = styled.div`
     gap: 6px;
     flex: 0.8 0 0;
     overflow: hidden;
+    @media screen and (max-width: 800px) {
+        flex: 1;
+    }
 `;
 
 const TagList = styled.ul`
