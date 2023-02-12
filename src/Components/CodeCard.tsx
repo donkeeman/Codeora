@@ -48,7 +48,6 @@ const CardDesc = styled.p`
     width: 100%;
     max-height: 100px;
     font-size: 16px;
-    word-break: keep-all;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -64,12 +63,13 @@ const TagList = styled.ul`
     flex-wrap: wrap;
     max-width: 100%;
     align-items: center;
-    & li {
+    & > li {
         overflow: hidden;
-        & span {
+        & > span {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            line-height: 1.4;
         }
     }
 `;
@@ -80,8 +80,6 @@ const LangDateContainer = styled.div`
     display: flex;
     justify-content: space-between;
     font-size: 14px;
-    & span {
-    }
 `;
 
 type codeData = {
