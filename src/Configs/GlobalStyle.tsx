@@ -18,9 +18,6 @@ const GlobalStyle = createGlobalStyle`
     }
     body {
         padding: 30px 8%;
-        & * {
-            box-sizing: border-box;
-        }
         &::-webkit-scrollbar, & *::-webkit-scrollbar {
             width: 10px;
             height: 10px;
