@@ -69,6 +69,23 @@ const WriteCode = () => {
         setPosting({ ...posting, [event.target.id]: event.target.value });
     };
 
+    const addIndentHandler = (
+        event: React.KeyboardEvent<HTMLTextAreaElement>
+    ) => {
+        if (event.key === "Tab") {
+            event.preventDefault();
+            const currentTextArea = event.target as HTMLTextAreaElement;
+            const start = currentTextArea.selectionStart;
+            const end = currentTextArea.selectionEnd;
+            const newCode =
+                currentTextArea.value.substring(0, start) +
+                "\t" +
+                currentTextArea.value.substring(end);
+            currentTextArea.value = newCode;
+            setPosting({ ...posting, code: newCode });
+        }
+    };
+
     const selectHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setPosting({ ...posting, [event.target.id]: event.target.value });
     };
@@ -112,6 +129,7 @@ const WriteCode = () => {
                     code={posting.code}
                     language={posting.language}
                     onChangeFunction={postingHandler}
+                    onKeyDownFunction={addIndentHandler}
                     onSelectFunction={selectHandler}
                 />
                 <CodeInfoWrapper>

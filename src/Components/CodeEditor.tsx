@@ -56,6 +56,7 @@ type textareaData = {
     code: string;
     language: string;
     onChangeFunction: React.ChangeEventHandler<HTMLTextAreaElement>;
+    onKeyDownFunction: React.KeyboardEventHandler<HTMLTextAreaElement>;
     onSelectFunction: React.ChangeEventHandler<HTMLSelectElement>;
 };
 
@@ -63,6 +64,7 @@ const CodeEditor = ({
     code,
     language,
     onChangeFunction,
+    onKeyDownFunction,
     onSelectFunction,
 }: textareaData) => {
     const wrapperRef = useRef<HTMLDivElement | null>(null);
@@ -117,8 +119,9 @@ const CodeEditor = ({
             <Editor
                 className="codeEditor textarea"
                 onChange={onChangeFunction}
-                spellCheck={false}
+                onKeyDown={onKeyDownFunction}
                 onScroll={syncScrollHandler}
+                spellCheck={false}
                 autoComplete="off"
                 id="code"
                 name="code"
