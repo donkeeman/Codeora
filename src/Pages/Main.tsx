@@ -77,7 +77,7 @@ const Main = () => {
             <button onClick={() => navigate("/write")}>글쓰기</button>
             {isLoading ? (
                 <Loading message="코드 목록을 불러오는 중..." />
-            ) : (
+            ) : data ? (
                 <CodeList>
                     {data?.map((doc) => {
                         const codeData = doc.data();
@@ -95,6 +95,13 @@ const Main = () => {
                         );
                     })}
                 </CodeList>
+            ) : (
+                <>
+                    <p>저장된 코드가 없습니다.</p>
+                    <button onClick={() => navigate("/write")}>
+                        코드 작성하기
+                    </button>
+                </>
             )}
         </MainWrapper>
     ) : (
