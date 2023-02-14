@@ -3,6 +3,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import styled from "styled-components";
 import { colorVariants } from "../Constants/colorVariants";
+import { languageMap } from "../Constants/languageMap";
 import { CopyButton } from "./IconButton";
 
 const CodeBlockWrapper = styled.div`
@@ -13,6 +14,18 @@ const CodeBlockWrapper = styled.div`
     @media screen and (max-width: 800px) {
         min-height: 300px;
     }
+    & > button {
+        position: absolute;
+        top: 3px;
+        right: 3px;
+    }
+`;
+
+const Language = styled.span`
+    position: absolute;
+    font-size: 16px;
+    bottom: 8px;
+    right: 16px;
 `;
 
 type codeBlockData = {
@@ -39,6 +52,7 @@ const CodeBlock = ({ code, language }: codeBlockData) => {
                 {code}
             </SyntaxHighlighter>
             <CopyButton onClickFunction={() => {}} />
+            <Language>{languageMap.get(language)?.name}</Language>
         </CodeBlockWrapper>
     );
 };
