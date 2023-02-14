@@ -18,7 +18,6 @@ const CodeDetailWrapper = styled.section`
     display: flex;
     flex-direction: column;
     gap: 20px;
-    height: 500px;
 `;
 
 const CodeWrapper = styled.div`
@@ -36,12 +35,39 @@ const CodeWrapper = styled.div`
 const CodeInfoWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    justify-content: space-between;
     flex: 0.8 0 0;
     overflow: hidden;
     @media screen and (max-width: 800px) {
         flex: 1;
     }
+`;
+
+const CodeTitle = styled.h3`
+    font-size: 28px;
+    font-weight: bold;
+`;
+
+const CodeTime = styled.time`
+    text-align: right;
+    margin: 12px 2px 6px;
+    &::after {
+        content: "작성";
+        margin-left: 4px;
+    }
+`;
+
+const CodeDescription = styled.p`
+    text-align: left;
+    white-space: pre-wrap;
+    font-size: 18px;
+    border: 3px solid gray;
+    border-radius: 6px;
+    padding: 6px;
+    height: 180px;
+    line-height: 1.4;
+    overflow: scroll;
+    margin-bottom: 8px;
 `;
 
 const TagList = styled.ul`
@@ -52,6 +78,12 @@ const TagList = styled.ul`
     align-items: center;
     gap: 6px;
     overflow-x: scroll;
+    overflow-y: hidden;
+    &::before {
+        content: "태그";
+        margin-right: 4px;
+        font-size: 20px;
+    }
 `;
 
 const CodeDetail = () => {
@@ -86,21 +118,22 @@ const CodeDetail = () => {
                             language={data?.language}
                         />
                         <CodeInfoWrapper>
-                            <h3>{data?.title}</h3>
-                            <p>{data?.description}</p>
-                            <TagList>
-                                {data?.tag.map((tag: string, index: number) => (
-                                    <Tag key={index} keyword={tag} />
-                                ))}
-                            </TagList>
-                            <span>{data?.language}</span>
-                            <time
+                            <CodeTitle>{data?.title}</CodeTitle>
+                            <CodeTime
                                 dateTime={data?.timestamp
                                     .toDate()
                                     .toLocaleDateString()}
                             >
                                 {data?.timestamp.toDate().toLocaleDateString()}
-                            </time>
+                            </CodeTime>
+                            <CodeDescription>
+                                {data?.description}
+                            </CodeDescription>
+                            <TagList>
+                                {data?.tag.map((tag: string, index: number) => (
+                                    <Tag key={index} keyword={tag} />
+                                ))}
+                            </TagList>
                             <Button
                                 disabled={false}
                                 content="코드 수정"
@@ -116,7 +149,7 @@ const CodeDetail = () => {
                                 type="secondary"
                                 content="목록으로 돌아가기"
                                 onClickFunction={() => {
-                                    navigate(-1);
+                                    navigate("/");
                                 }}
                             />
                         </CodeInfoWrapper>
