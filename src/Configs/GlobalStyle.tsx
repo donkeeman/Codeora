@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
     ${reset}
     * {
         box-sizing: border-box;
+        border: none;
     }
     body, button, input, textarea, select {
         background-color: ${colorVariants.black};
