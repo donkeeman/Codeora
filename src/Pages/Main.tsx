@@ -48,7 +48,7 @@ const Main = () => {
     const [userData, setUserData] = useRecoilState(currentUserState);
     const navigate = useNavigate();
 
-    const getData = async () => {
+    const getCodeList = async () => {
         if (userData) {
             const codeQuery = query(
                 collection(db, `user/${userData.uid}/codes`),
@@ -60,7 +60,7 @@ const Main = () => {
         }
     };
 
-    const { data, isLoading } = useQuery(queryKeys.codes, getData);
+    const { data, isLoading } = useQuery(queryKeys.codes, getCodeList);
 
     return userData ? (
         <MainWrapper>
@@ -87,7 +87,6 @@ const Main = () => {
                                     id={doc.id}
                                     title={codeData.title}
                                     description={codeData.description}
-                                    code={codeData.code}
                                     tags={codeData.tag}
                                     language={codeData.language}
                                     date={codeData.timestamp.toDate()}
