@@ -33,7 +33,7 @@ const CodeWrapper = styled.div`
 const CodeInfoWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    justify-content: space-between;
     flex: 0.8 0 0;
     overflow: hidden;
     @media screen and (max-width: 800px) {
