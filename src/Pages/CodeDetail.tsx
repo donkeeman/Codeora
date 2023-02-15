@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { doc, getDoc } from "firebase/firestore";
 import CodeBlock from "../Components/CodeBlock";
 import Tag from "../Components/Tag";
-import Loading from "../Components/Loading";
 import { currentUserState } from "../Configs/atoms";
 import { db } from "../Configs/firebase";
 import { queryKeys } from "../Constants/queryKeys";
@@ -100,16 +99,11 @@ const CodeDetail = () => {
         }
     };
 
-    const { data, isLoading } = useQuery(
-        `${queryKeys.code}_${postingId}`,
-        getCodeDetail
-    );
+    const { data } = useQuery(`${queryKeys.code}_${postingId}`, getCodeDetail);
 
     return (
         <CodeDetailWrapper>
-            {isLoading ? (
-                <Loading message="코드 정보를 불러오는 중..." />
-            ) : (
+            {data && (
                 <>
                     <Title title="코드 상세" />
                     <CodeWrapper>

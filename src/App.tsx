@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { useSetRecoilState } from "recoil";
+import Loading from "./Components/Loading";
 import { currentUserState } from "./Configs/atoms";
 import GlobalStyle from "./Configs/GlobalStyle";
 import Router from "./Configs/Router";
@@ -17,6 +18,7 @@ const App = () => {
     return (
         <div className="App">
             <GlobalStyle />
+            <Loading />
             <Router />
             <ReactQueryDevtools />
         </div>

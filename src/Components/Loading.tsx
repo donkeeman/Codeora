@@ -1,12 +1,18 @@
 import React from "react";
+import { useIsFetching } from "react-query";
 import styled from "styled-components";
 import { colorVariants } from "../Constants/colorVariants";
 
-const LoadingWrapper = styled.div`
-    display: flex;
+const LoadingWrapper = styled.div<{ isFetching: number }>`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: ${(props) => (props.isFetching ? "flex" : "none")};
     flex-direction: column;
     align-items: center;
     gap: 16px;
+    z-index: 100;
 `;
 
 const SpinnerWrapper = styled.div`
@@ -42,15 +48,17 @@ const LoadingMessage = styled.p`
     font-size: 20px;
 `;
 
-const Loading = ({ message }: { message: string }) => {
+const Loading = () => {
+    const isFetching = useIsFetching();
+
     return (
-        <LoadingWrapper>
+        <LoadingWrapper isFetching={isFetching}>
             <SpinnerWrapper>
                 <Spinner />
                 <Spinner delay="-0.12s" />
                 <Spinner delay="-0.3s" />
             </SpinnerWrapper>
-            <LoadingMessage>{message}</LoadingMessage>
+            <LoadingMessage>불러오는 중...</LoadingMessage>
         </LoadingWrapper>
     );
 };

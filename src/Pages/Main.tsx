@@ -5,7 +5,6 @@ import { useQuery } from "react-query";
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import styled from "styled-components";
 import CodeCard from "../Components/CodeCard";
-import Loading from "../Components/Loading";
 import { currentUserState } from "../Configs/atoms";
 import { db } from "../Configs/firebase";
 import { queryKeys } from "../Constants/queryKeys";
@@ -60,7 +59,7 @@ const Main = () => {
         }
     };
 
-    const { data, isLoading } = useQuery(queryKeys.code, getCodeList);
+    const { data } = useQuery(queryKeys.code, getCodeList);
 
     return userData ? (
         <MainWrapper>
@@ -75,34 +74,33 @@ const Main = () => {
                 로그아웃
             </button>
             <button onClick={() => navigate("/write")}>글쓰기</button>
-            {isLoading ? (
-                <Loading message="코드 목록을 불러오는 중..." />
-            ) : data ? (
-                <CodeList>
-                    {data?.map((doc) => {
-                        const codeData = doc.data();
-                        return (
-                            <li key={doc.id}>
-                                <CodeCard
-                                    id={doc.id}
-                                    title={codeData.title}
-                                    description={codeData.description}
-                                    tags={codeData.tag}
-                                    language={codeData.language}
-                                    date={codeData.timestamp.toDate()}
-                                />
-                            </li>
-                        );
-                    })}
-                </CodeList>
-            ) : (
-                <>
-                    <p>저장된 코드가 없습니다.</p>
-                    <button onClick={() => navigate("/write")}>
-                        코드 작성하기
-                    </button>
-                </>
-            )}
+            {data &&
+                (data.length > 0 ? (
+                    <CodeList>
+                        {data?.map((doc) => {
+                            const codeData = doc.data();
+                            return (
+                                <li key={doc.id}>
+                                    <CodeCard
+                                        id={doc.id}
+                                        title={codeData.title}
+                                        description={codeData.description}
+                                        tags={codeData.tag}
+                                        language={codeData.language}
+                                        date={codeData.timestamp.toDate()}
+                                    />
+                                </li>
+                            );
+                        })}
+                    </CodeList>
+                ) : (
+                    <>
+                        <p>저장된 코드가 없습니다.</p>
+                        <button onClick={() => navigate("/write")}>
+                            코드 작성하기
+                        </button>
+                    </>
+                ))}
         </MainWrapper>
     ) : (
         <>
