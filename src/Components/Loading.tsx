@@ -49,7 +49,9 @@ const LoadingMessage = styled.p`
 `;
 
 const Loading = () => {
-    const isFetching = useIsFetching();
+    const isFetching = useIsFetching({
+        predicate: (query) => query.state.status === "loading",
+    });
 
     return (
         <LoadingWrapper isFetching={isFetching}>
