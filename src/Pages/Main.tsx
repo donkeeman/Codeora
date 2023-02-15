@@ -59,7 +59,7 @@ const Main = () => {
         }
     };
 
-    const { data } = useQuery(queryKeys.code, getCodeList);
+    const { data: codeList = null } = useQuery(queryKeys.code, getCodeList);
 
     return userData ? (
         <MainWrapper>
@@ -74,10 +74,10 @@ const Main = () => {
                 로그아웃
             </button>
             <button onClick={() => navigate("/write")}>글쓰기</button>
-            {data &&
-                (data.length > 0 ? (
+            {codeList &&
+                (codeList.length > 0 ? (
                     <CodeList>
-                        {data?.map((doc) => {
+                        {codeList.map((doc) => {
                             const codeData = doc.data();
                             return (
                                 <li key={doc.id}>

@@ -99,34 +99,41 @@ const CodeDetail = () => {
         }
     };
 
-    const { data } = useQuery(`${queryKeys.code}_${postingId}`, getCodeDetail);
+    const { data: CodeData = null } = useQuery(
+        `${queryKeys.code}_${postingId}`,
+        getCodeDetail
+    );
 
     return (
         <CodeDetailWrapper>
-            {data && (
+            {CodeData && (
                 <>
                     <Title title="코드 상세" />
                     <CodeWrapper>
                         <CodeBlock
-                            code={data?.code}
-                            language={data?.language}
+                            code={CodeData.code}
+                            language={CodeData.language}
                         />
                         <CodeInfoWrapper>
-                            <CodeTitle>{data?.title}</CodeTitle>
+                            <CodeTitle>{CodeData.title}</CodeTitle>
                             <CodeTime
-                                dateTime={data?.timestamp
+                                dateTime={CodeData.timestamp
                                     .toDate()
                                     .toLocaleDateString()}
                             >
-                                {data?.timestamp.toDate().toLocaleDateString()}
+                                {CodeData.timestamp
+                                    .toDate()
+                                    .toLocaleDateString()}
                             </CodeTime>
                             <CodeDescription>
-                                {data?.description}
+                                {CodeData.description}
                             </CodeDescription>
                             <TagList>
-                                {data?.tag.map((tag: string, index: number) => (
-                                    <Tag key={index} keyword={tag} />
-                                ))}
+                                {CodeData.tag.map(
+                                    (tag: string, index: number) => (
+                                        <Tag key={index} keyword={tag} />
+                                    )
+                                )}
                             </TagList>
                             <Button
                                 disabled={false}
