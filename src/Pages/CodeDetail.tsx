@@ -101,7 +101,7 @@ const CodeDetail = () => {
     };
 
     const { data, isLoading } = useQuery(
-        `${queryKeys.codes}_${postingId}`,
+        `${queryKeys.code}_${postingId}`,
         getCodeDetail
     );
 

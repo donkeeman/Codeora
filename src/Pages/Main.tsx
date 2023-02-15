@@ -60,7 +60,7 @@ const Main = () => {
         }
     };
 
-    const { data, isLoading } = useQuery(queryKeys.codes, getCodeList);
+    const { data, isLoading } = useQuery(queryKeys.code, getCodeList);
 
     return userData ? (
         <MainWrapper>
