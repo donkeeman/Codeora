@@ -16,22 +16,31 @@ const CodeEditorWrapper = styled.div`
 `;
 
 const Editor = styled.textarea`
+    position: absolute;
+    margin: 0;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    letter-spacing: 1px;
+    padding: 24px 20px;
     background-color: transparent;
     color: transparent;
     border: 3px solid gray;
     caret-color: ${colorVariants.white};
     font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    font-size: 16px;
     text-align: left;
     white-space: pre-wrap;
     word-spacing: normal;
     word-break: normal;
     overflow-wrap: normal;
-    line-height: 1.5;
+    line-height: 1.4;
     tab-size: 4;
     hyphens: none;
     overflow: auto;
     border-radius: 6px;
-    padding: 24px 20px;
     &:focus-visible {
         outline-style: none;
         border-color: ${colorVariants.mainColor};
@@ -89,14 +98,15 @@ const CodeEditor = ({
     return (
         <CodeEditorWrapper ref={wrapperRef}>
             <SyntaxHighlighter
-                className="codeEditor pre"
+                className="highlighter editor"
                 language={language}
                 style={a11yDark}
                 wrapLongLines={true}
                 customStyle={{
-                    margin: 0,
+                    margin: "0",
                     padding: "24px 20px",
                     borderRadius: "6px",
+                    lineHeight: 1.4,
                 }}
             >
                 {code}
@@ -117,7 +127,6 @@ const CodeEditor = ({
                 코드 작성
             </label>
             <Editor
-                className="codeEditor textarea"
                 onChange={onChangeFunction}
                 onKeyDown={onKeyDownFunction}
                 onScroll={syncScrollHandler}

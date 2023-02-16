@@ -59,7 +59,7 @@ const GlobalStyle = createGlobalStyle`
         margin: -1px;
         overflow: hidden;
     }
-    .codeEditor {
+    .highlighter {
         position: absolute;
         top: 0;
         left: 0;
@@ -68,7 +68,7 @@ const GlobalStyle = createGlobalStyle`
         height: 100%;
         font-size: 16px;
         letter-spacing: 1px;
-        &.pre {
+        &.editor {
             border: 3px solid transparent;
             &::-webkit-scrollbar {
                 background: transparent;
@@ -76,6 +76,9 @@ const GlobalStyle = createGlobalStyle`
             &::-webkit-scrollbar-thumb {
                 background: transparent;
             }
+        }
+        &.block {
+            border: 3px solid gray;
         }
     }
     .App {
