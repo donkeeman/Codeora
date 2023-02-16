@@ -81,6 +81,18 @@ const WriteCode = () => {
                 event.preventDefault();
                 currentTextArea.setRangeText("\t", start, end, "end");
                 break;
+            case "Enter":
+                if (
+                    bracketMap.has(currentTextArea.value[start - 1]) &&
+                    bracketMap.get(currentTextArea.value[start - 1]) ===
+                        currentTextArea.value[start]
+                ) {
+                    event.preventDefault();
+                    currentTextArea.setRangeText("\n\t\n", start, end, "end");
+                    currentTextArea.selectionStart -= 1;
+                    currentTextArea.selectionEnd -= 1;
+                }
+                break;
             default:
                 if (bracketMap.has(event.key)) {
                     currentTextArea.setRangeText(
