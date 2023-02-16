@@ -72,18 +72,14 @@ const WriteCode = () => {
     const addIndentHandler = (
         event: React.KeyboardEvent<HTMLTextAreaElement>
     ) => {
+        const currentTextArea = event.target as HTMLTextAreaElement;
+        const start = currentTextArea.selectionStart;
+        const end = currentTextArea.selectionEnd;
         if (event.key === "Tab") {
             event.preventDefault();
-            const currentTextArea = event.target as HTMLTextAreaElement;
-            const start = currentTextArea.selectionStart;
-            const end = currentTextArea.selectionEnd;
-            const newCode =
-                currentTextArea.value.substring(0, start) +
-                "\t" +
-                currentTextArea.value.substring(end);
-            currentTextArea.value = newCode;
-            setPosting({ ...posting, code: newCode });
+            currentTextArea.setRangeText("\t", start, end, "end");
         }
+        setPosting({ ...posting, code: currentTextArea.value });
     };
 
     const selectHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
