@@ -11,6 +11,7 @@ import StringInput from "../Components/StringInput";
 import Tag from "../Components/Tag";
 import Textarea from "../Components/Textarea";
 import Title from "../Components/Title";
+import { bracketMap } from "../Constants/bracketMap";
 
 const WriteCodeWrapper = styled.section`
     width: 100%;
@@ -69,15 +70,28 @@ const WriteCode = () => {
         setPosting({ ...posting, [event.target.id]: event.target.value });
     };
 
-    const addIndentHandler = (
+    const autoCompleteHandler = (
         event: React.KeyboardEvent<HTMLTextAreaElement>
     ) => {
         const currentTextArea = event.target as HTMLTextAreaElement;
         const start = currentTextArea.selectionStart;
         const end = currentTextArea.selectionEnd;
-        if (event.key === "Tab") {
-            event.preventDefault();
-            currentTextArea.setRangeText("\t", start, end, "end");
+        switch (event.key) {
+            case "Tab":
+                event.preventDefault();
+                currentTextArea.setRangeText("\t", start, end, "end");
+                break;
+            default:
+                if (bracketMap.has(event.key)) {
+                    currentTextArea.setRangeText(
+                        bracketMap.get(event.key)!,
+                        start,
+                        end,
+                        "start"
+                    );
+                    setPosting({ ...posting, code: currentTextArea.value });
+                }
+                break;
         }
         setPosting({ ...posting, code: currentTextArea.value });
     };
@@ -125,7 +139,7 @@ const WriteCode = () => {
                     code={posting.code}
                     language={posting.language}
                     onChangeFunction={postingHandler}
-                    onKeyDownFunction={addIndentHandler}
+                    onKeyDownFunction={autoCompleteHandler}
                     onSelectFunction={selectHandler}
                 />
                 <CodeInfoWrapper>
