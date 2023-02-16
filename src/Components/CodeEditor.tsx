@@ -88,18 +88,6 @@ const CodeEditor = ({
 
     return (
         <CodeEditorWrapper ref={wrapperRef}>
-            <Select
-                onChange={onSelectFunction}
-                id="language"
-                defaultValue="언어 선택"
-            >
-                <option disabled>언어 선택</option>
-                {Array.from(languageMap.keys()).map((language) => (
-                    <option key={language} value={language}>
-                        {languageMap.get(language)?.name}
-                    </option>
-                ))}
-            </Select>
             <SyntaxHighlighter
                 className="codeEditor pre"
                 language={language}
@@ -113,6 +101,18 @@ const CodeEditor = ({
             >
                 {code}
             </SyntaxHighlighter>
+            <Select
+                onChange={onSelectFunction}
+                id="language"
+                defaultValue="언어 선택"
+            >
+                <option disabled>언어 선택</option>
+                {Array.from(languageMap.keys()).map((language) => (
+                    <option key={language} value={language}>
+                        {languageMap.get(language)?.name}
+                    </option>
+                ))}
+            </Select>
             <label htmlFor="code" className="a11y-hidden">
                 코드 작성
             </label>
