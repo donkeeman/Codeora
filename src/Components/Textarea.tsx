@@ -53,6 +53,7 @@ const Textarea = ({
                 ref={innerRef}
                 onChange={onChangeFunction}
                 rows={rows}
+                spellCheck={false}
             />
         </TextareaWrapper>
     );
