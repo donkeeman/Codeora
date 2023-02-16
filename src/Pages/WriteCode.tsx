@@ -93,6 +93,21 @@ const WriteCode = () => {
                     currentTextArea.selectionEnd -= 1;
                 }
                 break;
+            case "Backspace":
+                if (
+                    bracketMap.has(currentTextArea.value[start - 1]) &&
+                    bracketMap.get(currentTextArea.value[start - 1]) ===
+                        currentTextArea.value[start]
+                ) {
+                    event.preventDefault();
+                    currentTextArea.setRangeText(
+                        "",
+                        start - 1,
+                        end + 1,
+                        "start"
+                    );
+                }
+                break;
             default:
                 if (bracketMap.has(event.key)) {
                     currentTextArea.setRangeText(
