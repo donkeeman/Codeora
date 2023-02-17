@@ -9,7 +9,6 @@ import Tag from "../Components/Tag";
 import { currentUserState } from "../Configs/atoms";
 import { db } from "../Configs/firebase";
 import { queryKeys } from "../Constants/queryKeys";
-import Title from "../Components/Title";
 import Button from "../Components/Button";
 
 const CodeDetailWrapper = styled.section`
@@ -25,9 +24,22 @@ const CodeWrapper = styled.div`
     display: flex;
     margin: 16px auto;
     gap: 20px;
+    .narrow {
+        display: none;
+    }
+    .wide {
+        display: block;
+    }
+
     @media screen and (max-width: 800px) {
         flex-direction: column;
         gap: 12px;
+        .narrow {
+            display: block;
+        }
+        .wide {
+            display: none;
+        }
     }
 `;
 
@@ -39,6 +51,7 @@ const CodeInfoWrapper = styled.div`
     overflow: hidden;
     @media screen and (max-width: 800px) {
         flex: 1;
+        gap: 12px;
     }
 `;
 
@@ -118,15 +131,29 @@ const CodeDetail = () => {
         <CodeDetailWrapper>
             {CodeData && (
                 <>
-                    <Title title="코드 상세" />
+                    <h2 className="a11y-hidden">코드 상세 정보</h2>
                     <CodeWrapper>
+                        <CodeTitle className="narrow">
+                            {CodeData.title}
+                        </CodeTitle>
+                        <CodeTime
+                            className="narrow"
+                            dateTime={CodeData.timestamp
+                                .toDate()
+                                .toLocaleDateString()}
+                        >
+                            {CodeData.timestamp.toDate().toLocaleDateString()}
+                        </CodeTime>
                         <CodeBlock
                             code={CodeData.code}
                             language={CodeData.language}
                         />
                         <CodeInfoWrapper>
-                            <CodeTitle>{CodeData.title}</CodeTitle>
+                            <CodeTitle className="wide">
+                                {CodeData.title}
+                            </CodeTitle>
                             <CodeTime
+                                className="wide"
                                 dateTime={CodeData.timestamp
                                     .toDate()
                                     .toLocaleDateString()}
