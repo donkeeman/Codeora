@@ -11,7 +11,7 @@ import StringInput from "../Components/StringInput";
 import Tag from "../Components/Tag";
 import Textarea from "../Components/Textarea";
 import Title from "../Components/Title";
-import { bracketMap } from "../Constants/bracketMap";
+import { autoCloseMap } from "../Constants/autoCloseMap";
 import { CodeData } from "../Constants/types";
 
 const WriteCodeWrapper = styled.section`
@@ -84,8 +84,8 @@ const WriteCode = () => {
                 break;
             case "Enter":
                 if (
-                    bracketMap.has(currentTextArea.value[start - 1]) &&
-                    bracketMap.get(currentTextArea.value[start - 1]) ===
+                    autoCloseMap.has(currentTextArea.value[start - 1]) &&
+                    autoCloseMap.get(currentTextArea.value[start - 1]) ===
                         currentTextArea.value[start]
                 ) {
                     event.preventDefault();
@@ -96,8 +96,8 @@ const WriteCode = () => {
                 break;
             case "Backspace":
                 if (
-                    bracketMap.has(currentTextArea.value[start - 1]) &&
-                    bracketMap.get(currentTextArea.value[start - 1]) ===
+                    autoCloseMap.has(currentTextArea.value[start - 1]) &&
+                    autoCloseMap.get(currentTextArea.value[start - 1]) ===
                         currentTextArea.value[start]
                 ) {
                     event.preventDefault();
@@ -110,9 +110,9 @@ const WriteCode = () => {
                 }
                 break;
             default:
-                if (bracketMap.has(event.key)) {
+                if (autoCloseMap.has(event.key)) {
                     currentTextArea.setRangeText(
-                        bracketMap.get(event.key)!,
+                        autoCloseMap.get(event.key)!,
                         start,
                         end,
                         "start"
