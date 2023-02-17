@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { useQuery } from "react-query";
 import styled from "styled-components";
-import { doc, deleteDoc ,getDoc } from "firebase/firestore";
+import { doc, deleteDoc, getDoc } from "firebase/firestore";
 import CodeBlock from "../Components/CodeBlock";
 import Tag from "../Components/Tag";
 import { currentUserState } from "../Configs/atoms";
@@ -104,13 +104,15 @@ const CodeDetail = () => {
         getCodeDetail
     );
 
+    const updateCodeHandler = async () => {};
+
     const deleteCodeHandler = async () => {
-        if(userData){
+        if (userData) {
             await deleteDoc(doc(db, `user/${userData.uid}/codes/${postingId}`));
             navigate("/");
             return;
         }
-    }
+    };
 
     return (
         <CodeDetailWrapper>
@@ -146,7 +148,7 @@ const CodeDetail = () => {
                             <Button
                                 disabled={false}
                                 content="코드 수정"
-                                onClickFunction={() => {}}
+                                onClickFunction={updateCodeHandler}
                             />
                             <Button
                                 disabled={false}

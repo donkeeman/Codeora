@@ -175,7 +175,9 @@ const WriteCode = () => {
                         type="text"
                         id="title"
                         labelName="제목"
+                        placeholder="최대 12자"
                         onChangeFunction={postingHandler}
+                        maxLength={12}
                     />
                     <Textarea
                         id="description"
@@ -187,6 +189,7 @@ const WriteCode = () => {
                         type="text"
                         id="tag"
                         labelName="태그 (최대 3개)"
+                        placeholder="스페이스 바 또는 엔터로 입력"
                         onKeyDownFunction={addTagHandler}
                         innerRef={tagRef}
                     />

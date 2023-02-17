@@ -23,6 +23,10 @@ const Input = styled.input`
     padding: 6px;
     border: 3px solid gray;
     border-radius: 6px;
+    &::placeholder {
+        font-size: 16px;
+        transform: translateY(-10%);
+    }
     &:focus-visible {
         outline-style: none;
         border-color: ${colorVariants.mainColor};
@@ -45,6 +49,8 @@ const StringInput = ({
     onChangeFunction,
     onKeyDownFunction,
     value,
+    maxLength,
+    placeholder,
 }: StringInputData) => {
     return (
         <InputWrapper>
@@ -58,6 +64,8 @@ const StringInput = ({
                 onKeyDown={onKeyDownFunction}
                 defaultValue={value}
                 autoComplete="off"
+                maxLength={maxLength}
+                placeholder={placeholder}
             />
             <ErrorMessage>{message}</ErrorMessage>
         </InputWrapper>

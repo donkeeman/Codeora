@@ -48,6 +48,8 @@ export interface StringInputData extends InputData {
     onKeyDownFunction?: React.KeyboardEventHandler<HTMLInputElement>;
     message?: string;
     value?: string;
+    maxLength?: number;
+    placeholder?: string;
 }
 
 // textarea에 사용
