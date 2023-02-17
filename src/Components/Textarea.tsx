@@ -1,6 +1,7 @@
-import React, { MutableRefObject } from "react";
+import React from "react";
 import styled from "styled-components";
 import { colorVariants } from "../Constants/colorVariants";
+import { TextareaData } from "../Constants/types";
 
 const TextareaWrapper = styled.div`
     display: flex;
@@ -30,21 +31,13 @@ const ContentTextarea = styled.textarea`
     }
 `;
 
-type textareaData = {
-    id: string;
-    labelName: string;
-    innerRef?: MutableRefObject<HTMLTextAreaElement>;
-    onChangeFunction: React.ChangeEventHandler<HTMLTextAreaElement>;
-    rows: number;
-};
-
 const Textarea = ({
     id,
     labelName,
     innerRef,
     onChangeFunction,
     rows
-}: textareaData) => {
+}: TextareaData) => {
     return (
         <TextareaWrapper>
             <TextareaLabel htmlFor={id}>{labelName}</TextareaLabel>

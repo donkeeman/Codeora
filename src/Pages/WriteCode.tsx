@@ -12,6 +12,7 @@ import Tag from "../Components/Tag";
 import Textarea from "../Components/Textarea";
 import Title from "../Components/Title";
 import { bracketMap } from "../Constants/bracketMap";
+import { CodeData } from "../Constants/types";
 
 const WriteCodeWrapper = styled.section`
     width: 100%;
@@ -54,12 +55,12 @@ const TagList = styled.ul`
 
 const WriteCode = () => {
     const userData = useRecoilValue(currentUserState);
-    const [posting, setPosting] = useState({
+    const [posting, setPosting] = useState<CodeData>({
         title: "",
         code: "",
         description: "",
         language: "",
-        tag: [] as string[],
+        tag: [],
     });
     const navigate = useNavigate();
     const tagRef = useRef<HTMLInputElement>(null);

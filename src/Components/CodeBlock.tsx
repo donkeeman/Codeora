@@ -3,6 +3,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import styled from "styled-components";
 import { languageMap } from "../Constants/languageMap";
+import { HighlighterData } from "../Constants/types";
 import { CopyButton } from "./IconButton";
 
 const CodeBlockWrapper = styled.div`
@@ -27,12 +28,7 @@ const Language = styled.span`
     right: 16px;
 `;
 
-type codeBlockData = {
-    code: string;
-    language: string;
-};
-
-const CodeBlock = ({ code, language }: codeBlockData) => {
+const CodeBlock = ({ code, language }: HighlighterData) => {
     return (
         <CodeBlockWrapper>
             <SyntaxHighlighter

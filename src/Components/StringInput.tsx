@@ -1,6 +1,7 @@
-import React, { MutableRefObject } from "react";
+import React from "react";
 import styled from "styled-components";
 import { colorVariants } from "../Constants/colorVariants";
+import { StringInputData } from "../Constants/types";
 
 const InputWrapper = styled.div`
     position: relative;
@@ -35,17 +36,6 @@ const ErrorMessage = styled.p`
     color: red;
 `;
 
-type inputData = {
-    type: string;
-    id: string;
-    labelName: string;
-    innerRef?: MutableRefObject<HTMLInputElement | null>;
-    onChangeFunction?: React.ChangeEventHandler<HTMLInputElement>;
-    onKeyDownFunction?: React.KeyboardEventHandler<HTMLInputElement>;
-    message?: string;
-    value?: string;
-};
-
 const StringInput = ({
     type,
     id,
@@ -55,7 +45,7 @@ const StringInput = ({
     onChangeFunction,
     onKeyDownFunction,
     value,
-}: inputData) => {
+}: StringInputData) => {
     return (
         <InputWrapper>
             <InputLabel htmlFor={id}>{labelName}</InputLabel>

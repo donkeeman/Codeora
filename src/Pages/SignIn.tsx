@@ -11,6 +11,7 @@ import CheckBox from "../Components/CheckBox";
 import LinkMsgWrapper from "../Components/LinkMsgWrapper";
 import StringInput from "../Components/StringInput";
 import Title from "../Components/Title";
+import { LoginData } from "../Constants/types";
 
 const SignInWrapper = styled.section`
     display: flex;
@@ -46,8 +47,8 @@ const OrMessage = styled.p`
 `;
 
 const SignIn = () => {
-    const [signInData, setsignInData] = useState({ email: "", password: "" });
-    const [signInError, setSignInError] = useState({ email: "", password: "" });
+    const [signInData, setsignInData] = useState<LoginData>({ email: "", password: "" });
+    const [signInError, setSignInError] = useState<LoginData>({ email: "", password: "" });
     const [persistLogin, setPersistLogin] = useState(false);
     const [saveEmail, setSaveEmail] = useState({ save: false, email: "" });
 

@@ -8,6 +8,7 @@ import LinkMsgWrapper from "../Components/LinkMsgWrapper";
 import StringInput from "../Components/StringInput";
 import Title from "../Components/Title";
 import { regExps } from "../Constants/regExps";
+import { UserData } from "../Constants/types";
 
 const SignUpWrapper = styled.section`
     display: flex;
@@ -18,13 +19,13 @@ const SignUpWrapper = styled.section`
 `;
 
 const SignUp = () => {
-    const [signUpData, setSignUpData] = useState({
+    const [signUpData, setSignUpData] = useState<UserData>({
         email: "",
         password: "",
         confirmPassword: "",
         userName: "",
     });
-    const [signUpError, setSignUpError] = useState({
+    const [signUpError, setSignUpError] = useState<UserData>({
         email: "",
         password: "",
         confirmPassword: "",

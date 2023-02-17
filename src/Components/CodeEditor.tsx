@@ -4,6 +4,7 @@ import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import styled from "styled-components";
 import { colorVariants } from "../Constants/colorVariants";
 import { languageMap } from "../Constants/languageMap";
+import { EditorData } from "../Constants/types";
 
 const CodeEditorWrapper = styled.div`
     position: relative;
@@ -61,21 +62,13 @@ const Select = styled.select`
     }
 `;
 
-type textareaData = {
-    code: string;
-    language: string;
-    onChangeFunction: React.ChangeEventHandler<HTMLTextAreaElement>;
-    onKeyDownFunction: React.KeyboardEventHandler<HTMLTextAreaElement>;
-    onSelectFunction: React.ChangeEventHandler<HTMLSelectElement>;
-};
-
 const CodeEditor = ({
     code,
     language,
     onChangeFunction,
     onKeyDownFunction,
     onSelectFunction,
-}: textareaData) => {
+}: EditorData) => {
     const wrapperRef = useRef<HTMLDivElement | null>(null);
     const preRef =
         wrapperRef.current &&
