@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+
+* {
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.inputLabel {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 4px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    box-sizing: border-box;
+    font-size: 20px;
+    padding: 6px;
+    border: 3px solid gray;
+    border-radius: 6px;
+}
+
+input[type="text"]:focus-visible,
+input[type="email"]:focus-visible,
+input[type="password"]:focus-visible {
+    outline-style: none;
+    border-color: rgb(0, 187, 144);
+}
+
+.error {
+    margin-left: 4px;
+    font-size: 14px;
+    color: red;
+}
