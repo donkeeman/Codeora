@@ -1,0 +1,60 @@
+.button,
+.button:hover {
+    position: relative;
+    font-size: 20px;
+    font-weight: bold;
+    width: 100%;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.button:focus-visible {
+    outline-style: none;
+    font-size: 22px;
+}
+
+.primary,
+.primary:hover {
+    border: 3px solid rgb(0, 187, 144);
+    color: rgb(34, 34, 34);
+    background-color: rgb(0, 187, 144);
+}
+.primary:disabled,
+.primary:disabled:hover {
+    color: darkgray;
+    border-color: rgb(93, 93, 93);
+    background-color: rgb(93, 93, 93);
+    cursor: not-allowed;
+}
+
+.secondary,
+.secondary:hover {
+    border: 3px solid rgb(0, 187, 144);
+    background-color: rgb(34, 34, 34);
+    color: rgb(0, 187, 144);
+}
+
+.social {
+    color: rgb(236, 236, 236);
+}
+
+.google {
+    background-color: #4285f4;
+}
+.github {
+    background-color: black;
+}
+
+.icon {
+    width: 52px;
+    height: 52px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    background-color: white;
+    color: black;
+}
