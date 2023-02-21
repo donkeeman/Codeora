@@ -29,6 +29,11 @@ const Language = styled.span`
 `;
 
 const CodeBlock = ({ code, language }: HighlighterData) => {
+    const copyHandler = async () => {
+        await window.navigator.clipboard.writeText(code);
+        alert("복사되었습니다.");
+    };
+
     return (
         <CodeBlockWrapper>
             <SyntaxHighlighter
@@ -45,7 +50,7 @@ const CodeBlock = ({ code, language }: HighlighterData) => {
             >
                 {code}
             </SyntaxHighlighter>
-            <CopyButton onClickFunction={() => {}} />
+            <CopyButton onClickFunction={copyHandler} />
             <Language>{languageMap.get(language)?.name}</Language>
         </CodeBlockWrapper>
     );
