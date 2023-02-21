@@ -37,7 +37,7 @@ const Editor = styled.textarea`
     word-spacing: normal;
     word-break: normal;
     overflow-wrap: normal;
-    line-height: 1.4;
+    line-height: 1.5;
     tab-size: 4;
     hyphens: none;
     overflow: auto;
@@ -99,7 +99,6 @@ const CodeEditor = ({
                     margin: "0",
                     padding: "24px 20px",
                     borderRadius: "6px",
-                    lineHeight: 1.4,
                 }}
             >
                 {code}
