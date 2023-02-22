@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate, Navigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { useQuery } from "react-query";
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import styled from "styled-components";
 import CodeCard from "../Components/CodeCard";
-import { currentUserState } from "../Configs/atoms";
+import { currentUserState, persistLoginState } from "../Configs/atoms";
 import { db } from "../Configs/firebase";
 import { queryKeys } from "../Constants/queryKeys";
 import { signOutUser } from "../Services/auth";
@@ -45,6 +45,7 @@ const CodeList = styled.ol`
 
 const Main = () => {
     const [userData, setUserData] = useRecoilState(currentUserState);
+    const setPersistLoginData = useSetRecoilState(persistLoginState);
     const navigate = useNavigate();
 
     const getCodeList = async () => {
@@ -66,9 +67,9 @@ const Main = () => {
             <p>{userData.displayName}님, 어서 오세요!</p>
             <button
                 onClick={async () => {
-                    await signOutUser();
-                    window.localStorage.removeItem("user");
                     setUserData(undefined);
+                    setPersistLoginData(undefined);
+                    await signOutUser();
                 }}
             >
                 로그아웃

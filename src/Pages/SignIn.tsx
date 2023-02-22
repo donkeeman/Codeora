@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { currentUserState } from "../Configs/atoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+    currentUserState,
+    persistLoginState,
+    savedEmailState,
+} from "../Configs/atoms";
 import { FirebaseError } from "firebase/app";
 import { signInEmail, signInGoogle, signInGithub } from "../Services/auth";
 import styled from "styled-components";
@@ -47,23 +51,29 @@ const OrMessage = styled.p`
 `;
 
 const SignIn = () => {
-    const [signInData, setsignInData] = useState<LoginData>({ email: "", password: "" });
-    const [signInError, setSignInError] = useState<LoginData>({ email: "", password: "" });
+    const [signInData, setsignInData] = useState<LoginData>({
+        email: "",
+        password: "",
+    });
+    const [signInError, setSignInError] = useState<LoginData>({
+        email: "",
+        password: "",
+    });
     const [persistLogin, setPersistLogin] = useState(false);
-    const [saveEmail, setSaveEmail] = useState({ save: false, email: "" });
-
-    useEffect(() => {
-        const savedEmail = window.localStorage.getItem("email");
-        if (savedEmail) {
-            setSaveEmail({ save: true, email: savedEmail });
-            setsignInData({ email: savedEmail, password: "" });
-        }
-    }, []);
-
+    const [saveEmail, setSaveEmail] = useState(false);
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
     const [userData, setUserData] = useRecoilState(currentUserState);
+    const [savedEmailData, setSavedEmailData] = useRecoilState(savedEmailState);
+    const setPersistLoginData = useSetRecoilState(persistLoginState);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (savedEmailData) {
+            setSaveEmail(true);
+            setsignInData({ email: savedEmailData, password: "" });
+        }
+    }, [savedEmailData]);
 
     const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setsignInData({
@@ -81,7 +91,7 @@ const SignIn = () => {
 
     const saveEmailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (emailRef.current) {
-            setSaveEmail({ ...saveEmail, save: event.target.checked });
+            setSaveEmail(event.target.checked);
         }
     };
 
@@ -140,17 +150,8 @@ const SignIn = () => {
         }
         if (userData) {
             setUserData(userData.user);
-            if (saveEmail.save) {
-                window.localStorage.setItem("email", signInData.email);
-            } else {
-                window.localStorage.removeItem("email");
-            }
-            if (persistLogin) {
-                window.localStorage.setItem(
-                    "user",
-                    JSON.stringify(userData.user)
-                );
-            }
+            setSavedEmailData(saveEmail ? signInData.email : undefined);
+            setPersistLoginData(persistLogin ? userData.user : undefined);
         }
         navigate("/");
     };
@@ -167,7 +168,7 @@ const SignIn = () => {
                 innerRef={emailRef}
                 message={signInError.email}
                 onChangeFunction={inputHandler}
-                value={saveEmail.email}
+                value={savedEmailData && savedEmailData}
             />
             <StringInput
                 type="password"
@@ -187,7 +188,7 @@ const SignIn = () => {
                     id="saveEmail"
                     labelName="이메일 저장"
                     onChangeFunction={saveEmailHandler}
-                    checked={saveEmail.save}
+                    checked={saveEmail}
                 />
                 <CheckBox
                     id="persistLogin"
