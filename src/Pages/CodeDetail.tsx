@@ -121,7 +121,14 @@ const CodeDetail = () => {
 
     const deleteCodeHandler = async () => {
         if (userData) {
-            await deleteDoc(doc(db, `user/${userData.uid}/codes/${postingId}`));
+            try {
+                await deleteDoc(
+                    doc(db, `user/${userData.uid}/codes/${postingId}`)
+                );
+                alert("정상적으로 삭제되었습니다.");
+            } catch (error) {
+                alert("존재하지 않는 문서입니다.");
+            }
             navigate("/");
             return;
         }
@@ -186,9 +193,7 @@ const CodeDetail = () => {
                                 disabled={false}
                                 type="secondary"
                                 content="목록으로 돌아가기"
-                                onClickFunction={() => {
-                                    navigate("/");
-                                }}
+                                onClickFunction={() => navigate("/")}
                             />
                         </CodeInfoWrapper>
                     </CodeWrapper>
