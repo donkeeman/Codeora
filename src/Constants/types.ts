@@ -32,6 +32,7 @@ export interface CodeData {
     description: string;
     language: string;
     tag: string[];
+    id?: string;
 }
 
 // input 기본 속성

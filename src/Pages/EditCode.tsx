@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import styled from "styled-components";
-import { currentUserState } from "../Configs/atoms";
+import { currentCodeState, currentUserState } from "../Configs/atoms";
 import { db } from "../Configs/firebase";
 import Button from "../Components/Button";
 import CodeEditor from "../Components/CodeEditor";
@@ -14,7 +14,7 @@ import Title from "../Components/Title";
 import { autoCloseMap } from "../Constants/autoCloseMap";
 import { CodeData } from "../Constants/types";
 
-const WriteCodeWrapper = styled.section`
+const EditCodeWrapper = styled.section`
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -53,8 +53,9 @@ const TagList = styled.ul`
     overflow-x: scroll;
 `;
 
-const WriteCode = () => {
+const EditCode = () => {
     const userData = useRecoilValue(currentUserState);
+    const [postingData, setPostingData] = useRecoilState(currentCodeState);
     const [posting, setPosting] = useState<CodeData>({
         title: "",
         code: "",
@@ -132,8 +133,10 @@ const WriteCode = () => {
         if (tagRef.current) {
             if (event.key === " " || event.key === "Enter") {
                 if (posting.tag.length < 3) {
-                    posting.tag.push(tagRef.current.value.trim());
-                    setPosting({ ...posting });
+                    setPosting({
+                        ...posting,
+                        tag: [...posting.tag, tagRef.current.value.trim()],
+                    });
                 } else {
                     alert("태그는 최대 3개까지 입력 가능합니다.");
                 }
@@ -143,25 +146,40 @@ const WriteCode = () => {
     };
 
     const deleteTagHandler = (index: number) => {
-        posting.tag.splice(index, 1);
-        setPosting({ ...posting });
+        const tagList = posting.tag.slice();
+        tagList.splice(index, 1);
+        setPosting({ ...posting, tag: [...tagList] });
     };
 
-    const uploadCodeHandler = async () => {
+    const editCodeHandler = async () => {
         if (userData) {
-            const result = await addDoc(
-                collection(db, `user/${userData.uid}/codes`),
-                { ...posting, timestamp: serverTimestamp() }
-            );
-            if (result) {
-                navigate("/");
+            try {
+                await updateDoc(
+                    doc(db, `user/${userData.uid}/codes/${posting.id}`),
+                    {
+                        ...posting,
+                        timestamp: serverTimestamp(),
+                    }
+                );
+                alert("정상적으로 수정되었습니다.");
+                setPostingData(undefined);
+            } catch (error) {
+                alert("잘못된 접근이거나 존재하지 않는 문서입니다.");
             }
+            navigate("/");
+            return;
         }
     };
 
+    useEffect(() => {
+        if (postingData) {
+            setPosting({ ...postingData });
+        }
+    }, [postingData]);
+
     return (
-        <WriteCodeWrapper>
-            <Title title="코드 작성하기" />
+        <EditCodeWrapper>
+            <Title title="코드 수정하기" />
             <CodeWrapper>
                 <CodeEditor
                     code={posting.code}
@@ -178,12 +196,15 @@ const WriteCode = () => {
                         placeholder="최대 12자"
                         onChangeFunction={postingHandler}
                         maxLength={12}
+                        defaultValue={posting.title}
+                        key={posting.id}
                     />
                     <Textarea
                         id="description"
                         labelName="코드 설명"
                         onChangeFunction={postingHandler}
                         rows={5}
+                        defaultValue={posting.description}
                     />
                     <StringInput
                         type="text"
@@ -215,19 +236,19 @@ const WriteCode = () => {
                                 posting.description
                             )
                         }
-                        content="코드 작성"
-                        onClickFunction={uploadCodeHandler}
+                        content="코드 수정"
+                        onClickFunction={editCodeHandler}
                     />
                     <Button
                         type="secondary"
                         disabled={false}
-                        content="작성 취소"
+                        content="수정 취소"
                         onClickFunction={() => navigate(-1)}
                     />
                 </CodeInfoWrapper>
             </CodeWrapper>
-        </WriteCodeWrapper>
+        </EditCodeWrapper>
     );
 };
 
-export default WriteCode;
+export default EditCode;

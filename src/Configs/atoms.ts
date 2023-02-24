@@ -1,6 +1,7 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { User } from "firebase/auth";
+import { CodeData } from "../Constants/types";
 
 const { persistAtom: sessionPersistAtom } = recoilPersist({
     storage: sessionStorage,
@@ -29,4 +30,11 @@ export const savedEmailState = atom<string | undefined>({
     key: "savedEmail",
     default: undefined,
     effects_UNSTABLE: [localPersistAtom],
+});
+
+// 수정할 코드 정보
+export const currentCodeState = atom<CodeData | undefined>({
+    key: "currentCodeState",
+    default: undefined,
+    effects_UNSTABLE: [sessionPersistAtom],
 });

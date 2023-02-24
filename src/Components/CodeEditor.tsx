@@ -106,12 +106,13 @@ const CodeEditor = ({
             <Select
                 onChange={onSelectFunction}
                 id="language"
-                defaultValue="언어 선택"
+                key={language}
+                defaultValue={language || "언어 선택"}
             >
                 <option disabled>언어 선택</option>
-                {Array.from(languageMap.keys()).map((language) => (
-                    <option key={language} value={language}>
-                        {languageMap.get(language)?.name}
+                {Array.from(languageMap.keys()).map((lang) => (
+                    <option key={lang} value={lang}>
+                        {languageMap.get(lang)?.name}
                     </option>
                 ))}
             </Select>
@@ -128,6 +129,7 @@ const CodeEditor = ({
                 name="code"
                 disabled={!language}
                 placeholder={language && getComment(language)}
+                value={code}
             />
         </CodeEditorWrapper>
     );

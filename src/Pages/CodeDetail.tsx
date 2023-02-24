@@ -1,12 +1,12 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import { doc, deleteDoc, getDoc } from "firebase/firestore";
 import CodeBlock from "../Components/CodeBlock";
 import Tag from "../Components/Tag";
-import { currentUserState } from "../Configs/atoms";
+import { currentCodeState, currentUserState } from "../Configs/atoms";
 import { db } from "../Configs/firebase";
 import { queryKeys } from "../Constants/queryKeys";
 import Button from "../Components/Button";
@@ -63,9 +63,9 @@ const CodeTitle = styled.h3`
 const CodeTime = styled.time`
     text-align: right;
     margin: 12px 2px 6px;
-    &::after {
-        content: "작성";
-        margin-left: 4px;
+    &::before {
+        content: "최종 수정";
+        margin-right: 4px;
     }
 `;
 
@@ -100,6 +100,7 @@ const TagList = styled.ul`
 
 const CodeDetail = () => {
     const userData = useRecoilValue(currentUserState);
+    const setCodeData = useSetRecoilState(currentCodeState);
     const navigate = useNavigate();
     const { postingId } = useParams();
 
@@ -116,8 +117,6 @@ const CodeDetail = () => {
         `${queryKeys.code}_${postingId}`,
         getCodeDetail
     );
-
-    const updateCodeHandler = async () => {};
 
     const deleteCodeHandler = async () => {
         if (userData) {
@@ -182,7 +181,17 @@ const CodeDetail = () => {
                             <Button
                                 disabled={false}
                                 content="코드 수정"
-                                onClickFunction={updateCodeHandler}
+                                onClickFunction={() => {
+                                    setCodeData({
+                                        id: postingId,
+                                        title: CodeData.title,
+                                        description: CodeData.description,
+                                        code: CodeData.code,
+                                        tag: CodeData.tag,
+                                        language: CodeData.language,
+                                    });
+                                    navigate(`/edit/${postingId}`);
+                                }}
                             />
                             <Button
                                 disabled={false}
