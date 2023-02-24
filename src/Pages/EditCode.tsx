@@ -13,6 +13,7 @@ import Textarea from "../Components/Textarea";
 import Title from "../Components/Title";
 import { autoCloseMap } from "../Constants/autoCloseMap";
 import { CodeData } from "../Constants/types";
+import { titleMaxLength } from "../Constants/variables";
 
 const EditCodeWrapper = styled.section`
     width: 100%;
@@ -75,8 +76,8 @@ const EditCode = () => {
     ) => {
         if (event.target.id === "title") {
             setTitleError(
-                event.target.value.length > 16
-                    ? "최대 16자까지 가능합니다."
+                event.target.value.length > titleMaxLength
+                    ? `최대 ${titleMaxLength}자까지 가능합니다.`
                     : ""
             );
         }
