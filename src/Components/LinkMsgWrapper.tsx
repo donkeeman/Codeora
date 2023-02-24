@@ -11,6 +11,7 @@ const LinkWrapper = styled.div`
     .link {
         color: ${colorVariants.mainColor};
         text-decoration: underline;
+        font-size: 16px;
     }
 `;
 

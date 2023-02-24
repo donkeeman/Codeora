@@ -8,8 +8,7 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         border: none;
     }
-    body, button, input, textarea, select {
-        background-color: ${colorVariants.black};
+    body, button, input, textarea, select, a {
         text-align: center;
         font-family: 'Noto Sans KR', sans-serif;
         font-size: 14px;
@@ -18,14 +17,15 @@ const GlobalStyle = createGlobalStyle`
         word-break: keep-all;
     }
     body {
-        padding: 30px 8%;
+        background-color: ${colorVariants.black};
+        padding: 20px 8%;
         &::-webkit-scrollbar, & *::-webkit-scrollbar {
             width: 10px;
             height: 10px;
             cursor: pointer;
         }
         &::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb {
-            background-color: ${colorVariants.disabledColor};
+            background-color: ${colorVariants.gray};
             background-clip: padding-box;
             border: 1px solid transparent;
             border-radius: 10px;
@@ -47,6 +47,9 @@ const GlobalStyle = createGlobalStyle`
     }
     button {
         cursor: pointer;
+    }
+    input, textarea, select{
+        background-color: ${colorVariants.black};
     }
     textarea {
         resize: none;
@@ -83,7 +86,6 @@ const GlobalStyle = createGlobalStyle`
     }
     .App {
         max-width: 1000px;
-        margin: 0 auto;
     }
 `;
 
