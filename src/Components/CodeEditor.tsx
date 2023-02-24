@@ -8,7 +8,7 @@ import { EditorData } from "../Constants/types";
 
 const CodeEditorWrapper = styled.div`
     position: relative;
-    min-height: 500px;
+    min-height: 520px;
     margin: 0;
     flex: 0.9 0 0;
     @media screen and (max-width: 800px) {
@@ -99,6 +99,7 @@ const CodeEditor = ({
                     margin: "0",
                     padding: "24px 20px",
                     borderRadius: "6px",
+                    overflowX: "hidden",
                 }}
             >
                 {code}

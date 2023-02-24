@@ -40,6 +40,8 @@ const CodeInfoWrapper = styled.div`
     overflow: hidden;
     @media screen and (max-width: 800px) {
         flex: 1;
+        justify-content: flex-start;
+        gap: 10px;
     }
 `;
 
@@ -51,6 +53,7 @@ const TagList = styled.ul`
     align-items: center;
     gap: 6px;
     overflow-x: scroll;
+    margin-top: -10px;
 `;
 
 const EditCode = () => {
