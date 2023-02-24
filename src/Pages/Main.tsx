@@ -1,14 +1,13 @@
 import React from "react";
 import { useNavigate, Navigate } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { useQuery } from "react-query";
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import styled from "styled-components";
 import CodeCard from "../Components/CodeCard";
-import { currentUserState, persistLoginState } from "../Configs/atoms";
+import { currentUserState } from "../Configs/atoms";
 import { db } from "../Configs/firebase";
 import { queryKeys } from "../Constants/queryKeys";
-import { signOutUser } from "../Services/auth";
 
 const MainWrapper = styled.section`
     width: 100%;
@@ -44,8 +43,7 @@ const CodeList = styled.ol`
 `;
 
 const Main = () => {
-    const [userData, setUserData] = useRecoilState(currentUserState);
-    const setPersistLoginData = useSetRecoilState(persistLoginState);
+    const userData = useRecoilValue(currentUserState);
     const navigate = useNavigate();
 
     const getCodeList = async () => {
@@ -64,17 +62,6 @@ const Main = () => {
 
     return userData ? (
         <MainWrapper>
-            <p>{userData.displayName}님, 어서 오세요!</p>
-            <button
-                onClick={async () => {
-                    setUserData(undefined);
-                    setPersistLoginData(undefined);
-                    await signOutUser();
-                }}
-            >
-                로그아웃
-            </button>
-            <button onClick={() => navigate("/write")}>글쓰기</button>
             {codeList &&
                 (codeList.length > 0 ? (
                     <CodeList>

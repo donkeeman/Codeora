@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 import { colorVariants } from "../Constants/colorVariants";
+import { headerMaxHeight } from "../Constants/variables";
 
 const GlobalStyle = createGlobalStyle`
     ${reset}
@@ -86,6 +87,7 @@ const GlobalStyle = createGlobalStyle`
     }
     .App {
         max-width: 1000px;
+        margin: ${headerMaxHeight}px auto 0;
     }
 `;
 
