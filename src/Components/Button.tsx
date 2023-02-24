@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { colorVariants } from "../Constants/colorVariants";
-import { iconPaths } from "../Constants/iconPaths";
+import { iconPaths } from "../Constants/assetPath";
 
 const StyledButton = styled.button`
     position: relative;
@@ -18,9 +18,9 @@ const StyledButton = styled.button`
         color: ${colorVariants.black};
         &:disabled,
         &:disabled:hover {
-            border-color: ${colorVariants.disabledColor};
+            border-color: ${colorVariants.gray};
             color: darkgray;
-            background-color: ${colorVariants.disabledColor};
+            background-color: ${colorVariants.gray};
             cursor: not-allowed;
         }
     }
