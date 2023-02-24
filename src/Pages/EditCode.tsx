@@ -63,12 +63,20 @@ const EditCode = () => {
         language: "",
         tag: [],
     });
+    const [titleError, setTitleError] = useState("");
     const navigate = useNavigate();
     const tagRef = useRef<HTMLInputElement>(null);
 
     const postingHandler = (
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
+        if (event.target.id === "title") {
+            setTitleError(
+                event.target.value.length > 16
+                    ? "최대 16자까지 가능합니다."
+                    : ""
+            );
+        }
         setPosting({ ...posting, [event.target.id]: event.target.value });
     };
 
@@ -193,11 +201,11 @@ const EditCode = () => {
                         type="text"
                         id="title"
                         labelName="제목"
-                        placeholder="최대 12자"
+                        placeholder="최대 16자"
                         onChangeFunction={postingHandler}
-                        maxLength={12}
                         defaultValue={posting.title}
                         key={posting.id}
+                        message={titleError}
                     />
                     <Textarea
                         id="description"
@@ -233,7 +241,8 @@ const EditCode = () => {
                                 posting.code &&
                                 posting.language &&
                                 posting.title &&
-                                posting.description
+                                posting.description &&
+                                !titleError
                             )
                         }
                         content="코드 수정"

@@ -49,7 +49,6 @@ export interface StringInputData extends InputData {
     onKeyDownFunction?: React.KeyboardEventHandler<HTMLInputElement>;
     message?: string;
     defaultValue?: string;
-    maxLength?: number;
     placeholder?: string;
 }
 
