@@ -36,7 +36,8 @@ const Textarea = ({
     labelName,
     innerRef,
     onChangeFunction,
-    rows
+    rows,
+    defaultValue,
 }: TextareaData) => {
     return (
         <TextareaWrapper>
@@ -47,6 +48,7 @@ const Textarea = ({
                 onChange={onChangeFunction}
                 rows={rows}
                 spellCheck={false}
+                defaultValue={defaultValue}
             />
         </TextareaWrapper>
     );

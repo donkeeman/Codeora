@@ -168,7 +168,7 @@ const SignIn = () => {
                 innerRef={emailRef}
                 message={signInError.email}
                 onChangeFunction={inputHandler}
-                value={savedEmailData && savedEmailData}
+                defaultValue={savedEmailData && savedEmailData}
             />
             <StringInput
                 type="password"

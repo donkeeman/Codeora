@@ -48,7 +48,7 @@ const StringInput = ({
     message,
     onChangeFunction,
     onKeyDownFunction,
-    value,
+    defaultValue,
     maxLength,
     placeholder,
 }: StringInputData) => {
@@ -62,7 +62,7 @@ const StringInput = ({
                 ref={innerRef}
                 onChange={onChangeFunction}
                 onKeyDown={onKeyDownFunction}
-                defaultValue={value}
+                defaultValue={defaultValue}
                 autoComplete="off"
                 maxLength={maxLength}
                 placeholder={placeholder}

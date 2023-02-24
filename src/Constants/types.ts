@@ -47,7 +47,7 @@ export interface StringInputData extends InputData {
     onChangeFunction?: React.ChangeEventHandler<HTMLInputElement>;
     onKeyDownFunction?: React.KeyboardEventHandler<HTMLInputElement>;
     message?: string;
-    value?: string;
+    defaultValue?: string;
     maxLength?: number;
     placeholder?: string;
 }
@@ -57,4 +57,5 @@ export interface TextareaData extends InputData {
     innerRef?: MutableRefObject<HTMLTextAreaElement | null>;
     onChangeFunction?: React.ChangeEventHandler<HTMLTextAreaElement>;
     rows: number;
+    defaultValue?: string;
 }
