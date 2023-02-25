@@ -71,7 +71,7 @@ const SignUp = () => {
             setSignUpError({
                 ...signUpError,
                 password:
-                    "비밀번호는 6~20자 사이의 영어 대소문자, 숫자, 특수 기호 ( . ! # $ % & ' * + - / = ? ^ _ ` { | } ~ ) 의 조합만 가능합니다.",
+                    "비밀번호는 6~20자 사이의 영어 대소문자, 숫자 및 특수 기호 ( . ! # $ % & ' * + - / = ? ^ _ ` { | } ~ ) 의 조합만 가능합니다.",
             });
             passwordRef.current?.focus();
             return;
@@ -120,6 +120,7 @@ const SignUp = () => {
                 type="email"
                 id="email"
                 labelName="이메일"
+                placeholder="someone@example.com"
                 innerRef={emailRef}
                 message={signUpError.email}
                 onChangeFunction={inputHandler}
@@ -127,7 +128,8 @@ const SignUp = () => {
             <StringInput
                 type="password"
                 id="password"
-                labelName="비밀번호 (6~20자 사이의 영어 대소문자, 숫자 및 특수 기호)"
+                labelName="비밀번호"
+                placeholder="6~20자 사이의 영어 대소문자, 숫자 및 특수 기호 ( . ! # $ % & ' * + - / = ? ^ _ ` { | } ~ )"
                 innerRef={passwordRef}
                 message={signUpError.password}
                 onChangeFunction={inputHandler}
@@ -143,7 +145,8 @@ const SignUp = () => {
             <StringInput
                 type="text"
                 id="userName"
-                labelName="닉네임 (2~10자 사이의 한글, 영어 대소문자, 숫자 및 언더바 ( _ ))"
+                labelName="닉네임"
+                placeholder="2~10자 사이의 한글, 영어 대소문자, 숫자 및 언더바 ( _ )"
                 innerRef={userNameRef}
                 message={signUpError.userName}
                 onChangeFunction={inputHandler}

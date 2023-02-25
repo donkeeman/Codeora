@@ -221,8 +221,8 @@ const EditCode = () => {
                     <StringInput
                         type="text"
                         id="tag"
-                        labelName="태그 (최대 3개)"
-                        placeholder="스페이스 바 또는 엔터로 입력"
+                        labelName="태그"
+                        placeholder="최대 3개, 스페이스 바 또는 엔터로 입력"
                         onKeyDownFunction={addTagHandler}
                         innerRef={tagRef}
                     />
