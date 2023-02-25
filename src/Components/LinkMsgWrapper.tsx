@@ -6,6 +6,7 @@ import { colorVariants } from "../Constants/colorVariants";
 const LinkWrapper = styled.div`
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 10px;
     font-size: 16px;
     .link {
