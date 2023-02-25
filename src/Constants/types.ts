@@ -73,3 +73,8 @@ export interface IconData {
 export interface IconButtonData extends IconData {
     onClickFunction: React.MouseEventHandler<HTMLButtonElement>;
 }
+
+// 아이콘만 있는 링크에 사용
+export interface IconLinkData extends IconData {
+    to: string;
+}
