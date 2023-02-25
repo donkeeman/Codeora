@@ -16,3 +16,5 @@
 -   `React-Syntax-Highlighter` : 코드 작성 시 하이라이팅을 주기 위해 사용
 -   `React-Fontawesome` : 폰트어썸 아이콘을 리액트에서 불러오기 위하여 사용
 -   `StoryBook` : 컴포넌트 테스트를 위해 사용
+---
+-   [Adobe Express](https://express.adobe.com/ko-KR/sp/) : 페이지 로고 및 파비콘 제작에 사용
