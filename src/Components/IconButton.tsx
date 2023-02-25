@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { colorVariants } from "../Constants/colorVariants";
+import { IconButtonData } from "../Constants/types";
 
-const IconButton = styled.button<{ message?: string }>`
+const ButtonWrapper = styled.button<{
+    subMessage?: string;
+}>`
+    position: relative;
     background-color: transparent;
     border-radius: 6px;
     width: 48px;
@@ -15,10 +18,11 @@ const IconButton = styled.button<{ message?: string }>`
         color: ${colorVariants.mainColor};
         &::after {
             position: absolute;
+            background-color: ${colorVariants.black};
             top: 40px;
             left: 50%;
             transform: translateX(-50%);
-            content: "${(props) => props.message}";
+            content: "${(props) => props.subMessage}";
             padding: 0 6px;
             color: ${colorVariants.white};
             border: 1px solid gray;
@@ -26,17 +30,26 @@ const IconButton = styled.button<{ message?: string }>`
     }
 `;
 
-type IconButtonData = {
-    onClickFunction: React.MouseEventHandler<HTMLButtonElement>;
-};
-
-const CopyButton = ({ onClickFunction }: IconButtonData) => {
+const IconButton = ({
+    onClickFunction,
+    icon,
+    size,
+    message,
+    subMessage,
+}: IconButtonData) => {
     return (
-        <IconButton onClick={onClickFunction} message="복사">
-            <FontAwesomeIcon icon={faCopy} size="xl" aria-hidden={true} />
-            <span className="a11y-hidden">복사하기</span>
-        </IconButton>
+        <ButtonWrapper
+            onClick={onClickFunction}
+            subMessage={subMessage || message}
+        >
+            <FontAwesomeIcon
+                icon={icon}
+                size={size || "xl"}
+                aria-hidden={true}
+            />
+            <span className="a11y-hidden">{message}</span>
+        </ButtonWrapper>
     );
 };
 
-export { CopyButton };
+export default IconButton;

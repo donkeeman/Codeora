@@ -1,10 +1,11 @@
+import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import styled from "styled-components";
 import { languageMap } from "../Constants/languageMap";
 import { HighlighterData } from "../Constants/types";
-import { CopyButton } from "./IconButton";
+import IconButton from "./IconButton";
 
 const CodeBlockWrapper = styled.div`
     position: relative;
@@ -50,7 +51,12 @@ const CodeBlock = ({ code, language }: HighlighterData) => {
             >
                 {code}
             </SyntaxHighlighter>
-            <CopyButton onClickFunction={copyHandler} />
+            <IconButton
+                onClickFunction={copyHandler}
+                icon={faCopy}
+                message="복사하기"
+                subMessage="복사"
+            />
             <Language>{languageMap.get(language)?.name}</Language>
         </CodeBlockWrapper>
     );

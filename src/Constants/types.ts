@@ -1,3 +1,4 @@
+import { IconDefinition, SizeProp } from "@fortawesome/fontawesome-svg-core";
 import React, { MutableRefObject } from "react";
 
 // 로그인 시 정보 확인 및 에러 메시지 띄울 때 사용
@@ -58,4 +59,17 @@ export interface TextareaData extends InputData {
     onChangeFunction?: React.ChangeEventHandler<HTMLTextAreaElement>;
     rows: number;
     defaultValue?: string;
+}
+
+// 아이콘 버튼 / 링크 기본 속성
+export interface IconData {
+    icon: IconDefinition;
+    size?: SizeProp;
+    message: string;
+    subMessage?: string;
+}
+
+// 아이콘만 있는 버튼에 사용
+export interface IconButtonData extends IconData {
+    onClickFunction: React.MouseEventHandler<HTMLButtonElement>;
 }
