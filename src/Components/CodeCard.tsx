@@ -19,7 +19,7 @@ const Card = styled(Link)`
     height: 100%;
     border: 3px solid ${colorVariants.mainColor};
     border-radius: 6px;
-    transition: all ease 0.2s;
+    transition: all linear .2s;
     cursor: pointer;
     &:hover,
     &:focus-visible {

@@ -107,6 +107,7 @@ const NavLink = styled(Link)`
     padding: 4px 16px;
     border-radius: 20px;
     border: 3px solid ${colorVariants.mainColor};
+    transition: all linear 0.2s;
     &:hover,
     &:focus-visible {
         outline: none;
@@ -122,6 +123,7 @@ const NavButton = styled.button`
     padding: 4px 16px;
     border-radius: 20px;
     border: 3px solid ${colorVariants.mainColor};
+    transition: all linear 0.2s;
     &:hover,
     &:focus-visible {
         outline: none;
