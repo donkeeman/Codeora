@@ -1,5 +1,5 @@
-import { IconDefinition, SizeProp } from "@fortawesome/fontawesome-svg-core";
 import React, { MutableRefObject } from "react";
+import { IconDefinition, SizeProp } from "@fortawesome/fontawesome-svg-core";
 
 // 로그인 시 정보 확인 및 에러 메시지 띄울 때 사용
 export interface LoginData {

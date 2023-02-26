@@ -6,7 +6,7 @@ import { colorVariants } from "../Constants/colorVariants";
 import { IconLinkData } from "../Constants/types";
 
 const LinkWrapper = styled(Link)<{
-    subMessage?: string;
+    $subMessage: string;
 }>`
     display: flex;
     justify-content: center;
@@ -27,7 +27,7 @@ const LinkWrapper = styled(Link)<{
             top: 40px;
             left: 50%;
             transform: translateX(-50%);
-            content: "${(props) => props.subMessage}";
+            content: "${(props) => props.$subMessage}";
             white-space: nowrap;
             padding: 0 6px;
             color: ${colorVariants.white};
@@ -38,7 +38,7 @@ const LinkWrapper = styled(Link)<{
 
 const IconLink = ({ to, icon, size, message, subMessage }: IconLinkData) => {
     return (
-        <LinkWrapper to={to} subMessage={subMessage || message}>
+        <LinkWrapper to={to} $subMessage={subMessage || message}>
             <FontAwesomeIcon
                 icon={icon}
                 size={size || "xl"}
