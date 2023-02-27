@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
@@ -170,6 +170,16 @@ const WriteCode = () => {
             }
         }
     };
+
+    useEffect(() => {
+        const pageLeaveHandler = (event: BeforeUnloadEvent) => {
+            event.returnValue = false;
+        };
+        window.addEventListener("beforeunload", pageLeaveHandler);
+        return () => {
+            window.removeEventListener("beforeunload", pageLeaveHandler);
+        };
+    }, []);
 
     return (
         <WriteCodeWrapper>

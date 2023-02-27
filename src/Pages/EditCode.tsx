@@ -187,6 +187,13 @@ const EditCode = () => {
         if (postingData) {
             setPosting({ ...postingData });
         }
+        const pageLeaveHandler = (event: BeforeUnloadEvent) => {
+            event.returnValue = false;
+        };
+        window.addEventListener("beforeunload", pageLeaveHandler);
+        return () => {
+            window.removeEventListener("beforeunload", pageLeaveHandler);
+        };
     }, [postingData]);
 
     return (
