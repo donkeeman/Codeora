@@ -36,7 +36,7 @@ const Editor = styled.textarea`
     white-space: pre-wrap;
     word-spacing: normal;
     word-break: normal;
-    overflow-wrap: normal;
+    overflow-wrap: break-word;
     line-height: 1.5;
     tab-size: 4;
     hyphens: none;
@@ -99,7 +99,11 @@ const CodeEditor = ({
                     margin: "0",
                     padding: "24px 20px",
                     borderRadius: "6px",
-                    overflowX: "hidden",
+                }}
+                codeTagProps={{
+                    style: {
+                        overflowWrap: "break-word",
+                    },
                 }}
             >
                 {code}
