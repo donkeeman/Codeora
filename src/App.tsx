@@ -19,9 +19,11 @@ const App = () => {
     return (
         <div className="App">
             <GlobalStyle />
-            <Loading />
             <Header />
-            <Router />
+            <main className="main">
+                <Loading />
+                <Router />
+            </main>
             <ReactQueryDevtools />
         </div>
     );

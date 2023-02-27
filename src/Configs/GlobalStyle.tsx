@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 import { colorVariants } from "../Constants/colorVariants";
-import { headerMaxHeight } from "../Constants/variables";
+import { headerHeight, maxWidth } from "../Constants/variables";
 
 const GlobalStyle = createGlobalStyle`
     ${reset}
@@ -9,7 +9,35 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         border: none;
     }
-    body, button, input, textarea, select, a {
+    html, body{
+        height: 100vh;
+        /* overflow: hidden; */
+        background-color: ${colorVariants.black};
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    }
+    body{
+        & *::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+            cursor: pointer;
+        }
+        & *::-webkit-scrollbar-thumb {
+            background-color: ${colorVariants.gray};
+            background-clip: padding-box;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            height: 50px;
+        }
+        & *::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+        & *::-webkit-scrollbar-corner {
+            background-color: transparent;
+        }
+    }
+    .App, button, input, textarea, select, a {
         text-align: center;
         font-family: 'Noto Sans KR', sans-serif;
         font-size: 14px;
@@ -17,27 +45,15 @@ const GlobalStyle = createGlobalStyle`
         color: ${colorVariants.white};
         word-break: keep-all;
     }
-    body {
-        background-color: ${colorVariants.black};
+    .App{
+        max-height: 100%;
+        overflow: auto;
+        margin: ${headerHeight}px auto 0;
         padding: 20px 8%;
-        &::-webkit-scrollbar, & *::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
-            cursor: pointer;
-        }
-        &::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb {
-            background-color: ${colorVariants.gray};
-            background-clip: padding-box;
-            border: 1px solid transparent;
-            border-radius: 10px;
-            height: 20%;
-        }
-        &::-webkit-scrollbar-track, & *::-webkit-scrollbar-track {
-            background-color: transparent;
-        }
-        &::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner {
-            background-color: transparent;
-        }
+    }
+    .main {
+        max-width: ${maxWidth}px;
+        margin: 0 auto;
     }
     h1, h2 {
         font-weight: bold;
@@ -85,10 +101,6 @@ const GlobalStyle = createGlobalStyle`
         &.block {
             border: 3px solid gray;
         }
-    }
-    .App {
-        max-width: 1000px;
-        margin: ${headerMaxHeight}px auto 0;
     }
 `;
 
