@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { colorVariants } from "../Constants/colorVariants";
+import { TextLinkData } from "../Constants/types";
 
 const LinkWrapper = styled.div`
     display: flex;
@@ -16,13 +17,7 @@ const LinkWrapper = styled.div`
     }
 `;
 
-type linkData = {
-    message: string;
-    linkRoute: string;
-    linkMessage: string;
-};
-
-const LinkMsgWrapper = ({ message, linkRoute, linkMessage }: linkData) => {
+const LinkMsgWrapper = ({ message, linkRoute, linkMessage }: TextLinkData) => {
     return (
         <LinkWrapper>
             <p>{message}</p>

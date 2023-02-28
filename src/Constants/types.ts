@@ -1,6 +1,12 @@
 import React, { MutableRefObject } from "react";
 import { IconDefinition, SizeProp } from "@fortawesome/fontawesome-svg-core";
 
+// 페이지의 타이틀 작성에 사용
+export interface titleData {
+    title: string;
+    subTitle?: string;
+}
+
 // 로그인 시 정보 확인 및 에러 메시지 띄울 때 사용
 export interface LoginData {
     email: string;
@@ -12,6 +18,13 @@ export interface UserData extends LoginData {
     confirmPassword: string;
     userName: string;
 }
+
+// 로그인, 회원가입 페이지의 텍스트 링크에 사용
+export interface TextLinkData {
+    message: string;
+    linkRoute: string;
+    linkMessage: string;
+};
 
 // 코드 하이라이터에 사용
 export interface HighlighterData {
@@ -36,6 +49,15 @@ export interface CodeData {
     id?: string;
 }
 
+// button 기본 속성
+export interface buttonData {
+    content: string;
+    onClickFunction: React.MouseEventHandler<HTMLButtonElement>;
+    disabled: boolean;
+    social?: string;
+    type?: string;
+};
+
 // input 기본 속성
 export interface InputData {
     id: string;
@@ -52,6 +74,12 @@ export interface StringInputData extends InputData {
     defaultValue?: string;
     placeholder?: string;
 }
+
+// type="checkbox"인 input에 사용
+export interface CheckBoxInputData extends InputData {
+    onChangeFunction: React.ChangeEventHandler<HTMLInputElement>;
+    checked?: boolean;
+};
 
 // textarea에 사용
 export interface TextareaData extends InputData {

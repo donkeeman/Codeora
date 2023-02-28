@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { colorVariants } from "../Constants/colorVariants";
+import { CheckBoxInputData } from "../Constants/types";
 
 const CheckBoxWrapper = styled.div`
     display: flex;
@@ -18,19 +19,12 @@ const CheckBoxLabel = styled.label`
     margin-left: 4px;
 `;
 
-type inputData = {
-    id: string;
-    labelName: string;
-    onChangeFunction: React.ChangeEventHandler<HTMLInputElement>;
-    checked?: boolean;
-};
-
 const CheckBox = ({
     id,
     labelName,
     onChangeFunction,
     checked,
-}: inputData) => {
+}: CheckBoxInputData) => {
     return (
         <CheckBoxWrapper>
             <CheckBoxInput

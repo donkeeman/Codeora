@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { colorVariants } from "../Constants/colorVariants";
 import { iconPaths } from "../Constants/assetPath";
+import { buttonData } from "../Constants/types";
 
 const StyledButton = styled.button`
     position: relative;
@@ -51,14 +52,6 @@ const StyledButton = styled.button`
         left: 0;
     }
 `;
-
-type buttonData = {
-    content: string;
-    onClickFunction: React.MouseEventHandler<HTMLButtonElement>;
-    disabled: boolean;
-    social?: string;
-    type?: string;
-};
 
 const Button = ({
     type = "primary",
