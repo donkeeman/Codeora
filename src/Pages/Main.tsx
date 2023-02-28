@@ -90,15 +90,9 @@ const Main = () => {
         queryKeys.code,
         ({ pageParam }) => getCodeList(pageParam),
         {
-            getNextPageParam: (lastPage) => {
-                if (lastPage) {
-                    if (lastPage.size < 12) {
-                        return null;
-                    } else {
-                        return lastPage.lastDocument;
-                    }
-                }
-            },
+            getNextPageParam: (lastPage) =>
+                lastPage &&
+                (lastPage?.size < 12 ? null : lastPage.lastDocument),
         }
     );
 
