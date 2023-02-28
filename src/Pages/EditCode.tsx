@@ -190,13 +190,14 @@ const EditCode = () => {
             setPosting({ ...postingData });
         }
         const pageLeaveHandler = (event: BeforeUnloadEvent) => {
+            setPostingData(undefined);
             event.returnValue = false;
         };
         window.addEventListener("beforeunload", pageLeaveHandler);
         return () => {
             window.removeEventListener("beforeunload", pageLeaveHandler);
         };
-    }, [postingData]);
+    }, [postingData, setPostingData]);
 
     return (
         <EditCodeWrapper>
