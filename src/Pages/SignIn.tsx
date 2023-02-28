@@ -12,7 +12,7 @@ import styled from "styled-components";
 import { regExps } from "../Constants/regExps";
 import Button from "../Components/Button";
 import CheckBox from "../Components/CheckBox";
-import LinkMsgWrapper from "../Components/LinkMsgWrapper";
+import LinkMsgWrapper from "../Components/TextLink";
 import StringInput from "../Components/TextInput";
 import Title from "../Components/Title";
 import { LoginData } from "../Constants/types";

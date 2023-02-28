@@ -10,22 +10,30 @@ const LinkWrapper = styled.div`
     align-items: center;
     gap: 10px;
     font-size: 16px;
-    .link {
+`;
+
+const Text = styled(Link)`
+    transition: all 0.2s ease;
+    &,
+    &:visited,
+    &:hover {
         color: ${colorVariants.mainColor};
         text-decoration: underline;
         font-size: 16px;
     }
+    &:focus-visible {
+        outline-style: none;
+        font-size: 18px;
+    }
 `;
 
-const LinkMsgWrapper = ({ message, linkRoute, linkMessage }: TextLinkData) => {
+const TextLink = ({ message, linkRoute, linkMessage }: TextLinkData) => {
     return (
         <LinkWrapper>
             <p>{message}</p>
-            <Link className="link" to={linkRoute}>
-                {linkMessage}
-            </Link>
+            <Text to={linkRoute}>{linkMessage}</Text>
         </LinkWrapper>
     );
 };
 
-export default LinkMsgWrapper;
+export default TextLink;
