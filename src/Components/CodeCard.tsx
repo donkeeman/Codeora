@@ -16,7 +16,7 @@ const Card = styled(Link)`
     background-color: ${colorVariants.black};
     color: ${colorVariants.white};
     width: 100%;
-    height: 100%;
+    height: 250px;
     border: 3px solid ${colorVariants.mainColor};
     border-radius: 6px;
     transition: all linear .2s;
