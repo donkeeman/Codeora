@@ -49,7 +49,7 @@ const GlobalStyle = createGlobalStyle`
         max-height: 100%;
         overflow: auto;
         margin: ${variables.HEADER_HEIGHT}px auto 0;
-        padding: 20px 8%;
+        padding: 20px 6%;
     }
     .main {
         max-width: ${variables.MAX_WIDTH}px;
