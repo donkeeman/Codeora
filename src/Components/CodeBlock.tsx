@@ -47,6 +47,7 @@ const CodeBlock = ({ code, language }: HighlighterData) => {
                     margin: "0",
                     padding: "24px 20px",
                     borderRadius: "6px",
+                    overflowX:"hidden"
                 }}
                 codeTagProps={{
                     style: {
