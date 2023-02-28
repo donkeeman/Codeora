@@ -6,12 +6,19 @@ import { CheckBoxInputData } from "../Constants/types";
 const CheckBoxWrapper = styled.div`
     display: flex;
     align-items: center;
+    &,
+    & * {
+        cursor: pointer;
+    }
 `;
 
 const CheckBoxInput = styled.input`
     width: 16px;
     height: 16px;
     accent-color: ${colorVariants.mainColor};
+    &:focus-visible {
+        outline: 2px solid ${colorVariants.mainColor};
+    }
 `;
 
 const CheckBoxLabel = styled.label`
