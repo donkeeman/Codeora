@@ -13,7 +13,7 @@ import Textarea from "../Components/Textarea";
 import Title from "../Components/Title";
 import { autoCloseMap } from "../Constants/autoCloseMap";
 import { CodeData } from "../Constants/types";
-import { titleMaxLength } from "../Constants/variables";
+import { variables } from "../Constants/variables";
 
 const EditCodeWrapper = styled.section`
     width: 100%;
@@ -27,7 +27,7 @@ const CodeWrapper = styled.div`
     display: flex;
     margin: 16px auto;
     gap: 20px;
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: ${variables.MEDIA_FIRST_WIDTH}px) {
         flex-direction: column;
         gap: 12px;
     }
@@ -39,7 +39,7 @@ const CodeInfoWrapper = styled.div`
     justify-content: space-between;
     flex: 0.8 0 0;
     overflow: hidden;
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: ${variables.MEDIA_FIRST_WIDTH}px) {
         flex: 1;
         justify-content: flex-start;
         gap: 10px;
@@ -76,8 +76,8 @@ const EditCode = () => {
     ) => {
         if (event.target.id === "title") {
             setTitleError(
-                event.target.value.length > titleMaxLength
-                    ? `최대 ${titleMaxLength}자까지 가능합니다.`
+                event.target.value.length > variables.TITLE_MAX_COUNT
+                    ? `최대 ${variables.TITLE_MAX_COUNT}자까지 가능합니다.`
                     : ""
             );
         }
@@ -144,13 +144,15 @@ const EditCode = () => {
     const addTagHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (tagRef.current) {
             if (event.key === " " || event.key === "Enter") {
-                if (posting.tag.length < 3) {
+                if (posting.tag.length < variables.TAG_MAX_COUNT) {
                     setPosting({
                         ...posting,
                         tag: [...posting.tag, tagRef.current.value.trim()],
                     });
                 } else {
-                    alert("태그는 최대 3개까지 입력 가능합니다.");
+                    alert(
+                        `태그는 최대 ${variables.TAG_MAX_COUNT}개까지 입력 가능합니다.`
+                    );
                 }
                 tagRef.current.value = "";
             }
@@ -212,7 +214,7 @@ const EditCode = () => {
                         type="text"
                         id="title"
                         labelName="제목"
-                        placeholder="최대 16자"
+                        placeholder={`최대 ${variables.TAG_MAX_COUNT}자`}
                         onChangeFunction={postingHandler}
                         defaultValue={posting.title}
                         key={posting.id}
@@ -229,7 +231,7 @@ const EditCode = () => {
                         type="text"
                         id="tag"
                         labelName="태그"
-                        placeholder="최대 3개, 스페이스 바 또는 엔터로 입력"
+                        placeholder={`최대 ${variables.TAG_MAX_COUNT}개, 스페이스 바 또는 엔터로 입력`}
                         onKeyDownFunction={addTagHandler}
                         innerRef={tagRef}
                     />

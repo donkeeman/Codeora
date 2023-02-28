@@ -9,6 +9,7 @@ import StringInput from "../Components/StringInput";
 import Title from "../Components/Title";
 import { regExps } from "../Constants/regExps";
 import { UserData } from "../Constants/types";
+import { variables } from "../Constants/variables";
 
 const SignUpWrapper = styled.section`
     display: flex;
@@ -16,6 +17,12 @@ const SignUpWrapper = styled.section`
     width: 80%;
     margin: 0 auto;
     gap: 20px;
+    @media screen and (max-width: ${variables.MEDIA_FIRST_WIDTH}px) {
+        width: 90%;
+    }
+    @media screen and (max-width: ${variables.MEDIA_SECOND_WIDTH}px) {
+        width: 100%;
+    }
 `;
 
 const SignUp = () => {

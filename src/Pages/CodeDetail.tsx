@@ -10,6 +10,7 @@ import { currentCodeState, currentUserState } from "../Configs/atoms";
 import { db } from "../Configs/firebase";
 import { queryKeys } from "../Constants/queryKeys";
 import Button from "../Components/Button";
+import { variables } from "../Constants/variables";
 
 const CodeDetailWrapper = styled.section`
     width: 100%;
@@ -31,7 +32,7 @@ const CodeWrapper = styled.div`
         display: block;
     }
 
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: ${variables.MEDIA_FIRST_WIDTH}px) {
         flex-direction: column;
         gap: 12px;
         .narrow {
@@ -49,7 +50,7 @@ const CodeInfoWrapper = styled.div`
     justify-content: space-between;
     flex: 0.8 0 0;
     overflow: hidden;
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: ${variables.MEDIA_FIRST_WIDTH}px) {
         flex: 1;
         gap: 12px;
     }

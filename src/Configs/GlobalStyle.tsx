@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 import { colorVariants } from "../Constants/colorVariants";
-import { headerHeight, maxWidth } from "../Constants/variables";
+import { variables } from "../Constants/variables";
 
 const GlobalStyle = createGlobalStyle`
     ${reset}
@@ -48,11 +48,11 @@ const GlobalStyle = createGlobalStyle`
     .App{
         max-height: 100%;
         overflow: auto;
-        margin: ${headerHeight}px auto 0;
+        margin: ${variables.HEADER_HEIGHT}px auto 0;
         padding: 20px 8%;
     }
     .main {
-        max-width: ${maxWidth}px;
+        max-width: ${variables.MAX_WIDTH}px;
         margin: 0 auto;
     }
     h1, h2 {

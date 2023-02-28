@@ -5,8 +5,8 @@ import styled from "styled-components";
 import { colorVariants } from "../Constants/colorVariants";
 import { currentUserState, persistLoginState } from "../Configs/atoms";
 import { signOutUser } from "../Services/auth";
-import { headerMaxHeight } from "../Constants/variables";
 import { logoPaths } from "../Constants/assetPath";
+import { variables } from "../Constants/variables";
 import {
     faKeyboard,
     faRightFromBracket,
@@ -21,16 +21,17 @@ const HeaderWrapper = styled.header`
     top: 0;
     left: 0;
     width: 100%;
-    height: ${headerMaxHeight}px;
+    height: ${variables.HEADER_HEIGHT}px;
     background-color: ${colorVariants.darkBlack};
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 50px;
-    @media screen and (max-width: 830px) {
+    z-index: 200;
+    @media screen and (max-width: ${variables.MEDIA_FIRST_WIDTH}px) {
         padding: 0 20px;
     }
-    @media screen and (max-width: 540px) {
+    @media screen and (max-width: ${variables.MEDIA_SECOND_WIDTH}px) {
         justify-content: center;
         padding: 0;
     }
@@ -45,7 +46,7 @@ const Logo = styled.h1`
     .narrow {
         display: none;
     }
-    @media screen and (max-width: 540px) {
+    @media screen and (max-width: ${variables.MEDIA_SECOND_WIDTH}px) {
         width: 120px;
         .wide {
             display: none;
@@ -60,7 +61,7 @@ const NavWrapper = styled.nav`
     display: flex;
     align-items: center;
     gap: 16px;
-    @media screen and (max-width: 540px) {
+    @media screen and (max-width: ${variables.MEDIA_SECOND_WIDTH}px) {
         display: none;
         /* 메뉴가 많아진다면 햄버거 메뉴 형식으로 */
     }
@@ -71,12 +72,12 @@ const User = styled.strong`
     &:after {
         content: "님, 어서 오세요!";
     }
-    @media screen and (max-width: 830px) {
+    @media screen and (max-width: ${variables.MEDIA_FIRST_WIDTH}px) {
         &:after {
             content: "";
         }
     }
-    @media screen and (max-width: 540px) {
+    @media screen and (max-width: ${variables.MEDIA_SECOND_WIDTH}px) {
         display: none;
     }
 `;
@@ -89,7 +90,7 @@ const NavList = styled.ul`
     &.narrow {
         display: none;
     }
-    @media screen and (max-width: 830px) {
+    @media screen and (max-width: ${variables.MEDIA_FIRST_WIDTH}px) {
         gap: 6px;
         &.wide {
             display: none;

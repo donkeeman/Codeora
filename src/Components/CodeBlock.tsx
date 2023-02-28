@@ -5,6 +5,7 @@ import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import styled from "styled-components";
 import { languageMap } from "../Constants/languageMap";
 import { HighlighterData } from "../Constants/types";
+import { variables } from "../Constants/variables";
 import IconButton from "./IconButton";
 
 const CodeBlockWrapper = styled.div`
@@ -12,7 +13,7 @@ const CodeBlockWrapper = styled.div`
     min-height: 520px;
     margin: 0;
     flex: 0.9 0 0;
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: ${variables.MEDIA_FIRST_WIDTH}px) {
         min-height: 300px;
     }
     & > button {

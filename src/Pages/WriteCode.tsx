@@ -13,7 +13,7 @@ import Textarea from "../Components/Textarea";
 import Title from "../Components/Title";
 import { autoCloseMap } from "../Constants/autoCloseMap";
 import { CodeData } from "../Constants/types";
-import { titleMaxLength } from "../Constants/variables";
+import { variables } from "../Constants/variables";
 
 const WriteCodeWrapper = styled.section`
     width: 100%;
@@ -75,8 +75,8 @@ const WriteCode = () => {
     ) => {
         if (event.target.id === "title") {
             setTitleError(
-                event.target.value.length > titleMaxLength
-                    ? `최대 ${titleMaxLength}자까지 가능합니다.`
+                event.target.value.length > variables.TITLE_MAX_COUNT
+                    ? `최대 ${variables.TITLE_MAX_COUNT}자까지 가능합니다.`
                     : ""
             );
         }
@@ -143,11 +143,13 @@ const WriteCode = () => {
     const addTagHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (tagRef.current) {
             if (event.key === " " || event.key === "Enter") {
-                if (posting.tag.length < 3) {
+                if (posting.tag.length < variables.TAG_MAX_COUNT) {
                     posting.tag.push(tagRef.current.value.trim());
                     setPosting({ ...posting });
                 } else {
-                    alert("태그는 최대 3개까지 입력 가능합니다.");
+                    alert(
+                        `태그는 최대 ${variables.TAG_MAX_COUNT}개까지 입력 가능합니다.`
+                    );
                 }
                 tagRef.current.value = "";
             }
@@ -197,7 +199,7 @@ const WriteCode = () => {
                         type="text"
                         id="title"
                         labelName="제목"
-                        placeholder="최대 16자"
+                        placeholder={`최대 ${variables.TITLE_MAX_COUNT}자`}
                         onChangeFunction={postingHandler}
                         message={titleError}
                     />
@@ -211,7 +213,7 @@ const WriteCode = () => {
                         type="text"
                         id="tag"
                         labelName="태그"
-                        placeholder="최대 3개, 스페이스 바 또는 엔터로 입력"
+                        placeholder={`최대 ${variables.TAG_MAX_COUNT}개, 스페이스 바 또는 엔터로 입력`}
                         onKeyDownFunction={addTagHandler}
                         innerRef={tagRef}
                     />

@@ -5,13 +5,14 @@ import styled from "styled-components";
 import { colorVariants } from "../Constants/colorVariants";
 import { languageMap } from "../Constants/languageMap";
 import { EditorData } from "../Constants/types";
+import { variables } from "../Constants/variables";
 
 const CodeEditorWrapper = styled.div`
     position: relative;
     min-height: 520px;
     margin: 0;
     flex: 0.9 0 0;
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: ${variables.MEDIA_FIRST_WIDTH}px) {
         min-height: 300px;
     }
 `;
