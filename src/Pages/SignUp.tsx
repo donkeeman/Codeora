@@ -5,7 +5,7 @@ import { createAccount } from "../Services/auth";
 import styled from "styled-components";
 import Button from "../Components/Button";
 import LinkMsgWrapper from "../Components/LinkMsgWrapper";
-import StringInput from "../Components/StringInput";
+import StringInput from "../Components/TextInput";
 import Title from "../Components/Title";
 import { regExps } from "../Constants/regExps";
 import { UserData } from "../Constants/types";

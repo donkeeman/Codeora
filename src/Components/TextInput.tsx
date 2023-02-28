@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { colorVariants } from "../Constants/colorVariants";
-import { StringInputData } from "../Constants/types";
+import { TextInputData } from "../Constants/types";
 
 const InputWrapper = styled.div`
     position: relative;
@@ -40,7 +40,7 @@ const ErrorMessage = styled.p`
     color: red;
 `;
 
-const StringInput = ({
+const TextInput = ({
     type,
     id,
     labelName,
@@ -50,7 +50,7 @@ const StringInput = ({
     onKeyDownFunction,
     defaultValue,
     placeholder,
-}: StringInputData) => {
+}: TextInputData) => {
     return (
         <InputWrapper>
             <InputLabel htmlFor={id}>{labelName}</InputLabel>
@@ -70,4 +70,4 @@ const StringInput = ({
     );
 };
 
-export default StringInput;
+export default TextInput;

@@ -13,7 +13,7 @@ import { regExps } from "../Constants/regExps";
 import Button from "../Components/Button";
 import CheckBox from "../Components/CheckBox";
 import LinkMsgWrapper from "../Components/LinkMsgWrapper";
-import StringInput from "../Components/StringInput";
+import StringInput from "../Components/TextInput";
 import Title from "../Components/Title";
 import { LoginData } from "../Constants/types";
 import { variables } from "../Constants/variables";

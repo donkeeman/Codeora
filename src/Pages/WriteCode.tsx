@@ -7,7 +7,7 @@ import { currentUserState } from "../Configs/atoms";
 import { db } from "../Configs/firebase";
 import Button from "../Components/Button";
 import CodeEditor from "../Components/CodeEditor";
-import StringInput from "../Components/StringInput";
+import StringInput from "../Components/TextInput";
 import Tag from "../Components/Tag";
 import Textarea from "../Components/Textarea";
 import Title from "../Components/Title";

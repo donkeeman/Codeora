@@ -65,7 +65,7 @@ export interface InputData {
 }
 
 // type="text"인 input에 사용
-export interface StringInputData extends InputData {
+export interface TextInputData extends InputData {
     type: string;
     innerRef?: MutableRefObject<HTMLInputElement | null>;
     onChangeFunction?: React.ChangeEventHandler<HTMLInputElement>;
