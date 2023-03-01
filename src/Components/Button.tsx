@@ -56,7 +56,7 @@ const StyledButton = styled.button`
 const Button = ({
     type = "primary",
     disabled,
-    content,
+    message,
     onClickFunction,
     social,
 }: buttonData) => {
@@ -77,7 +77,7 @@ const Button = ({
                         alt={social + "Login"}
                     />
                 )}
-                {content}
+                {message}
             </StyledButton>
         </>
     );

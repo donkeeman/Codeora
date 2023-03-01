@@ -205,21 +205,21 @@ const SignIn = () => {
             </CheckBoxWrapper>
             <Button
                 disabled={!(signInData.email && signInData.password)}
-                content={"로그인"}
+                message={"로그인"}
                 onClickFunction={() => signInHandler("email")}
             />
             <OrMessage>또는</OrMessage>
             <Button
                 type="social"
                 disabled={false}
-                content={"구글 계정으로 로그인"}
+                message={"구글 계정으로 로그인"}
                 onClickFunction={() => signInHandler("google")}
                 social="google"
             />
             <Button
                 type="social"
                 disabled={false}
-                content={"깃허브 계정으로 로그인"}
+                message={"깃허브 계정으로 로그인"}
                 onClickFunction={() => signInHandler("github")}
                 social="github"
             />

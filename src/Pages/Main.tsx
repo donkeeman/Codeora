@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { useInfiniteQuery } from "react-query";
 import {
@@ -18,6 +18,7 @@ import { currentUserState } from "../Configs/atoms";
 import { db } from "../Configs/firebase";
 import { queryKeys } from "../Constants/queryKeys";
 import { variables } from "../Constants/variables";
+import ButtonLink from "../Components/ButtonLink";
 
 const MainWrapper = styled.section`
     width: 100%;
@@ -53,26 +54,37 @@ const ObserveLi = styled.li`
     }
 `;
 
+const NoCodeWrapper = styled.div`
+    width: fit-content;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`;
+
+const NoCodeMessage = styled.p`
+    font-size: 20px;
+    margin: 20px auto;
+`;
+
 const Main = () => {
     const observeTargetRef = useRef(null);
     const userData = useRecoilValue(currentUserState);
-    const navigate = useNavigate();
 
     const getCodeList = async (pageParam: DocumentData | undefined) => {
         if (userData) {
-            const codeQuery =
-                pageParam !== undefined
-                    ? query(
-                          collection(db, `user/${userData.uid}/codes`),
-                          orderBy("timestamp", "desc"),
-                          limit(variables.CODE_LIMIT),
-                          startAfter(pageParam)
-                      )
-                    : query(
-                          collection(db, `user/${userData.uid}/codes`),
-                          orderBy("timestamp", "desc"),
-                          limit(variables.CODE_LIMIT)
-                      );
+            const codeQuery = pageParam
+                ? query(
+                      collection(db, `user/${userData.uid}/codes`),
+                      orderBy("timestamp", "desc"),
+                      limit(variables.CODE_LIMIT),
+                      startAfter(pageParam)
+                  )
+                : query(
+                      collection(db, `user/${userData.uid}/codes`),
+                      orderBy("timestamp", "desc"),
+                      limit(variables.CODE_LIMIT)
+                  );
             const codeSnapshot = await getDocs(codeQuery);
             return {
                 data: codeSnapshot.docs,
@@ -146,12 +158,15 @@ const Main = () => {
                         </>
                     </CodeList>
                 ) : (
-                    <>
-                        <p>저장된 코드가 없습니다.</p>
-                        <button onClick={() => navigate("/write")}>
-                            코드 작성하기
-                        </button>
-                    </>
+                    <NoCodeWrapper>
+                        <NoCodeMessage>저장된 코드가 없습니다.</NoCodeMessage>
+                        <NoCodeMessage>코드를 작성해 보세요!</NoCodeMessage>
+                        <ButtonLink
+                            disabled={false}
+                            message={"코드 작성하기"}
+                            to="/write"
+                        />
+                    </NoCodeWrapper>
                 ))}
         </MainWrapper>
     ) : (

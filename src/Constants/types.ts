@@ -24,7 +24,7 @@ export interface TextLinkData {
     message: string;
     linkRoute: string;
     linkMessage: string;
-};
+}
 
 // 코드 하이라이터에 사용
 export interface HighlighterData {
@@ -51,12 +51,20 @@ export interface CodeData {
 
 // button 기본 속성
 export interface buttonData {
-    content: string;
+    message: string;
     onClickFunction: React.MouseEventHandler<HTMLButtonElement>;
     disabled: boolean;
     social?: string;
     type?: string;
-};
+}
+
+// Link 기본 속성
+export interface linkData {
+    message: string;
+    to: string;
+    disabled: boolean;
+    type?: string;
+}
 
 // input 기본 속성
 export interface InputData {
@@ -79,7 +87,7 @@ export interface TextInputData extends InputData {
 export interface CheckBoxInputData extends InputData {
     onChangeFunction: React.ChangeEventHandler<HTMLInputElement>;
     checked?: boolean;
-};
+}
 
 // textarea에 사용
 export interface TextareaData extends InputData {

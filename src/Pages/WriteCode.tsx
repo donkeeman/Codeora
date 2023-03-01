@@ -240,13 +240,13 @@ const WriteCode = () => {
                                 !titleError
                             )
                         }
-                        content="코드 작성"
+                        message="코드 작성"
                         onClickFunction={uploadCodeHandler}
                     />
                     <Button
                         type="secondary"
                         disabled={false}
-                        content="작성 취소"
+                        message="작성 취소"
                         onClickFunction={() => navigate(-1)}
                     />
                 </CodeInfoWrapper>

@@ -259,13 +259,13 @@ const EditCode = () => {
                                 !titleError
                             )
                         }
-                        content="코드 수정"
+                        message="코드 수정"
                         onClickFunction={editCodeHandler}
                     />
                     <Button
                         type="secondary"
                         disabled={false}
-                        content="수정 취소"
+                        message="수정 취소"
                         onClickFunction={() => navigate(-1)}
                     />
                 </CodeInfoWrapper>

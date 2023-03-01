@@ -167,7 +167,7 @@ const SignUp = () => {
                         signUpData.userName
                     )
                 }
-                content="가입하기"
+                message="가입하기"
                 onClickFunction={signUpHandler}
             />
             <LinkMsgWrapper

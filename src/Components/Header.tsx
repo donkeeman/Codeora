@@ -167,13 +167,11 @@ const Header = () => {
                         <User>{userData.displayName}</User>
                         <NavList className="wide">
                             <li>
-                                <NavLink to="/write">
-                                    <span>코드 작성</span>
-                                </NavLink>
+                                <NavLink to="/write">코드 작성</NavLink>
                             </li>
                             <li>
                                 <NavButton onClick={signOutHandler}>
-                                    <span>로그아웃</span>
+                                    로그아웃
                                 </NavButton>
                             </li>
                         </NavList>
@@ -199,14 +197,10 @@ const Header = () => {
                     <>
                         <NavList className="wide">
                             <li>
-                                <NavLink to="/signup">
-                                    <span>회원 가입</span>
-                                </NavLink>
+                                <NavLink to="/signup">회원 가입</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/signin">
-                                    <span>로그인</span>
-                                </NavLink>
+                                <NavLink to="/signin">로그인</NavLink>
                             </li>
                         </NavList>
                         <NavList className="narrow">

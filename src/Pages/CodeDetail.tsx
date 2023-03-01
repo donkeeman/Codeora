@@ -11,6 +11,7 @@ import { db } from "../Configs/firebase";
 import { queryKeys } from "../Constants/queryKeys";
 import Button from "../Components/Button";
 import { variables } from "../Constants/variables";
+import ButtonLink from "../Components/ButtonLink";
 
 const CodeDetailWrapper = styled.section`
     width: 100%;
@@ -181,7 +182,7 @@ const CodeDetail = () => {
                             </TagList>
                             <Button
                                 disabled={false}
-                                content="코드 수정"
+                                message="코드 수정"
                                 onClickFunction={() => {
                                     setCodeData({
                                         id: postingId,
@@ -196,14 +197,14 @@ const CodeDetail = () => {
                             />
                             <Button
                                 disabled={false}
-                                content="코드 삭제"
+                                message="코드 삭제"
                                 onClickFunction={deleteCodeHandler}
                             />
-                            <Button
+                            <ButtonLink
                                 disabled={false}
                                 type="secondary"
-                                content="목록으로 돌아가기"
-                                onClickFunction={() => navigate("/")}
+                                message="목록으로 돌아가기"
+                                to="/"
                             />
                         </CodeInfoWrapper>
                     </CodeWrapper>
