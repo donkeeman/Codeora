@@ -5,7 +5,7 @@ import Loading from "./Components/Loading";
 import Header from "./Components/Header";
 import { currentUserState, persistLoginState } from "./Configs/atoms";
 import GlobalStyle from "./Configs/GlobalStyle";
-import Router from "./Configs/Router";
+import { Outlet } from "react-router";
 
 const App = () => {
     const setUserData = useSetRecoilState(currentUserState);
@@ -20,7 +20,7 @@ const App = () => {
             <Header />
             <main className="main">
                 <Loading />
-                <Router />
+                <Outlet />
             </main>
             <ReactQueryDevtools />
         </div>
