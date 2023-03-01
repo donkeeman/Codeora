@@ -8,7 +8,7 @@ const StyledLink = styled(Link)`
     display: block;
     font-size: 20px;
     font-weight: bold;
-    min-width: 100px;
+    width: 100%;
     padding: 12px 20px;
     border: none;
     border-radius: 6px;
