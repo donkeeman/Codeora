@@ -59,7 +59,6 @@ const GlobalStyle = createGlobalStyle`
         font-weight: bold;
     }
     a, a:visited, a:hover {
-        color: inherit;
         text-decoration: none;
         line-height: normal;
     }
