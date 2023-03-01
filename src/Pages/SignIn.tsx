@@ -70,9 +70,10 @@ const SignIn = () => {
     const [saveEmail, setSaveEmail] = useState(false);
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
-    const [userData, setUserData] = useRecoilState(currentUserState);
+    const setUserData = useSetRecoilState(currentUserState);
     const [savedEmailData, setSavedEmailData] = useRecoilState(savedEmailState);
-    const setPersistLoginData = useSetRecoilState(persistLoginState);
+    const [persistLoginData, setPersistLoginData] =
+        useRecoilState(persistLoginState);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -103,7 +104,7 @@ const SignIn = () => {
     };
 
     const signInHandler = async (signInType: string) => {
-        let userData;
+        let userInfo;
         try {
             switch (signInType) {
                 case "email":
@@ -116,21 +117,25 @@ const SignIn = () => {
                         return;
                     }
                     if (signInData.email && signInData.password) {
-                        userData = await signInEmail(
+                        userInfo = await signInEmail(
                             signInData.email,
                             signInData.password
                         );
                     }
                     break;
                 case "google":
-                    userData = await signInGoogle();
-                    setPersistLogin(true);
+                    userInfo = await signInGoogle();
                     break;
                 case "github":
-                    userData = await signInGithub();
-                    setPersistLogin(true);
+                    userInfo = await signInGithub();
                     break;
             }
+            if (userInfo) {
+                setUserData(userInfo.user);
+                setPersistLoginData(persistLogin ? userInfo.user : undefined);
+                setSavedEmailData(saveEmail ? signInData.email : undefined);
+            }
+            navigate("/");
         } catch (error) {
             if (error instanceof FirebaseError) {
                 let errorMessage = "";
@@ -155,15 +160,9 @@ const SignIn = () => {
                 return;
             }
         }
-        if (userData) {
-            setUserData(userData.user);
-            setSavedEmailData(saveEmail ? signInData.email : undefined);
-            setPersistLoginData(persistLogin ? userData.user : undefined);
-        }
-        navigate("/");
     };
 
-    return userData ? (
+    return persistLoginData ? (
         <Navigate to="/" />
     ) : (
         <SignInWrapper>
@@ -201,6 +200,7 @@ const SignIn = () => {
                     id="persistLogin"
                     labelName="로그인 유지"
                     onChangeFunction={persistLoginHandler}
+                    checked={persistLogin}
                 />
             </CheckBoxWrapper>
             <Button

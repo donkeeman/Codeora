@@ -20,7 +20,7 @@ export const currentUserState = atom<User | undefined>({
 
 // 자동 로그인 사용자 정보
 export const persistLoginState = atom<User | undefined>({
-    key: "loginPersistUserState",
+    key: "persistLoginUserState",
     default: undefined,
     effects_UNSTABLE: [localPersistAtom],
 });
