@@ -6,7 +6,7 @@ import ButtonLink from "../Components/ButtonLink";
 import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSurprise } from "@fortawesome/free-solid-svg-icons";
-import { colorVariants } from "../Constants/colorVariants";
+import { colors } from "../Constants/colors";
 
 const NotfoundWrapper = styled.section`
     display: flex;
@@ -18,7 +18,7 @@ const NotfoundWrapper = styled.section`
     gap: 20px;
     & > svg {
         margin: 60px 0 20px;
-        color: ${colorVariants.mainColor};
+        color: ${colors.mainColor};
     }
 `;
 

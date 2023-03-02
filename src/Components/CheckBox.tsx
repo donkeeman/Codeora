@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { colorVariants } from "../Constants/colorVariants";
+import { colors } from "../Constants/colors";
 import { CheckBoxInputData } from "../Constants/types";
 
 const CheckBoxWrapper = styled.div`
@@ -15,9 +15,9 @@ const CheckBoxWrapper = styled.div`
 const CheckBoxInput = styled.input`
     width: 16px;
     height: 16px;
-    accent-color: ${colorVariants.mainColor};
+    accent-color: ${colors.mainColor};
     &:focus-visible {
-        outline: 2px solid ${colorVariants.mainColor};
+        outline: 2px solid ${colors.mainColor};
     }
 `;
 

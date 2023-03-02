@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { colorVariants } from "../Constants/colorVariants";
+import { colors } from "../Constants/colors";
 
 const SpinnerWrapper = styled.div`
     box-sizing: border-box;
@@ -18,7 +18,7 @@ const SpinnerDiv = styled.div<{ delay?: string }>`
     height: 64px;
     border-radius: 50%;
     border: 8px solid transparent;
-    border-top-color: ${colorVariants.mainColor};
+    border-top-color: ${colors.mainColor};
     animation: rotateCircle 1.2s ${(props) => props.delay || "0s"} ease-in-out
         infinite;
 

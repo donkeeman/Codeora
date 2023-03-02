@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { colorVariants } from "../Constants/colorVariants";
+import { colors } from "../Constants/colors";
 import { IconButtonData } from "../Constants/types";
 
 const ButtonWrapper = styled.button<{
@@ -15,16 +15,16 @@ const ButtonWrapper = styled.button<{
     &:focus-visible,
     &:hover {
         outline-style: none;
-        color: ${colorVariants.mainColor};
+        color: ${colors.mainColor};
         &::after {
             position: absolute;
-            background-color: ${colorVariants.black};
+            background-color: ${colors.black};
             bottom: -30%;
             left: 50%;
             transform: translateX(-50%);
             content: "${(props) => props.subMessage}";
             padding: 0 6px;
-            color: ${colorVariants.white};
+            color: ${colors.white};
             border: 1px solid gray;
         }
     }

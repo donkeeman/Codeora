@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import styled from "styled-components";
-import { colorVariants } from "../Constants/colorVariants";
+import { colors } from "../Constants/colors";
 import { languageMap } from "../Constants/languageMap";
 import { EditorData } from "../Constants/types";
 import { variables } from "../Constants/variables";
@@ -30,7 +30,7 @@ const Editor = styled.textarea`
     background-color: transparent;
     color: transparent;
     border: 3px solid gray;
-    caret-color: ${colorVariants.white};
+    caret-color: ${colors.white};
     font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     font-size: 16px;
     text-align: left;
@@ -45,7 +45,7 @@ const Editor = styled.textarea`
     border-radius: 6px;
     &:focus-visible {
         outline-style: none;
-        border-color: ${colorVariants.mainColor};
+        border-color: ${colors.mainColor};
     }
 `;
 
@@ -59,7 +59,7 @@ const Select = styled.select`
     z-index: 100;
     &:focus-visible {
         outline-style: none;
-        border-color: ${colorVariants.mainColor};
+        border-color: ${colors.mainColor};
     }
 `;
 

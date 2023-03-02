@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { colorVariants } from "../Constants/colorVariants";
+import { colors } from "../Constants/colors";
 import { TextLinkData } from "../Constants/types";
 
 const LinkWrapper = styled.div`
@@ -17,7 +17,7 @@ const Text = styled(Link)`
     &,
     &:visited,
     &:hover {
-        color: ${colorVariants.mainColor};
+        color: ${colors.mainColor};
         text-decoration: underline;
         font-size: 16px;
     }

@@ -4,7 +4,7 @@ import Title from "../Components/Title";
 import ButtonLink from "../Components/ButtonLink";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSmileWink } from "@fortawesome/free-solid-svg-icons";
-import { colorVariants } from "../Constants/colorVariants";
+import { colors } from "../Constants/colors";
 
 const SignUpSuccessWrapper = styled.section`
     display: flex;
@@ -16,7 +16,7 @@ const SignUpSuccessWrapper = styled.section`
     margin: 0 auto;
     & > svg {
         margin: 60px 0 20px;
-        color: ${colorVariants.mainColor};
+        color: ${colors.mainColor};
     }
 `;
 

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { colorVariants } from "../Constants/colorVariants";
+import { colors } from "../Constants/colors";
 import { TextareaData } from "../Constants/types";
 
 const TextareaWrapper = styled.div`
@@ -24,10 +24,10 @@ const ContentTextarea = styled.textarea`
     border: 3px solid gray;
     border-radius: 6px;
     background-color: transparent;
-    caret-color: ${colorVariants.white};
+    caret-color: ${colors.white};
     &:focus-visible {
         outline-style: none;
-        border-color: ${colorVariants.mainColor};
+        border-color: ${colors.mainColor};
     }
 `;
 

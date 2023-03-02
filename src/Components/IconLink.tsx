@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { colorVariants } from "../Constants/colorVariants";
+import { colors } from "../Constants/colors";
 import { IconLinkData } from "../Constants/types";
 
 const LinkWrapper = styled(Link)<{
@@ -20,17 +20,17 @@ const LinkWrapper = styled(Link)<{
     &:focus-visible,
     &:hover {
         outline-style: none;
-        color: ${colorVariants.mainColor};
+        color: ${colors.mainColor};
         &::after {
             position: absolute;
-            background-color: ${colorVariants.black};
+            background-color: ${colors.black};
             bottom: -30%;
             left: 50%;
             transform: translateX(-50%);
             content: "${(props) => props.$subMessage}";
             white-space: nowrap;
             padding: 0 6px;
-            color: ${colorVariants.white};
+            color: ${colors.white};
             border: 1px solid gray;
         }
     }

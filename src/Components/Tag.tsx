@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { colorVariants } from "../Constants/colorVariants";
+import { colors } from "../Constants/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
@@ -12,16 +12,16 @@ const TagLi = styled.li`
     height: 100%;
     white-space: nowrap;
     border-radius: 24px;
-    outline: 2px solid ${colorVariants.black};
-    background-color: ${colorVariants.mainColor};
-    color: ${colorVariants.black};
+    outline: 2px solid ${colors.black};
+    background-color: ${colors.mainColor};
+    color: ${colors.black};
 `;
 
 const DeleteButton = styled.button`
     background-color: transparent;
     border: none;
     margin-right: -4px;
-    color: ${colorVariants.black};
+    color: ${colors.black};
 `;
 
 type tagData = {

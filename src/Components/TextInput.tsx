@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { colorVariants } from "../Constants/colorVariants";
+import { colors } from "../Constants/colors";
 import { TextInputData } from "../Constants/types";
 
 const InputWrapper = styled.div`
@@ -29,7 +29,7 @@ const Input = styled.input`
     }
     &:focus-visible {
         outline-style: none;
-        border-color: ${colorVariants.mainColor};
+        border-color: ${colors.mainColor};
     }
 `;
 

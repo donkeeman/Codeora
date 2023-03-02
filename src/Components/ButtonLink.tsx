@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { colorVariants } from "../Constants/colorVariants";
+import { colors } from "../Constants/colors";
 import { linkData } from "../Constants/types";
 
 const StyledLink = styled(Link)`
@@ -13,25 +13,25 @@ const StyledLink = styled(Link)`
     border: none;
     border-radius: 6px;
     transition: all 0.2s ease;
-    border: 3px solid ${colorVariants.mainColor};
-    background-color: ${colorVariants.mainColor};
-    color: ${colorVariants.black};
+    border: 3px solid ${colors.mainColor};
+    background-color: ${colors.mainColor};
+    color: ${colors.black};
     &.primary {
-        border: 3px solid ${colorVariants.mainColor};
-        background-color: ${colorVariants.mainColor};
-        color: ${colorVariants.black};
+        border: 3px solid ${colors.mainColor};
+        background-color: ${colors.mainColor};
+        color: ${colors.black};
         &:disabled,
         &:disabled:hover {
-            border-color: ${colorVariants.gray};
+            border-color: ${colors.gray};
             color: darkgray;
-            background-color: ${colorVariants.gray};
+            background-color: ${colors.gray};
             cursor: not-allowed;
         }
     }
     &.secondary {
-        border: 3px solid ${colorVariants.mainColor};
-        background-color: ${colorVariants.black};
-        color: ${colorVariants.mainColor};
+        border: 3px solid ${colors.mainColor};
+        background-color: ${colors.black};
+        color: ${colors.mainColor};
     }
 `;
 

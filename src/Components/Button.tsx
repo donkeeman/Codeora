@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { colorVariants } from "../Constants/colorVariants";
+import { colors } from "../Constants/colors";
 import { iconPaths } from "../Constants/assetPath";
 import { buttonData } from "../Constants/types";
 
@@ -14,24 +14,24 @@ const StyledButton = styled.button`
     border-radius: 6px;
     transition: all 0.2s ease;
     &.primary {
-        border: 3px solid ${colorVariants.mainColor};
-        background-color: ${colorVariants.mainColor};
-        color: ${colorVariants.black};
+        border: 3px solid ${colors.mainColor};
+        background-color: ${colors.mainColor};
+        color: ${colors.black};
         &:disabled,
         &:disabled:hover {
-            border-color: ${colorVariants.gray};
+            border-color: ${colors.gray};
             color: darkgray;
-            background-color: ${colorVariants.gray};
+            background-color: ${colors.gray};
             cursor: not-allowed;
         }
     }
     &.secondary {
-        border: 3px solid ${colorVariants.mainColor};
-        background-color: ${colorVariants.black};
-        color: ${colorVariants.mainColor};
+        border: 3px solid ${colors.mainColor};
+        background-color: ${colors.black};
+        color: ${colors.mainColor};
     }
     &.social {
-        color: ${colorVariants.white};
+        color: ${colors.white};
         &.google {
             background-color: #4285f4;
         }

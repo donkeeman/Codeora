@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { colorVariants } from "../Constants/colorVariants";
+import { colors } from "../Constants/colors";
 import { currentUserState, persistLoginState } from "../Configs/atoms";
 import { signOutUser } from "../Services/auth";
 import { logoPaths } from "../Constants/assetPath";
@@ -23,7 +23,7 @@ const HeaderWrapper = styled.header`
     left: 0;
     width: 100%;
     height: ${variables.HEADER_HEIGHT}px;
-    background-color: ${colorVariants.darkBlack};
+    background-color: ${colors.darkBlack};
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -107,34 +107,34 @@ const NavList = styled.ul`
 `;
 
 const NavLink = styled(Link)`
-    background-color: ${colorVariants.darkBlack};
-    color: ${colorVariants.white};
+    background-color: ${colors.darkBlack};
+    color: ${colors.white};
     font-size: 18px;
     padding: 4px 16px;
     border-radius: 20px;
-    border: 3px solid ${colorVariants.mainColor};
+    border: 3px solid ${colors.mainColor};
     transition: all linear 0.2s;
     &:hover,
     &:focus-visible {
         outline: none;
-        background-color: ${colorVariants.mainColor};
-        color: ${colorVariants.black};
+        background-color: ${colors.mainColor};
+        color: ${colors.black};
     }
 `;
 
 const NavButton = styled.button`
-    background-color: ${colorVariants.darkBlack};
-    color: ${colorVariants.white};
+    background-color: ${colors.darkBlack};
+    color: ${colors.white};
     font-size: 18px;
     padding: 4px 16px;
     border-radius: 20px;
-    border: 3px solid ${colorVariants.mainColor};
+    border: 3px solid ${colors.mainColor};
     transition: all linear 0.2s;
     &:hover,
     &:focus-visible {
         outline: none;
-        background-color: ${colorVariants.mainColor};
-        color: ${colorVariants.black};
+        background-color: ${colors.mainColor};
+        color: ${colors.black};
     }
 `;
 

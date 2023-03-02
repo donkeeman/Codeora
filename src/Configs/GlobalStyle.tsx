@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
-import { colorVariants } from "../Constants/colorVariants";
+import { colors } from "../Constants/colors";
 import { variables } from "../Constants/variables";
 
 const GlobalStyle = createGlobalStyle`
@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
     html, body{
         height: 100vh;
         /* overflow: hidden; */
-        background-color: ${colorVariants.black};
+        background-color: ${colors.black};
         ::-webkit-scrollbar {
             display: none;
         }
@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
             cursor: pointer;
         }
         & *::-webkit-scrollbar-thumb {
-            background-color: ${colorVariants.gray};
+            background-color: ${colors.gray};
             background-clip: padding-box;
             border: 1px solid transparent;
             border-radius: 10px;
@@ -42,7 +42,7 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'Noto Sans KR', sans-serif;
         font-size: 14px;
         letter-spacing: -0.8px;
-        color: ${colorVariants.white};
+        color: ${colors.white};
         word-break: keep-all;
     }
     .App{
@@ -69,7 +69,7 @@ const GlobalStyle = createGlobalStyle`
         cursor: pointer;
     }
     input, textarea, select{
-        background-color: ${colorVariants.black};
+        background-color: ${colors.black};
     }
     textarea {
         resize: none;

@@ -1,4 +1,4 @@
-export const colorVariants = {
+export const colors = {
     mainColor: "rgb(0, 187, 144)",
     gray: "rgb(93, 93, 93)",
     black: "rgb(34, 34, 34)",

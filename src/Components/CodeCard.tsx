@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { colorVariants } from "../Constants/colorVariants";
+import { colors } from "../Constants/colors";
 import { languageMap } from "../Constants/languageMap";
 import Tag from "./Tag";
 
@@ -13,19 +13,19 @@ const Card = styled(Link)`
     justify-content: flex-start;
     align-items: flex-start;
     gap: 8px;
-    background-color: ${colorVariants.black};
-    color: ${colorVariants.white};
+    background-color: ${colors.black};
+    color: ${colors.white};
     width: 100%;
     height: 250px;
-    border: 3px solid ${colorVariants.mainColor};
+    border: 3px solid ${colors.mainColor};
     border-radius: 6px;
     transition: all linear .2s;
     cursor: pointer;
     &:hover,
     &:focus-visible {
         outline-style: none;
-        background-color: ${colorVariants.mainColor};
-        color: ${colorVariants.black};
+        background-color: ${colors.mainColor};
+        color: ${colors.black};
     }
     overflow: hidden;
 `;
