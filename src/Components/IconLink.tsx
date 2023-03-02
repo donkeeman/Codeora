@@ -24,7 +24,7 @@ const LinkWrapper = styled(Link)<{
         &::after {
             position: absolute;
             background-color: ${colorVariants.black};
-            top: 40px;
+            bottom: -30%;
             left: 50%;
             transform: translateX(-50%);
             content: "${(props) => props.$subMessage}";
