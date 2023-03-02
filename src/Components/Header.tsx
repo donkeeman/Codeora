@@ -11,6 +11,7 @@ import {
     faKeyboard,
     faRightFromBracket,
     faRightToBracket,
+    // faUserPen,
     faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import IconButton from "./IconButton";
@@ -32,6 +33,8 @@ const HeaderWrapper = styled.header`
         padding: 0 20px;
     }
     @media screen and (max-width: ${variables.MEDIA_SECOND_WIDTH}px) {
+        height: ${variables.HEADER_HEIGHT_MOBILE}px;
+        flex-direction: column;
         justify-content: center;
         padding: 0;
     }
@@ -53,6 +56,7 @@ const Logo = styled.h1`
         }
         .narrow {
             display: inline;
+            margin: 6px auto;
         }
     }
 `;
@@ -62,8 +66,7 @@ const NavWrapper = styled.nav`
     align-items: center;
     gap: 16px;
     @media screen and (max-width: ${variables.MEDIA_SECOND_WIDTH}px) {
-        display: none;
-        /* 메뉴가 많아진다면 햄버거 메뉴 형식으로 */
+        width: 100%;
     }
 `;
 
@@ -96,7 +99,9 @@ const NavList = styled.ul`
             display: none;
         }
         &.narrow {
+            width: 100%;
             display: flex;
+            justify-content: space-evenly;
         }
     }
 `;
@@ -176,12 +181,20 @@ const Header = () => {
                             </li>
                         </NavList>
                         <NavList className="narrow">
+                            {/* <li>
+                                <IconLink
+                                    to="/"
+                                    icon={faUserPen}
+                                    message="프로필 수정"
+                                    size="2x"
+                                />
+                            </li> */}
                             <li>
                                 <IconLink
                                     to="/write"
                                     icon={faKeyboard}
                                     message="코드 작성"
-                                    size="xl"
+                                    size="2x"
                                 />
                             </li>
                             <li>
@@ -189,6 +202,7 @@ const Header = () => {
                                     onClickFunction={signOutHandler}
                                     icon={faRightFromBracket}
                                     message="로그아웃"
+                                    size="2x"
                                 />
                             </li>
                         </NavList>

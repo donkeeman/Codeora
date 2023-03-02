@@ -50,6 +50,9 @@ const GlobalStyle = createGlobalStyle`
         overflow: auto;
         margin: ${variables.HEADER_HEIGHT}px auto 0;
         padding: 20px 6%;
+        @media screen and (max-width: ${variables.MEDIA_SECOND_WIDTH}px){
+            margin-top: ${variables.HEADER_HEIGHT_MOBILE}px;
+        }
     }
     .main {
         max-width: ${variables.MAX_WIDTH}px;

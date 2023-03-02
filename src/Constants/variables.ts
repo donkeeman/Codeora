@@ -17,6 +17,9 @@ export const variables = {
     // 헤더 컴포넌트의 높이
     HEADER_HEIGHT: 60,
 
+    // 모바일 용 헤더 컴포넌트의 높이
+    HEADER_HEIGHT_MOBILE: 114,
+
     // 무한 스크롤 시 한 번 불러올 때의 코드 개수
     CODE_LIMIT: 12,
 };
