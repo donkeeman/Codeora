@@ -6,9 +6,16 @@ import { CheckBoxInputData } from "../Constants/types";
 const CheckBoxWrapper = styled.div`
     display: flex;
     align-items: center;
+    gap: 4px;
+    padding: 4px 6px 4px 2px;
     &,
     & * {
         cursor: pointer;
+    }
+    &:focus-within {
+        outline-style: none;
+        box-shadow: 0 0 0 2px ${colors.mainColor};
+        border-radius: 6px;
     }
 `;
 
@@ -17,13 +24,12 @@ const CheckBoxInput = styled.input`
     height: 16px;
     accent-color: ${colors.mainColor};
     &:focus-visible {
-        outline: 2px solid ${colors.mainColor};
+        outline-style: none;
     }
 `;
 
 const CheckBoxLabel = styled.label`
     font-size: 16px;
-    margin-left: 4px;
 `;
 
 const CheckBox = ({
