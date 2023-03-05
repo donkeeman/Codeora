@@ -7,11 +7,14 @@ import { IconButtonData } from "../Constants/types";
 const ButtonWrapper = styled.button<{
     subMessage?: string;
 }>`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     background-color: transparent;
     border-radius: 6px;
-    width: 48px;
-    height: 48px;
+    width: 100%;
+    height: 100%;
     &:focus-visible,
     &:hover {
         outline-style: none;

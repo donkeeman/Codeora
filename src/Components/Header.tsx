@@ -5,13 +5,13 @@ import styled from "styled-components";
 import { colors } from "../Constants/colors";
 import { currentUserState, persistLoginState } from "../Configs/atoms";
 import { signOutUser } from "../Services/auth";
-import { logoPaths } from "../Constants/assetPath";
+import { logoPath } from "../Constants/assetPath";
 import { variables } from "../Constants/variables";
 import {
     faKeyboard,
     faRightFromBracket,
     faRightToBracket,
-    // faUserPen,
+    faUserPen,
     faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import IconButton from "./IconButton";
@@ -30,34 +30,23 @@ const HeaderWrapper = styled.header`
     padding: 0 50px;
     z-index: 200;
     @media screen and (max-width: ${variables.MEDIA_FIRST_WIDTH}px) {
-        padding: 0 20px;
-    }
-    @media screen and (max-width: ${variables.MEDIA_SECOND_WIDTH}px) {
-        height: ${variables.HEADER_HEIGHT_MOBILE}px;
-        flex-direction: column;
-        justify-content: center;
-        padding: 0;
+        padding: 0 2%;
     }
 `;
 
 const Logo = styled.h1`
     width: 200px;
     max-height: 100%;
+    margin-left: 8px;
     & * {
         max-width: 100%;
     }
-    .narrow {
-        display: none;
-    }
     @media screen and (max-width: ${variables.MEDIA_SECOND_WIDTH}px) {
-        width: 120px;
-        .wide {
-            display: none;
-        }
-        .narrow {
-            display: inline;
-            margin: 6px auto;
-        }
+        width: 160px;
+    }
+    @media screen and (max-width: ${variables.MEDIA_THIRD_WIDTH}px) {
+        width: 140px;
+        margin-left: 2px;
     }
 `;
 
@@ -65,9 +54,6 @@ const NavWrapper = styled.nav`
     display: flex;
     align-items: center;
     gap: 16px;
-    @media screen and (max-width: ${variables.MEDIA_SECOND_WIDTH}px) {
-        width: 100%;
-    }
 `;
 
 const User = styled.strong`
@@ -94,14 +80,31 @@ const NavList = styled.ul`
         display: none;
     }
     @media screen and (max-width: ${variables.MEDIA_FIRST_WIDTH}px) {
-        gap: 6px;
         &.wide {
             display: none;
         }
         &.narrow {
-            width: 100%;
             display: flex;
-            justify-content: space-evenly;
+            & li {
+                width: 48px;
+                height: 48px;
+            }
+        }
+    }
+    @media screen and (max-width: ${variables.MEDIA_SECOND_WIDTH}px) {
+        &.narrow {
+            & li {
+                width: 36px;
+                height: 36px;
+            }
+        }
+    }
+    @media screen and (max-width: ${variables.MEDIA_THIRD_WIDTH}px) {
+        &.narrow {
+            & li {
+                width: 24px;
+                height: 24px;
+            }
         }
     }
 `;
@@ -154,16 +157,7 @@ const Header = () => {
         <HeaderWrapper>
             <Logo>
                 <Link to="/">
-                    <img
-                        className="wide"
-                        src={process.env.PUBLIC_URL + logoPaths.web}
-                        alt="코더라"
-                    />
-                    <img
-                        className="narrow"
-                        src={process.env.PUBLIC_URL + logoPaths.mobile}
-                        alt="코더라"
-                    />
+                    <img src={process.env.PUBLIC_URL + logoPath} alt="코더라" />
                 </Link>
             </Logo>
             <NavWrapper>
@@ -175,26 +169,27 @@ const Header = () => {
                                 <NavLink to="/write">코드 작성</NavLink>
                             </li>
                             <li>
+                                <NavLink to="/">프로필 수정</NavLink>
+                            </li>
+                            <li>
                                 <NavButton onClick={signOutHandler}>
                                     로그아웃
                                 </NavButton>
                             </li>
                         </NavList>
                         <NavList className="narrow">
-                            {/* <li>
-                                <IconLink
-                                    to="/"
-                                    icon={faUserPen}
-                                    message="프로필 수정"
-                                    size="2x"
-                                />
-                            </li> */}
                             <li>
                                 <IconLink
                                     to="/write"
                                     icon={faKeyboard}
                                     message="코드 작성"
-                                    size="2x"
+                                />
+                            </li>
+                            <li>
+                                <IconLink
+                                    to="/"
+                                    icon={faUserPen}
+                                    message="프로필 수정"
                                 />
                             </li>
                             <li>
@@ -202,7 +197,6 @@ const Header = () => {
                                     onClickFunction={signOutHandler}
                                     icon={faRightFromBracket}
                                     message="로그아웃"
-                                    size="2x"
                                 />
                             </li>
                         </NavList>
