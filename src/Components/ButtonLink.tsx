@@ -33,6 +33,10 @@ const StyledLink = styled(Link)`
         background-color: ${colors.black};
         color: ${colors.mainColor};
     }
+    &:focus-visible {
+        outline-style: none;
+        font-size: 22px;
+    }
 `;
 
 const ButtonLink = ({ type, to, message }: linkData) => {
