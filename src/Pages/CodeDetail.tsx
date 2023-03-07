@@ -4,14 +4,14 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import { doc, deleteDoc, getDoc } from "firebase/firestore";
+import Button from "../Components/Button";
+import ButtonLink from "../Components/ButtonLink";
 import CodeBlock from "../Components/CodeBlock";
 import Tag from "../Components/Tag";
 import { currentCodeState, currentUserState } from "../Configs/atoms";
 import { db } from "../Configs/firebase";
 import { queryKeys } from "../Constants/queryKeys";
-import Button from "../Components/Button";
 import { variables } from "../Constants/variables";
-import ButtonLink from "../Components/ButtonLink";
 
 const CodeDetailWrapper = styled.section`
     width: 100%;
@@ -153,6 +153,7 @@ const CodeDetail = () => {
                             {CodeData.timestamp.toDate().toLocaleDateString()}
                         </CodeTime>
                         <CodeBlock
+                            title={CodeData.title}
                             code={CodeData.code}
                             language={CodeData.language}
                         />

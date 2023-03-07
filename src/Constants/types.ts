@@ -28,6 +28,7 @@ export interface TextLinkData {
 
 // 코드 하이라이터에 사용
 export interface HighlighterData {
+    title?: string;
     code: string;
     language: string;
 }

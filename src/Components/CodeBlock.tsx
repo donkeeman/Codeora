@@ -1,4 +1,4 @@
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
+import { faCopy, faFileDownload } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -16,10 +16,17 @@ const CodeBlockWrapper = styled.div`
     @media screen and (max-width: ${variables.MEDIA_FIRST_WIDTH}px) {
         min-height: 300px;
     }
-    & > button {
-        position: absolute;
-        top: 3px;
-        right: 3px;
+`;
+
+const IconList = styled.ul`
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 6px;
+    & li {
+        width: 24px;
+        height: 24px;
     }
 `;
 
@@ -30,10 +37,25 @@ const Language = styled.span`
     right: 16px;
 `;
 
-const CodeBlock = ({ code, language }: HighlighterData) => {
+const CodeBlock = ({ title, code, language }: HighlighterData) => {
     const copyHandler = async () => {
         await window.navigator.clipboard.writeText(code);
         alert("복사되었습니다.");
+    };
+
+    const downloadHandler = async () => {
+        const encodedUri = encodeURIComponent(code);
+        const downloadLink = document.createElement("a");
+        downloadLink.setAttribute(
+            "href",
+            "data:text/plain; charset=utf-8," + encodedUri
+        );
+        downloadLink.setAttribute(
+            "download",
+            `${title}.${languageMap.get(language)?.extension}`
+        );
+        downloadLink.click();
+        document.removeChild(downloadLink);
     };
 
     return (
@@ -47,7 +69,7 @@ const CodeBlock = ({ code, language }: HighlighterData) => {
                     margin: "0",
                     padding: "24px 20px",
                     borderRadius: "6px",
-                    overflowX:"hidden"
+                    overflowX: "hidden",
                 }}
                 codeTagProps={{
                     style: {
@@ -57,12 +79,24 @@ const CodeBlock = ({ code, language }: HighlighterData) => {
             >
                 {code}
             </SyntaxHighlighter>
-            <IconButton
-                onClickFunction={copyHandler}
-                icon={faCopy}
-                message="복사하기"
-                subMessage="복사"
-            />
+            <IconList>
+                <li>
+                    <IconButton
+                        onClickFunction={copyHandler}
+                        icon={faCopy}
+                        message="코드 복사"
+                        subMessage="복사"
+                    />
+                </li>
+                <li>
+                    <IconButton
+                        onClickFunction={downloadHandler}
+                        icon={faFileDownload}
+                        message="코드 다운로드"
+                        subMessage="다운로드"
+                    />
+                </li>
+            </IconList>
             <Language>{languageMap.get(language)?.name}</Language>
         </CodeBlockWrapper>
     );
