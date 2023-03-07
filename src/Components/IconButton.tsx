@@ -22,7 +22,7 @@ const ButtonWrapper = styled.button<{
         &::after {
             position: absolute;
             background-color: ${colors.black};
-            bottom: -30%;
+            top: 100%;
             left: 50%;
             transform: translateX(-50%);
             content: "${(props) => props.subMessage}";
