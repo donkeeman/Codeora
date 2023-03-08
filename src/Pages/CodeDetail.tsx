@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useQuery } from "react-query";
 import styled from "styled-components";
@@ -115,7 +115,7 @@ const CodeDetail = () => {
         }
     };
 
-    const { data: CodeData = null } = useQuery(
+    const { data: CodeData = null, isLoading } = useQuery(
         `${queryKeys.code}_${postingId}`,
         getCodeDetail
     );
@@ -137,7 +137,7 @@ const CodeDetail = () => {
 
     return (
         <CodeDetailWrapper>
-            {CodeData && (
+            {CodeData ? (
                 <>
                     <h2 className="a11y-hidden">코드 상세 정보</h2>
                     <CodeWrapper>
@@ -210,6 +210,8 @@ const CodeDetail = () => {
                         </CodeInfoWrapper>
                     </CodeWrapper>
                 </>
+            ) : (
+                !isLoading && <Navigate to="/not-found" />
             )}
         </CodeDetailWrapper>
     );
