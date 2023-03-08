@@ -10,8 +10,7 @@ const GlobalStyle = createGlobalStyle`
         border: none;
     }
     html, body{
-        height: 100vh;
-        /* overflow: hidden; */
+        max-height: 100vh;
         background-color: ${colors.black};
         ::-webkit-scrollbar {
             display: none;
