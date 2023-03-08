@@ -16,7 +16,6 @@ const Router = createBrowserRouter([
         element: <App />,
         children: [
             {
-                errorElement: <NotFound />,
                 children: [
                     {
                         path: "/",
@@ -31,11 +30,10 @@ const Router = createBrowserRouter([
                     { path: "signin", element: <SignIn /> },
                     { path: "signup", element: <SignUp /> },
                     { path: "signup-success", element: <SuccessSignUp /> },
-                    { path: "/not-found", element: <NotFound /> },
+                    { path: "*", element: <NotFound /> },
                 ],
             },
         ],
-        errorElement: <NotFound />,
     },
 ]);
 
