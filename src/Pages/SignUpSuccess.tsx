@@ -4,30 +4,26 @@ import Title from "../Components/Title";
 import ButtonLink from "../Components/ButtonLink";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSmileWink } from "@fortawesome/free-solid-svg-icons";
-import { colors } from "../Constants/colors";
 
 const SignUpSuccessWrapper = styled.section`
+    max-width: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    max-width: 800px;
     margin: 0 auto;
-    & > svg {
-        margin: 60px 0 20px;
-        color: ${colors.mainColor};
-    }
 `;
 
 const WelcomeWrapper = styled.div`
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -40%);
+    width: 100%;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 40px;
+    p:nth-of-type(2) {
+        margin-top: -20px;
+    }
 `;
 
 const WelcomeMessage = styled.p`

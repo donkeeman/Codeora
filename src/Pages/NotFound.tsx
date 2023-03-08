@@ -6,36 +6,35 @@ import ButtonLink from "../Components/ButtonLink";
 import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSurprise } from "@fortawesome/free-solid-svg-icons";
-import { colors } from "../Constants/colors";
 
 const NotfoundWrapper = styled.section`
+    max-width: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-width: 800px;
-    margin: 0 auto;
     gap: 20px;
-    & > svg {
-        margin: 60px 0 20px;
-        color: ${colors.mainColor};
-    }
+    margin: 0 auto;
 `;
 
 const ErrorWrapper = styled.div`
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -40%);
+    width: 100%;
+    margin-top: 60px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 40px;
 `;
 
 const LinkWrapper = styled.div`
+    width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     gap: 10px;
+`;
+
+const ErrorMessage = styled.p`
+    font-size: 20px;
 `;
 
 const NotFound = () => {
@@ -43,9 +42,10 @@ const NotFound = () => {
 
     return (
         <NotfoundWrapper>
-            <Title title="404" subTitle="페이지를 찾을 수 없습니다." />
+            <Title title="404" />
             <ErrorWrapper>
                 <FontAwesomeIcon icon={faSurprise} size={"10x"} />
+                <ErrorMessage>페이지를 찾을 수 없습니다.</ErrorMessage>
                 <LinkWrapper>
                     <ButtonLink
                         disabled={false}
