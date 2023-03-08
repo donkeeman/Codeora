@@ -47,11 +47,7 @@ const NotFound = () => {
                 <FontAwesomeIcon icon={faSurprise} size={"10x"} />
                 <ErrorMessage>페이지를 찾을 수 없습니다.</ErrorMessage>
                 <LinkWrapper>
-                    <ButtonLink
-                        disabled={false}
-                        message="메인 페이지로 돌아가기"
-                        to="/"
-                    />
+                    <ButtonLink message="메인 페이지로 돌아가기" to="/" />
                     <Button
                         disabled={false}
                         onClickFunction={() => navigate(-1)}

@@ -222,7 +222,6 @@ const CodeDetail = () => {
                                 onClickFunction={deleteCodeHandler}
                             />
                             <ButtonLink
-                                disabled={false}
                                 type="secondary"
                                 message="목록으로 돌아가기"
                                 to="/"
@@ -239,11 +238,7 @@ const CodeDetail = () => {
                             <NoCodeMessage>
                                 해당 ID를 가진 코드가 없습니다.
                             </NoCodeMessage>
-                            <ButtonLink
-                                disabled={false}
-                                message="목록으로 돌아가기"
-                                to="/"
-                            />
+                            <ButtonLink message="목록으로 돌아가기" to="/" />
                         </ErrorWrapper>
                     </>
                 )

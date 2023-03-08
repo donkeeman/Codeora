@@ -20,13 +20,6 @@ const StyledLink = styled(Link)`
         border: 3px solid ${colors.mainColor};
         background-color: ${colors.mainColor};
         color: ${colors.black};
-        &:disabled,
-        &:disabled:hover {
-            border-color: ${colors.gray};
-            color: darkgray;
-            background-color: ${colors.gray};
-            cursor: not-allowed;
-        }
     }
     &.secondary {
         border: 3px solid ${colors.mainColor};
@@ -39,7 +32,7 @@ const StyledLink = styled(Link)`
     }
 `;
 
-const ButtonLink = ({ type, to, message }: linkData) => {
+const ButtonLink = ({ type = "primary", to, message }: linkData) => {
     return (
         <StyledLink className={type} to={to}>
             {message}

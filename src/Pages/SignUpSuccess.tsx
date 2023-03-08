@@ -43,11 +43,7 @@ const SignUpSuccess = () => {
                 <WelcomeMessage>
                     로그인하여 코드를 저장해 보세요!
                 </WelcomeMessage>
-                <ButtonLink
-                    disabled={false}
-                    message="로그인하기"
-                    to="/signin"
-                />
+                <ButtonLink message="로그인하기" to="/signin" />
             </WelcomeWrapper>
         </SignUpSuccessWrapper>
     );

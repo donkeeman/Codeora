@@ -63,7 +63,6 @@ export interface buttonData {
 export interface linkData {
     message: string;
     to: string;
-    disabled: boolean;
     type?: string;
 }
 
