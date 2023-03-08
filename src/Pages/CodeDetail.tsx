@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useQuery } from "react-query";
 import styled from "styled-components";
@@ -12,12 +12,19 @@ import { currentCodeState, currentUserState } from "../Configs/atoms";
 import { db } from "../Configs/firebase";
 import { queryKeys } from "../Constants/queryKeys";
 import { variables } from "../Constants/variables";
+import { faDizzy } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Title from "../Components/Title";
 
 const CodeDetailWrapper = styled.section`
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    &.noData {
+        max-width: 400px;
+        margin: 0 auto;
+    }
 `;
 
 const CodeWrapper = styled.div`
@@ -100,6 +107,19 @@ const TagList = styled.ul`
     }
 `;
 
+const ErrorWrapper = styled.div`
+    max-width: 400px;
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 60px;
+    gap: 40px;
+`;
+
+const NoCodeMessage = styled.p`
+    font-size: 20px;
+`;
+
 const CodeDetail = () => {
     const userData = useRecoilValue(currentUserState);
     const setCodeData = useSetRecoilState(currentCodeState);
@@ -136,7 +156,7 @@ const CodeDetail = () => {
     };
 
     return (
-        <CodeDetailWrapper>
+        <CodeDetailWrapper className={CodeData ? "" : "noData"}>
             {CodeData ? (
                 <>
                     <h2 className="a11y-hidden">코드 상세 정보</h2>
@@ -211,7 +231,22 @@ const CodeDetail = () => {
                     </CodeWrapper>
                 </>
             ) : (
-                !isLoading && <Navigate to="/not-found" />
+                !isLoading && (
+                    <>
+                        <Title title="존재하지 않는 코드" />
+                        <ErrorWrapper>
+                            <FontAwesomeIcon icon={faDizzy} size={"10x"} />
+                            <NoCodeMessage>
+                                해당 ID를 가진 코드가 없습니다.
+                            </NoCodeMessage>
+                            <ButtonLink
+                                disabled={false}
+                                message="목록으로 돌아가기"
+                                to="/"
+                            />
+                        </ErrorWrapper>
+                    </>
+                )
             )}
         </CodeDetailWrapper>
     );
