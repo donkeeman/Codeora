@@ -2,11 +2,6 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { colors } from "../Constants/colors";
-import { currentUserState, persistLoginState } from "../Configs/atoms";
-import { signOutUser } from "../Services/auth";
-import { logoPath } from "../Constants/assetPath";
-import { variables } from "../Constants/variables";
 import {
     faKeyboard,
     faRightFromBracket,
@@ -16,6 +11,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import IconButton from "./IconButton";
 import IconLink from "./IconLink";
+import { queryClient } from "../Configs/queryClient";
+import { colors } from "../Constants/colors";
+import { currentUserState, persistLoginState } from "../Configs/atoms";
+import { signOutUser } from "../Services/auth";
+import { logoPath } from "../Constants/assetPath";
+import { variables } from "../Constants/variables";
 
 const HeaderWrapper = styled.header`
     position: fixed;
@@ -147,9 +148,10 @@ const Header = () => {
     const navigate = useNavigate();
 
     const signOutHandler = async () => {
+        await signOutUser();
         setUserData(undefined);
         setPersistLoginData(undefined);
-        await signOutUser();
+        queryClient.removeQueries();
         navigate("/");
     };
 
@@ -205,25 +207,25 @@ const Header = () => {
                     <>
                         <NavList className="wide">
                             <li>
-                                <NavLink to="/signup">회원 가입</NavLink>
+                                <NavLink to="/signin">로그인</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/signin">로그인</NavLink>
+                                <NavLink to="/signup">회원 가입</NavLink>
                             </li>
                         </NavList>
                         <NavList className="narrow">
                             <li>
                                 <IconLink
-                                    to="/signup"
-                                    icon={faUserPlus}
-                                    message="회원 가입"
+                                    to="/signin"
+                                    icon={faRightToBracket}
+                                    message="로그인"
                                 />
                             </li>
                             <li>
                                 <IconLink
-                                    to="/signin"
-                                    icon={faRightToBracket}
-                                    message="로그인"
+                                    to="/signup"
+                                    icon={faUserPlus}
+                                    message="회원 가입"
                                 />
                             </li>
                         </NavList>

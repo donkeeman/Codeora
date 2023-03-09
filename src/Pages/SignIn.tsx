@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import {
     currentUserState,
     persistLoginState,
@@ -70,7 +70,7 @@ const SignIn = () => {
     const [saveEmail, setSaveEmail] = useState(false);
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
-    const setUserData = useSetRecoilState(currentUserState);
+    const [userData, setUserData] = useRecoilState(currentUserState);
     const [savedEmailData, setSavedEmailData] = useRecoilState(savedEmailState);
     const [persistLoginData, setPersistLoginData] =
         useRecoilState(persistLoginState);
@@ -82,6 +82,12 @@ const SignIn = () => {
             setsignInData({ email: savedEmailData, password: "" });
         }
     }, [savedEmailData]);
+
+    useEffect(() => {
+        if (userData) {
+            navigate("/");
+        }
+    }, [userData, navigate]);
 
     const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setsignInData({
@@ -131,11 +137,13 @@ const SignIn = () => {
                     break;
             }
             if (userInfo) {
-                setUserData(userInfo.user);
-                setPersistLoginData(persistLogin ? userInfo.user : undefined);
+                const loginedUserData = JSON.parse(
+                    JSON.stringify(userInfo.user)
+                );
                 setSavedEmailData(saveEmail ? signInData.email : undefined);
+                setPersistLoginData(persistLogin ? loginedUserData : undefined);
+                setUserData(loginedUserData);
             }
-            navigate("/");
         } catch (error) {
             if (error instanceof FirebaseError) {
                 let errorMessage = "";
@@ -227,7 +235,7 @@ const SignIn = () => {
                 message="계정이 없으신가요?"
                 linkRoute="/signup"
                 linkMessage="회원 가입"
-            ></LinkMsgWrapper>
+            />
         </SignInWrapper>
     );
 };

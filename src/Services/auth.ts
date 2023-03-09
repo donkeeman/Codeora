@@ -41,6 +41,5 @@ export const createAccount = async (
 };
 
 export const signOutUser = async (): Promise<void> => {
-    const result = await signOut(auth);
-    return result;
+    return await signOut(auth);
 };
