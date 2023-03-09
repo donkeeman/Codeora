@@ -3,11 +3,10 @@ import styled from "styled-components";
 import { colors } from "../Constants/colors";
 import { iconPaths } from "../Constants/assetPath";
 import { buttonData } from "../Constants/types";
+import { variables } from "../Constants/variables";
 
 const StyledButton = styled.button`
     position: relative;
-    font-size: 20px;
-    font-weight: bold;
     width: 100%;
     padding: 12px 20px;
     border: none;
@@ -38,6 +37,10 @@ const StyledButton = styled.button`
         &.github {
             background-color: black;
         }
+        @media screen and (max-width: ${variables.MEDIA_SECOND_WIDTH}px) {
+            padding-left: 52px;
+            padding-right: 10px;
+        }
     }
     &:focus-visible {
         outline-style: none;
@@ -51,12 +54,28 @@ const StyledButton = styled.button`
         transform: translateY(-50%);
         left: 0;
     }
+    .text {
+        font-size: 20px;
+        font-weight: bold;
+        &.narrow {
+            display: none;
+        }
+        @media screen and (max-width: ${variables.MEDIA_THIRD_WIDTH}px) {
+            &.wide {
+                display: none;
+            }
+            &.narrow {
+                display: inline;
+            }
+        }
+    }
 `;
 
 const Button = ({
     type = "primary",
     disabled,
     message,
+    subMessage,
     onClickFunction,
     social,
 }: buttonData) => {
@@ -77,7 +96,8 @@ const Button = ({
                         alt={social + "Login"}
                     />
                 )}
-                {message}
+                <span className="text wide">{message}</span>
+                <span className="text narrow">{subMessage}</span>
             </StyledButton>
         </>
     );

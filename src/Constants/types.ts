@@ -53,6 +53,7 @@ export interface CodeData {
 // button 기본 속성
 export interface buttonData {
     message: string;
+    subMessage?: string;
     onClickFunction: React.MouseEventHandler<HTMLButtonElement>;
     disabled: boolean;
     social?: string;

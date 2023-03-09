@@ -221,6 +221,7 @@ const SignIn = () => {
                 type="social"
                 disabled={false}
                 message={"구글 계정으로 로그인"}
+                subMessage={"구글 로그인"}
                 onClickFunction={() => signInHandler("google")}
                 social="google"
             />
@@ -228,6 +229,7 @@ const SignIn = () => {
                 type="social"
                 disabled={false}
                 message={"깃허브 계정으로 로그인"}
+                subMessage={"깃허브 로그인"}
                 onClickFunction={() => signInHandler("github")}
                 social="github"
             />
