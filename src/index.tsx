@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { QueryClientProvider } from "react-query";
-import { queryClient } from "./Configs/queryClient";
-import { RouterProvider } from "react-router-dom";
 import Router from "./Configs/Router";
+import { queryClient } from "./Configs/queryClient";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
