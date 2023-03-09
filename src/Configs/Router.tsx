@@ -1,5 +1,6 @@
 import React from "react";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import App from "../App";
 import CodeDetail from "../Pages/CodeDetail";
 import EditCode from "../Pages/EditCode";
@@ -9,6 +10,21 @@ import SignIn from "../Pages/SignIn";
 import SignUp from "../Pages/SignUp";
 import SuccessSignUp from "../Pages/SignUpSuccess";
 import WriteCode from "../Pages/WriteCode";
+import { currentUserState } from "./atoms";
+
+const PrivateRoutes = () => {
+    const userData = useRecoilValue(currentUserState);
+
+    return userData ? <Outlet /> : <Navigate to="/signin" />;
+};
+
+const PublicRoutes = () => {
+    const userData = useRecoilValue(currentUserState);
+
+    return userData ? <Navigate to="/" /> : <Outlet />;
+};
+
+
 
 const Router = createBrowserRouter([
     {
@@ -16,23 +32,29 @@ const Router = createBrowserRouter([
         element: <App />,
         children: [
             {
+                path: "/",
+                element: <Main />,
+            },
+            {
+                element: <PrivateRoutes />,
                 children: [
-                    {
-                        path: "/",
-                        element: <Main />,
-                    },
                     { path: "write", element: <WriteCode /> },
                     {
                         path: "code/:postingId",
                         element: <CodeDetail />,
                     },
                     { path: "edit/:postingId", element: <EditCode /> },
+                ],
+            },
+            {
+                element: <PublicRoutes />,
+                children: [
                     { path: "signin", element: <SignIn /> },
                     { path: "signup", element: <SignUp /> },
                     { path: "signup-success", element: <SuccessSignUp /> },
-                    { path: "*", element: <NotFound /> },
                 ],
             },
+            { path: "*", element: <NotFound /> },
         ],
     },
 ]);
