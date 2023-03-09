@@ -171,7 +171,12 @@ const Header = () => {
                                 <NavLink to="/write">코드 작성</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/">프로필 수정</NavLink>
+                                {/* <NavLink to="/">프로필 수정</NavLink> */}
+                                <NavButton
+                                    onClick={() => alert("준비 중입니다.")}
+                                >
+                                    프로필 수정
+                                </NavButton>
                             </li>
                             <li>
                                 <NavButton onClick={signOutHandler}>
@@ -188,8 +193,13 @@ const Header = () => {
                                 />
                             </li>
                             <li>
-                                <IconLink
+                                {/* <IconLink
                                     to="/"
+                                /> */}
+                                <IconButton
+                                    onClickFunction={() =>
+                                        alert("준비 중입니다.")
+                                    }
                                     icon={faUserPen}
                                     message="프로필 수정"
                                 />
