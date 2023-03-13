@@ -11,6 +11,7 @@ const errorHandler = (error: unknown) => {
 export const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
+            refetchOnWindowFocus: false,
             onError: errorHandler,
         },
     },
