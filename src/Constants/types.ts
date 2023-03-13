@@ -104,6 +104,7 @@ export interface IconData {
     size?: SizeProp;
     message: string;
     subMessage?: string;
+    fixWidth?: number;
 }
 
 // 아이콘만 있는 버튼에 사용
@@ -114,4 +115,9 @@ export interface IconButtonData extends IconData {
 // 아이콘만 있는 링크에 사용
 export interface IconLinkData extends IconData {
     to: string;
+}
+
+export interface orderData {
+    fieldPath: string;
+    isDesc: boolean;
 }
