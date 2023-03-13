@@ -80,7 +80,7 @@ const NavList = styled.ul`
     &.narrow {
         display: none;
     }
-    @media screen and (max-width: ${variables.MEDIA_FIRST_WIDTH}px) {
+    @media screen and (max-width: ${variables.MAX_WIDTH}px) {
         &.wide {
             display: none;
         }
