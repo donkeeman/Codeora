@@ -134,7 +134,7 @@ const Main = () => {
             enabled: userData !== undefined,
             getNextPageParam: (lastPage) =>
                 lastPage &&
-                (lastPage?.size < 12 ? null : lastPage.lastDocument),
+                (lastPage?.size < variables.CODE_LIMIT ? null : lastPage.lastDocument),
         }
     );
 
