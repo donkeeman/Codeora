@@ -17,10 +17,10 @@ import { currentUserState } from "../Configs/atoms";
 import { db } from "../Configs/firebase";
 import { backgroundPath } from "../Constants/assetPath";
 import { colors } from "../Constants/colors";
-import { languageMap } from "../Constants/languageMap";
 import { queryKeys } from "../Constants/queryKeys";
 import { variables } from "../Constants/variables";
 import ButtonLink from "../Components/ButtonLink";
+import Landing from "../Components/Landing";
 
 const MainWrapper = styled.section`
     width: 100%;
@@ -96,31 +96,6 @@ const NoCodeMessage = styled.p`
     margin: 20px auto;
 `;
 
-const LandingWrapper = styled.div<{ delay?: string }>`
-    animation: 2s ${(props) => props.delay || "0s"} fadeIn ease-in-out 1
-        forwards;
-    opacity: 0;
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-`;
-
-const LandingMessage = styled.p`
-    margin: 8px 0;
-    &.big {
-        font-size: 64px;
-        text-align: left;
-    }
-    &.small {
-        font-size: 20px;
-    }
-`;
-
 const Main = () => {
     const observeTargetRef = useRef(null);
     const userData = useRecoilValue(currentUserState);
@@ -185,76 +160,51 @@ const Main = () => {
         };
     }, [hasNextPage, fetchNextPage]);
 
-    return (
-        <MainWrapper className={userData ? "" : "notLogin"}>
-            {userData ? (
-                codeList &&
+    return userData ? (
+        <MainWrapper>
+            {codeList &&
                 (codeList.pages[0]?.data.length! > 0 ? (
-                    <CodeList>
-                        <>
-                            {codeList.pages.map((page) => {
-                                const codePage = page?.data;
-                                return codePage?.map((doc) => {
-                                    const codeData = doc.data();
-                                    return (
-                                        <li key={doc.id} className="card">
-                                            <CodeCard
-                                                id={doc.id}
-                                                title={codeData.title}
-                                                description={
-                                                    codeData.description
-                                                }
-                                                tags={codeData.tag}
-                                                language={codeData.language}
-                                                date={codeData.timestamp.toDate()}
-                                            />
-                                        </li>
-                                    );
-                                });
-                            })}
-                            {hasNextPage && (
-                                <ObserveLi ref={observeTargetRef}>
-                                    <Spinner />
-                                </ObserveLi>
-                            )}
-                        </>
-                    </CodeList>
+                    <>
+                        <CodeList>
+                            <>
+                                {codeList.pages.map((page) => {
+                                    const codePage = page?.data;
+                                    return codePage?.map((doc) => {
+                                        const codeData = doc.data();
+                                        return (
+                                            <li key={doc.id} className="card">
+                                                <CodeCard
+                                                    id={doc.id}
+                                                    title={codeData.title}
+                                                    description={
+                                                        codeData.description
+                                                    }
+                                                    tags={codeData.tag}
+                                                    language={codeData.language}
+                                                    date={codeData.timestamp.toDate()}
+                                                />
+                                            </li>
+                                        );
+                                    });
+                                })}
+                                {hasNextPage && (
+                                    <ObserveLi ref={observeTargetRef}>
+                                        <Spinner />
+                                    </ObserveLi>
+                                )}
+                            </>
+                        </CodeList>
+                    </>
                 ) : (
                     <NoCodeWrapper>
                         <NoCodeMessage>저장된 코드가 없습니다.</NoCodeMessage>
                         <NoCodeMessage>코드를 작성해 보세요!</NoCodeMessage>
                         <ButtonLink message={"코드 작성하기"} to="/write" />
                     </NoCodeWrapper>
-                ))
-            ) : (
-                <>
-                    <LandingWrapper>
-                        <LandingMessage className="big">당신의</LandingMessage>
-                        <LandingMessage className="big">코드를</LandingMessage>
-                        <LandingMessage className="big">
-                            저장해 보세요.
-                        </LandingMessage>
-                    </LandingWrapper>
-                    <LandingWrapper delay="1s">
-                        <LandingMessage className="small">
-                            코더라는 간단하고 짧은 코드를 저장하는 용도로
-                            제작되었습니다.
-                        </LandingMessage>
-                        <LandingMessage className="small">
-                            현재 총 {languageMap.size}개의 언어를 지원하고
-                            있습니다.
-                        </LandingMessage>
-                        <LandingMessage className="small">
-                            자주 사용하거나 기억해두고 싶은 코드가 있다면,
-                        </LandingMessage>
-                        <LandingMessage className="small">
-                            코더라를 이용해 보세요.
-                        </LandingMessage>
-                        <ButtonLink to="/signin" message="시작하기" />
-                    </LandingWrapper>
-                </>
-            )}
+                ))}
         </MainWrapper>
+    ) : (
+        <Landing />
     );
 };
 
