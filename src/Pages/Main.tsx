@@ -172,12 +172,18 @@ const Main = () => {
                 }
                 observer.observe(entry.target);
             },
-            { threshold: 0.5 }
+            { threshold: 0.9 }
         );
         if (observeTargetRef.current) {
             observer.observe(observeTargetRef.current);
+            if (!hasNextPage) {
+                observer.unobserve(observeTargetRef.current);
+            }
         }
-    }, [observeTargetRef, hasNextPage, fetchNextPage]);
+        return () => {
+            observer.disconnect();
+        };
+    }, [hasNextPage, fetchNextPage]);
 
     return (
         <MainWrapper className={userData ? "" : "notLogin"}>
