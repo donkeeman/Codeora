@@ -2,7 +2,7 @@ import React, { MutableRefObject } from "react";
 import { IconDefinition, SizeProp } from "@fortawesome/fontawesome-svg-core";
 
 // 페이지의 타이틀 작성에 사용
-export interface titleData {
+export interface TitleData {
     title: string;
     subTitle?: string;
 }
@@ -117,7 +117,7 @@ export interface IconLinkData extends IconData {
     to: string;
 }
 
-export interface orderData {
+export interface OrderData {
     fieldPath: string;
     isDesc: boolean;
 }
