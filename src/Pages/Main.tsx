@@ -199,7 +199,9 @@ const Main = () => {
             enabled: userData !== undefined,
             getNextPageParam: (lastPage) =>
                 lastPage &&
-                (lastPage?.size < variables.CODE_LIMIT ? null : lastPage.lastDocument),
+                (lastPage?.size < variables.CODE_LIMIT
+                    ? null
+                    : lastPage.lastDocument),
         }
     );
 
@@ -248,6 +250,9 @@ const Main = () => {
 
     return userData ? (
         <MainWrapper>
+            {codeList &&
+                (codeList.pages[0]?.data.length! > 0 ? (
+                    <>
                         <QueryWrapper>
                             <OrderWrapper>
                                 <label
