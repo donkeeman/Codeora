@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useRecoilValue } from "recoil";
+import React, { useEffect, useRef } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useInfiniteQuery } from "react-query";
 import {
     collection,
@@ -19,14 +19,13 @@ import {
 import CodeCard from "../Components/CodeCard";
 import IconButton from "../Components/IconButton";
 import Spinner from "../Components/Spinner";
-import { currentUserState } from "../Configs/atoms";
+import { currentOrderState, currentUserState } from "../Configs/atoms";
 import { db } from "../Configs/firebase";
 import { queryClient } from "../Configs/queryClient";
 import { backgroundPath } from "../Constants/assetPath";
 import { colors } from "../Constants/colors";
 import { languageMap } from "../Constants/languageMap";
 import { queryKeys } from "../Constants/queryKeys";
-import { orderData } from "../Constants/types";
 import { variables } from "../Constants/variables";
 import ButtonLink from "../Components/ButtonLink";
 
@@ -64,7 +63,7 @@ const MainWrapper = styled.section`
 const QueryWrapper = styled.div`
     width: 80%;
     display: flex;
-    margin: 0px auto 10px;
+    margin: 0px auto 12px;
     align-items: center;
     justify-content: space-between;
     @media screen and (max-width: ${variables.MEDIA_FIRST_WIDTH}px) {
@@ -79,6 +78,17 @@ const QueryWrapper = styled.div`
 const OrderWrapper = styled.div`
     display: flex;
     align-items: center;
+    gap: 6px;
+`;
+
+const FieldPathSelect = styled.select`
+    font-size: 16px;
+    border: 2px solid transparent;
+    padding: 2px 4px;
+    &:focus-visible {
+        outline-style: none;
+        border-bottom-color: ${colors.mainColor};
+    }
 `;
 
 const SearchWrapper = styled.div`
@@ -169,12 +179,9 @@ const LandingMessage = styled.p`
 `;
 
 const Main = () => {
-    const [orderData, setOrderData] = useState<orderData>({
-        fieldPath: "timestamp",
-        isDesc: true,
-    });
-    const observeTargetRef = useRef(null);
     const userData = useRecoilValue(currentUserState);
+    const [orderData, setOrderData] = useRecoilState(currentOrderState);
+    const observeTargetRef = useRef(null);
 
     const getCodeList = async (pageParam: DocumentData | undefined) => {
         if (userData) {
@@ -221,6 +228,16 @@ const Main = () => {
         }
     );
 
+    const fieldPathHandler = async (
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) => {
+        setOrderData({ ...orderData, fieldPath: event.target.value });
+        await queryClient.cancelQueries({
+            queryKey: queryKeys.code,
+        });
+        refetch();
+    };
+
     const directionHandler = async () => {
         setOrderData({
             ...orderData,
@@ -256,14 +273,23 @@ const Main = () => {
                     <>
                         <QueryWrapper>
                             <OrderWrapper>
-                                정렬 기준
-                                <select id="fleidPath">
+                                <label
+                                    htmlFor="fieldPath"
+                                    className="a11y-hidden"
+                                >
+                                    정렬 기준
+                                </label>
+                                <FieldPathSelect
+                                    id="fleidPath"
+                                    defaultValue={orderData.fieldPath}
+                                    onChange={fieldPathHandler}
+                                >
                                     <option value="timestamp">
                                         최종 수정일
                                     </option>
                                     <option value="title">제목</option>
                                     <option value="language">언어</option>
-                                </select>
+                                </FieldPathSelect>
                                 <IconButton
                                     icon={
                                         orderData.isDesc
