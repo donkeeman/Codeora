@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { User } from "firebase/auth";
-import { CodeData } from "../Constants/types";
+import { CodeData, OrderData } from "../Constants/types";
 
 const { persistAtom: sessionPersistAtom } = recoilPersist({
     storage: sessionStorage,
@@ -36,5 +36,15 @@ export const savedEmailState = atom<string | undefined>({
 export const currentCodeState = atom<CodeData | undefined>({
     key: "currentCodeState",
     default: undefined,
+    effects_UNSTABLE: [sessionPersistAtom],
+});
+
+// 코드 정렬 기본값
+export const currentOrderState = atom<OrderData>({
+    key: "currentOrderState",
+    default: {
+        fieldPath: "timestamp",
+        isDesc: true,
+    },
     effects_UNSTABLE: [sessionPersistAtom],
 });

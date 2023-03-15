@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useInfiniteQuery } from "react-query";
 import {
     collection,
@@ -11,10 +11,17 @@ import {
     startAfter,
 } from "firebase/firestore";
 import styled from "styled-components";
+import {
+    faArrowDownShortWide,
+    faArrowUpShortWide,
+    faSearch,
+} from "@fortawesome/free-solid-svg-icons";
 import CodeCard from "../Components/CodeCard";
+import IconButton from "../Components/IconButton";
 import Spinner from "../Components/Spinner";
-import { currentUserState } from "../Configs/atoms";
+import { currentOrderState, currentUserState } from "../Configs/atoms";
 import { db } from "../Configs/firebase";
+import { queryClient } from "../Configs/queryClient";
 import { backgroundPath } from "../Constants/assetPath";
 import { colors } from "../Constants/colors";
 import { queryKeys } from "../Constants/queryKeys";
@@ -50,6 +57,56 @@ const MainWrapper = styled.section`
         @media screen and (max-width: ${variables.MEDIA_SECOND_WIDTH}px) {
             flex-direction: column;
         }
+    }
+`;
+
+const QueryWrapper = styled.div`
+    width: 80%;
+    display: flex;
+    margin: 0px auto 12px;
+    align-items: center;
+    justify-content: space-between;
+    @media screen and (max-width: ${variables.MEDIA_FIRST_WIDTH}px) {
+        justify-content: center;
+        gap: 20px;
+    }
+    @media screen and (max-width: ${variables.MEDIA_SECOND_WIDTH}px) {
+        flex-direction: column;
+    }
+`;
+
+const OrderWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 6px;
+`;
+
+const FieldPathSelect = styled.select`
+    font-size: 16px;
+    border: 2px solid transparent;
+    padding: 2px 4px;
+    &:focus-visible {
+        outline-style: none;
+        border-bottom-color: ${colors.mainColor};
+    }
+`;
+
+const SearchWrapper = styled.div`
+    display: flex;
+    border: 3px solid gray;
+    border-radius: 6px;
+    padding: 6px 4px;
+    &:focus-within {
+        border: 3px solid ${colors.mainColor};
+    }
+`;
+
+const SearchInput = styled.input`
+    text-align: left;
+    outline-style: none;
+    position: relative;
+    &::-webkit-search-cancel-button {
+        -webkit-appearance: none;
     }
 `;
 
@@ -97,21 +154,28 @@ const NoCodeMessage = styled.p`
 `;
 
 const Main = () => {
-    const observeTargetRef = useRef(null);
     const userData = useRecoilValue(currentUserState);
+    const [orderData, setOrderData] = useRecoilState(currentOrderState);
+    const observeTargetRef = useRef(null);
 
     const getCodeList = async (pageParam: DocumentData | undefined) => {
         if (userData) {
             const codeQuery = pageParam
                 ? query(
                       collection(db, `user/${userData.uid}/codes`),
-                      orderBy("timestamp", "desc"),
+                      orderBy(
+                          orderData.fieldPath,
+                          orderData.isDesc ? "desc" : "asc"
+                      ),
                       limit(variables.CODE_LIMIT),
                       startAfter(pageParam)
                   )
                 : query(
                       collection(db, `user/${userData.uid}/codes`),
-                      orderBy("timestamp", "desc"),
+                      orderBy(
+                          orderData.fieldPath,
+                          orderData.isDesc ? "desc" : "asc"
+                      ),
                       limit(variables.CODE_LIMIT)
                   );
             const codeSnapshot = await getDocs(codeQuery);
@@ -127,6 +191,7 @@ const Main = () => {
         data: codeList = null,
         hasNextPage,
         fetchNextPage,
+        refetch,
     } = useInfiniteQuery(
         queryKeys.code,
         ({ pageParam }) => getCodeList(pageParam),
@@ -137,6 +202,27 @@ const Main = () => {
                 (lastPage?.size < variables.CODE_LIMIT ? null : lastPage.lastDocument),
         }
     );
+
+    const fieldPathHandler = async (
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) => {
+        setOrderData({ ...orderData, fieldPath: event.target.value });
+        await queryClient.cancelQueries({
+            queryKey: queryKeys.code,
+        });
+        refetch();
+    };
+
+    const directionHandler = async () => {
+        setOrderData({
+            ...orderData,
+            isDesc: !orderData.isDesc,
+        });
+        await queryClient.cancelQueries({
+            queryKey: queryKeys.code,
+        });
+        refetch();
+    };
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -162,9 +248,49 @@ const Main = () => {
 
     return userData ? (
         <MainWrapper>
-            {codeList &&
-                (codeList.pages[0]?.data.length! > 0 ? (
-                    <>
+                        <QueryWrapper>
+                            <OrderWrapper>
+                                <label
+                                    htmlFor="fieldPath"
+                                    className="a11y-hidden"
+                                >
+                                    정렬 기준
+                                </label>
+                                <FieldPathSelect
+                                    id="fleidPath"
+                                    defaultValue={orderData.fieldPath}
+                                    onChange={fieldPathHandler}
+                                >
+                                    <option value="timestamp">
+                                        최종 수정일
+                                    </option>
+                                    <option value="title">제목</option>
+                                    <option value="language">언어</option>
+                                </FieldPathSelect>
+                                <IconButton
+                                    icon={
+                                        orderData.isDesc
+                                            ? faArrowDownShortWide
+                                            : faArrowUpShortWide
+                                    }
+                                    message={
+                                        orderData.isDesc
+                                            ? "내림차순"
+                                            : "오름차순"
+                                    }
+                                    onClickFunction={directionHandler}
+                                    fixWidth={24}
+                                />
+                            </OrderWrapper>
+                            <SearchWrapper>
+                                <SearchInput type="search" name="searchInput" />
+                                <IconButton
+                                    icon={faSearch}
+                                    message="검색"
+                                    onClickFunction={() => {}}
+                                />
+                            </SearchWrapper>
+                        </QueryWrapper>
                         <CodeList>
                             <>
                                 {codeList.pages.map((page) => {
