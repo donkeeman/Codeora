@@ -27,7 +27,7 @@ import { colors } from "../Constants/colors";
 import { queryKeys } from "../Constants/queryKeys";
 import { variables } from "../Constants/variables";
 import ButtonLink from "../Components/ButtonLink";
-import Landing from "../Components/Landing";
+import Landing from "./Landing";
 
 const MainWrapper = styled.section`
     width: 100%;

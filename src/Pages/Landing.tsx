@@ -4,7 +4,7 @@ import { backgroundPath } from "../Constants/assetPath";
 import { colors } from "../Constants/colors";
 import { languageMap } from "../Constants/languageMap";
 import { variables } from "../Constants/variables";
-import ButtonLink from "./ButtonLink";
+import ButtonLink from "../Components/ButtonLink";
 
 const LandingPage = styled.section`
     position: absolute;
