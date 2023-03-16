@@ -93,11 +93,10 @@ const FieldPathSelect = styled.select`
 
 const SearchWrapper = styled.div`
     display: flex;
-    border: 3px solid gray;
-    border-radius: 6px;
+    border-bottom: 2px solid gray;
     padding: 6px 4px;
     &:focus-within {
-        border: 3px solid ${colors.mainColor};
+        border-bottom-color: ${colors.mainColor};
     }
 `;
 
