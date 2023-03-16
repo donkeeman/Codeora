@@ -6,20 +6,20 @@ import { languageMap } from "../Constants/languageMap";
 import { variables } from "../Constants/variables";
 import ButtonLink from "./ButtonLink";
 
-const LandingSection = styled.section`
-    position: fixed;
+const LandingPage = styled.section`
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     background: url(${process.env.PUBLIC_URL + backgroundPath}) no-repeat center;
     background-size: cover;
-    padding: 30px 5%;
+    padding: 60px 5% 30px;
     &::before {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         content: "";
@@ -27,10 +27,11 @@ const LandingSection = styled.section`
         height: 100%;
         opacity: 0.9;
         background-color: ${colors.black};
-        z-index: -10;
     }
-    @media screen and (max-width: ${variables.MEDIA_SECOND_WIDTH}px) {
+    @media screen and (max-width: ${variables.MEDIA_FIRST_WIDTH}px) {
         flex-direction: column;
+        justify-content: center;
+        gap: 10px;
     }
 `;
 
@@ -51,7 +52,7 @@ const LandingWrapper = styled.div<{ delay?: string }>`
 const LandingMessage = styled.p`
     margin: 8px 0;
     &.big {
-        font-size: 64px;
+        font-size: 60px;
         text-align: left;
     }
     &.small {
@@ -61,7 +62,7 @@ const LandingMessage = styled.p`
 
 const Landing = () => {
     return (
-        <LandingSection>
+        <LandingPage>
             <LandingWrapper>
                 <LandingMessage className="big">당신의</LandingMessage>
                 <LandingMessage className="big">코드를</LandingMessage>
@@ -83,7 +84,7 @@ const Landing = () => {
                 </LandingMessage>
                 <ButtonLink to="/signin" message="시작하기" />
             </LandingWrapper>
-        </LandingSection>
+        </LandingPage>
     );
 };
 
