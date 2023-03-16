@@ -8,6 +8,9 @@ import {
     limit,
     orderBy,
     query,
+    QueryLimitConstraint,
+    QueryOrderByConstraint,
+    QueryStartAtConstraint,
     startAfter,
 } from "firebase/firestore";
 import styled from "styled-components";
@@ -159,24 +162,19 @@ const Main = () => {
 
     const getCodeList = async (pageParam: DocumentData | undefined) => {
         if (userData) {
-            const codeQuery = pageParam
-                ? query(
-                      collection(db, `user/${userData.uid}/codes`),
-                      orderBy(
-                          orderData.fieldPath,
-                          orderData.isDesc ? "desc" : "asc"
-                      ),
-                      limit(variables.CODE_LIMIT),
-                      startAfter(pageParam)
-                  )
-                : query(
-                      collection(db, `user/${userData.uid}/codes`),
-                      orderBy(
-                          orderData.fieldPath,
-                          orderData.isDesc ? "desc" : "asc"
-                      ),
-                      limit(variables.CODE_LIMIT)
-                  );
+            const queryOptions: (
+                | QueryOrderByConstraint
+                | QueryLimitConstraint
+                | QueryStartAtConstraint
+            )[] = [
+                orderBy(orderData.fieldPath, orderData.isDesc ? "desc" : "asc"),
+                limit(variables.CODE_LIMIT),
+            ];
+            pageParam && queryOptions.push(startAfter(pageParam));
+            const codeQuery = query(
+                collection(db, `user/${userData.uid}/codes`),
+                ...queryOptions
+            );
             const codeSnapshot = await getDocs(codeQuery);
             return {
                 data: codeSnapshot.docs,
