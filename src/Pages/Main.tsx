@@ -17,6 +17,7 @@ import styled from "styled-components";
 import {
     faArrowDownShortWide,
     faArrowUpShortWide,
+    faCircleXmark,
     faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import CodeCard from "../Components/CodeCard";
@@ -84,10 +85,11 @@ const OrderWrapper = styled.div`
     gap: 6px;
 `;
 
-const FieldPathSelect = styled.select`
+const QuerySelect = styled.select`
+    text-align: center;
     font-size: 16px;
-    border: 2px solid transparent;
-    padding: 2px 4px;
+    border-bottom: 2px solid transparent;
+    padding: 2px 0;
     &:focus-visible {
         outline-style: none;
         border-bottom-color: ${colors.mainColor};
@@ -96,8 +98,14 @@ const FieldPathSelect = styled.select`
 
 const SearchWrapper = styled.div`
     display: flex;
-    border-bottom: 2px solid gray;
     padding: 6px 4px;
+    gap: 6px;
+`;
+
+const SearchInputWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid gray;
     &:focus-within {
         border-bottom-color: ${colors.mainColor};
     }
@@ -105,10 +113,14 @@ const SearchWrapper = styled.div`
 
 const SearchInput = styled.input`
     text-align: left;
-    outline-style: none;
     position: relative;
+    font-size: 16px;
+    padding: 2px 4px;
     &::-webkit-search-cancel-button {
         -webkit-appearance: none;
+    }
+    &:focus-visible {
+        outline-style: none;
     }
 `;
 
@@ -158,6 +170,7 @@ const NoCodeMessage = styled.p`
 const Main = () => {
     const userData = useRecoilValue(currentUserState);
     const [orderData, setOrderData] = useRecoilState(currentOrderState);
+    const searchInputRef = useRef<HTMLInputElement>(null);
     const observeTargetRef = useRef(null);
 
     const getCodeList = async (pageParam: DocumentData | undefined) => {
@@ -223,6 +236,12 @@ const Main = () => {
         refetch();
     };
 
+    const inputClearHandler = () => {
+        if (searchInputRef.current) {
+            searchInputRef.current.value = "";
+        }
+    };
+
     useEffect(() => {
         const observer = new IntersectionObserver(
             async ([entry], observer) => {
@@ -258,7 +277,7 @@ const Main = () => {
                                 >
                                     정렬 기준
                                 </label>
-                                <FieldPathSelect
+                                <QuerySelect
                                     id="fleidPath"
                                     defaultValue={orderData.fieldPath}
                                     onChange={fieldPathHandler}
@@ -268,7 +287,7 @@ const Main = () => {
                                     </option>
                                     <option value="title">제목</option>
                                     <option value="language">언어</option>
-                                </FieldPathSelect>
+                                </QuerySelect>
                                 <IconButton
                                     icon={
                                         orderData.isDesc
@@ -285,12 +304,34 @@ const Main = () => {
                                 />
                             </OrderWrapper>
                             <SearchWrapper>
-                                <SearchInput type="search" name="searchInput" />
-                                <IconButton
-                                    icon={faSearch}
-                                    message="검색"
-                                    onClickFunction={() => {}}
-                                />
+                                <QuerySelect
+                                    id="where"
+                                    defaultValue="title"
+                                    onChange={() => {}}
+                                >
+                                    <option value="title">제목</option>
+                                    <option value="description">설명</option>
+                                    <option value="tag">태그</option>
+                                    <option value="language">언어</option>
+                                </QuerySelect>
+                                <SearchInputWrapper>
+                                    <SearchInput
+                                        type="search"
+                                        name="searchInput"
+                                        ref={searchInputRef}
+                                    />
+                                    <IconButton
+                                        icon={faCircleXmark}
+                                        message="검색어 삭제"
+                                        onClickFunction={inputClearHandler}
+                                        size="sm"
+                                    />
+                                    <IconButton
+                                        icon={faSearch}
+                                        message="검색"
+                                        onClickFunction={() => {}}
+                                    />
+                                </SearchInputWrapper>
                             </SearchWrapper>
                         </QueryWrapper>
                         <CodeList>
