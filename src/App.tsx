@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Loading from "./Components/Loading";
 import Header from "./Components/Header";
 import { currentUserState, persistLoginState } from "./Configs/atoms";
@@ -8,11 +8,11 @@ import GlobalStyle from "./Configs/GlobalStyle";
 import { Outlet } from "react-router";
 
 const App = () => {
-    const setUserData = useSetRecoilState(currentUserState);
+    const [userData, setUserData] = useRecoilState(currentUserState);
     const persistUserData = useRecoilValue(persistLoginState);
     useEffect(() => {
-        setUserData(persistUserData);
-    }, [setUserData, persistUserData]);
+        setUserData(persistUserData || userData);
+    }, [userData, setUserData, persistUserData]);
 
     return (
         <div className="App">
