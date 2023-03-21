@@ -17,6 +17,7 @@ import styled from "styled-components";
 import {
     faArrowDownShortWide,
     faArrowUpShortWide,
+    faCircleExclamation,
     faCircleXmark,
     faSearch,
 } from "@fortawesome/free-solid-svg-icons";
@@ -32,6 +33,7 @@ import { queryKeys } from "../Constants/queryKeys";
 import { variables } from "../Constants/variables";
 import ButtonLink from "../Components/ButtonLink";
 import Landing from "./Landing";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const MainWrapper = styled.section`
     width: 100%;
@@ -160,6 +162,7 @@ const NoCodeWrapper = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    gap: 10px;
 `;
 
 const NoCodeMessage = styled.p`
@@ -341,6 +344,11 @@ const Main = () => {
                                                 searchHandler();
                                             }
                                         }}
+                                        onChange={(event) => {
+                                            if (!event.target.value) {
+                                                inputClearHandler();
+                                            }
+                                        }}
                                     />
                                     <IconButton
                                         icon={faCircleXmark}
@@ -371,23 +379,40 @@ const Main = () => {
                                                     ].includes(filterData.text)
                                         );
                                     }
-                                    return codePage?.map((doc) => {
-                                        const codeData = doc.data();
-                                        return (
-                                            <li key={doc.id} className="card">
-                                                <CodeCard
-                                                    id={doc.id}
-                                                    title={codeData.title}
-                                                    description={
-                                                        codeData.description
-                                                    }
-                                                    tags={codeData.tag}
-                                                    language={codeData.language}
-                                                    date={codeData.timestamp.toDate()}
-                                                />
-                                            </li>
-                                        );
-                                    });
+                                    return codePage && codePage.length > 0 ? (
+                                        codePage.map((doc) => {
+                                            const codeData = doc.data();
+                                            return (
+                                                <li
+                                                    key={doc.id}
+                                                    className="card"
+                                                >
+                                                    <CodeCard
+                                                        id={doc.id}
+                                                        title={codeData.title}
+                                                        description={
+                                                            codeData.description
+                                                        }
+                                                        tags={codeData.tag}
+                                                        language={
+                                                            codeData.language
+                                                        }
+                                                        date={codeData.timestamp.toDate()}
+                                                    />
+                                                </li>
+                                            );
+                                        })
+                                    ) : (
+                                        <NoCodeWrapper>
+                                            <FontAwesomeIcon
+                                                icon={faCircleExclamation}
+                                                size="10x"
+                                            />
+                                            <NoCodeMessage>
+                                                검색 결과가 없습니다.
+                                            </NoCodeMessage>
+                                        </NoCodeWrapper>
+                                    );
                                 })}
                                 {hasNextPage && (
                                     <ObserveLi ref={observeTargetRef}>
@@ -399,6 +424,10 @@ const Main = () => {
                     </>
                 ) : (
                     <NoCodeWrapper>
+                        <FontAwesomeIcon
+                            icon={faCircleExclamation}
+                            size="10x"
+                        />
                         <NoCodeMessage>저장된 코드가 없습니다.</NoCodeMessage>
                         <NoCodeMessage>코드를 작성해 보세요!</NoCodeMessage>
                         <ButtonLink message={"코드 작성하기"} to="/write" />
