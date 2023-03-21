@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import {
@@ -146,6 +146,7 @@ const Header = () => {
     const [userData, setUserData] = useRecoilState(currentUserState);
     const setPersistLoginData = useSetRecoilState(persistLoginState);
     const navigate = useNavigate();
+    const location = useLocation();
 
     const signOutHandler = async () => {
         await signOutUser();
@@ -158,7 +159,14 @@ const Header = () => {
     return (
         <HeaderWrapper>
             <Logo>
-                <Link to="/">
+                <Link
+                    to="/"
+                    onClick={() => {
+                        if (location.pathname === "/") {
+                            navigate(0);
+                        }
+                    }}
+                >
                     <img src={process.env.PUBLIC_URL + logoPath} alt="코더라" />
                 </Link>
             </Logo>
