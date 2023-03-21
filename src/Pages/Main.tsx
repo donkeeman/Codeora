@@ -8,9 +8,7 @@ import {
     limit,
     orderBy,
     query,
-    QueryLimitConstraint,
-    QueryOrderByConstraint,
-    QueryStartAtConstraint,
+    QueryConstraint,
     startAfter,
 } from "firebase/firestore";
 import styled from "styled-components";
@@ -183,11 +181,7 @@ const Main = () => {
 
     const getCodeList = async (pageParam: DocumentData | undefined) => {
         if (userData) {
-            const queryOptions: (
-                | QueryOrderByConstraint
-                | QueryLimitConstraint
-                | QueryStartAtConstraint
-            )[] = [
+            const queryOptions: QueryConstraint[] = [
                 orderBy(orderData.fieldPath, orderData.isDesc ? "desc" : "asc"),
                 limit(variables.CODE_LIMIT),
             ];
