@@ -32,9 +32,9 @@ const StyledLink = styled(Link)`
     }
 `;
 
-const ButtonLink = ({ type = "primary", to, message }: linkData) => {
+const ButtonLink = ({ type = "primary", to, message, replace }: linkData) => {
     return (
-        <StyledLink className={type} to={to}>
+        <StyledLink className={type} to={to} replace={replace}>
             {message}
         </StyledLink>
     );

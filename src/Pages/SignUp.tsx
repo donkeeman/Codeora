@@ -102,7 +102,7 @@ const SignUp = () => {
                     signUpData.password,
                     signUpData.userName
                 );
-                navigate("/signup-success");
+                navigate("/signup-success", { replace: true });
             }
         } catch (error) {
             if (error instanceof FirebaseError) {

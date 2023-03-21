@@ -36,9 +36,9 @@ const LinkWrapper = styled(Link)<{
     }
 `;
 
-const IconLink = ({ to, icon, size, message, subMessage }: IconLinkData) => {
+const IconLink = ({ to, icon, size, message, subMessage, replace }: IconLinkData) => {
     return (
-        <LinkWrapper to={to} $subMessage={subMessage || message}>
+        <LinkWrapper to={to} $subMessage={subMessage || message} replace={replace}>
             <FontAwesomeIcon
                 icon={icon}
                 size={size || "xl"}

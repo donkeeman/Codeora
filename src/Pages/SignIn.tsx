@@ -85,6 +85,7 @@ const SignIn = () => {
 
     useEffect(() => {
         if (userData) {
+            console.log(userData)
             navigate("/");
         }
     }, [userData, navigate]);

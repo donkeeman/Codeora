@@ -217,7 +217,9 @@ const Header = () => {
                     <>
                         <NavList className="wide">
                             <li>
-                                <NavLink to="/signin">로그인</NavLink>
+                                <NavLink to="/signin" replace>
+                                    로그인
+                                </NavLink>
                             </li>
                             <li>
                                 <NavLink to="/signup">회원 가입</NavLink>
@@ -229,6 +231,7 @@ const Header = () => {
                                     to="/signin"
                                     icon={faRightToBracket}
                                     message="로그인"
+                                    replace={true}
                                 />
                             </li>
                             <li>

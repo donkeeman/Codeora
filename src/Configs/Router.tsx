@@ -15,16 +15,14 @@ import { currentUserState } from "./atoms";
 const PrivateRoutes = () => {
     const userData = useRecoilValue(currentUserState);
 
-    return userData ? <Outlet /> : <Navigate to="/signin" />;
+    return userData ? <Outlet /> : <Navigate to="/signin" replace />;
 };
 
 const PublicRoutes = () => {
     const userData = useRecoilValue(currentUserState);
 
-    return userData ? <Navigate to="/" /> : <Outlet />;
+    return userData ? <Navigate to="/" replace /> : <Outlet />;
 };
-
-
 
 const Router = createBrowserRouter([
     {

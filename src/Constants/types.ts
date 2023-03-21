@@ -65,6 +65,7 @@ export interface linkData {
     message: string;
     to: string;
     type?: string;
+    replace?: boolean;
 }
 
 // input 기본 속성
@@ -115,6 +116,7 @@ export interface IconButtonData extends IconData {
 // 아이콘만 있는 링크에 사용
 export interface IconLinkData extends IconData {
     to: string;
+    replace?: boolean;
 }
 
 export interface OrderData {
