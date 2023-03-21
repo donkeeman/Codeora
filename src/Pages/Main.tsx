@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useInfiniteQuery } from "react-query";
 import {
@@ -168,8 +168,13 @@ const NoCodeMessage = styled.p`
 `;
 
 const Main = () => {
+    const [filterData, setFilterData] = useState({
+        fieldPath: "title",
+        text: "",
+    });
     const userData = useRecoilValue(currentUserState);
     const [orderData, setOrderData] = useRecoilState(currentOrderState);
+    const searchSelectRef = useRef<HTMLSelectElement>(null);
     const searchInputRef = useRef<HTMLInputElement>(null);
     const observeTargetRef = useRef(null);
 
@@ -219,10 +224,10 @@ const Main = () => {
         event: React.ChangeEvent<HTMLSelectElement>
     ) => {
         setOrderData({ ...orderData, fieldPath: event.target.value });
-        await queryClient.cancelQueries({
+        await queryClient.invalidateQueries({
             queryKey: queryKeys.code,
         });
-        refetch();
+        await refetch();
     };
 
     const directionHandler = async () => {
@@ -230,15 +235,27 @@ const Main = () => {
             ...orderData,
             isDesc: !orderData.isDesc,
         });
-        await queryClient.cancelQueries({
+        await queryClient.invalidateQueries({
             queryKey: queryKeys.code,
         });
-        refetch();
+        await refetch();
     };
 
-    const inputClearHandler = () => {
+    const inputClearHandler = async () => {
         if (searchInputRef.current) {
             searchInputRef.current.value = "";
+            setFilterData({ ...filterData, text: "" });
+            await refetch();
+        }
+    };
+
+    const searchHandler = async () => {
+        if (searchSelectRef.current && searchInputRef.current) {
+            setFilterData({
+                fieldPath: searchSelectRef.current.value,
+                text: searchInputRef.current.value,
+            });
+            await refetch();
         }
     };
 
@@ -307,7 +324,7 @@ const Main = () => {
                                 <QuerySelect
                                     id="where"
                                     defaultValue="title"
-                                    onChange={() => {}}
+                                    ref={searchSelectRef}
                                 >
                                     <option value="title">제목</option>
                                     <option value="description">설명</option>
@@ -319,17 +336,23 @@ const Main = () => {
                                         type="search"
                                         name="searchInput"
                                         ref={searchInputRef}
+                                        onKeyDown={(event) => {
+                                            if (event.key === "Enter") {
+                                                searchHandler();
+                                            }
+                                        }}
                                     />
                                     <IconButton
                                         icon={faCircleXmark}
-                                        message="검색어 삭제"
+                                        message="검색어 초기화"
+                                        subMessage="초기화"
                                         onClickFunction={inputClearHandler}
                                         size="sm"
                                     />
                                     <IconButton
                                         icon={faSearch}
                                         message="검색"
-                                        onClickFunction={() => {}}
+                                        onClickFunction={searchHandler}
                                     />
                                 </SearchInputWrapper>
                             </SearchWrapper>
@@ -337,7 +360,17 @@ const Main = () => {
                         <CodeList>
                             <>
                                 {codeList.pages.map((page) => {
-                                    const codePage = page?.data;
+                                    let codePage = page?.data;
+                                    if (filterData.text.length > 0) {
+                                        codePage = codePage?.filter(
+                                            (doc: DocumentData) =>
+                                                doc
+                                                    .data()
+                                                    [
+                                                        filterData.fieldPath
+                                                    ].includes(filterData.text)
+                                        );
+                                    }
                                     return codePage?.map((doc) => {
                                         const codeData = doc.data();
                                         return (
