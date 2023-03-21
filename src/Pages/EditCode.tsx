@@ -144,11 +144,13 @@ const EditCode = () => {
     const addTagHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (tagRef.current) {
             if (event.key === " " || event.key === "Enter") {
+                event.preventDefault();
                 if (posting.tag.length < variables.TAG_MAX_COUNT) {
-                    setPosting({
-                        ...posting,
-                        tag: [...posting.tag, tagRef.current.value.trim()],
-                    });
+                    tagRef.current.value.trim().length > 0 &&
+                        setPosting({
+                            ...posting,
+                            tag: [...posting.tag, tagRef.current.value.trim()],
+                        });
                 } else {
                     alert(
                         `태그는 최대 ${variables.TAG_MAX_COUNT}개까지 입력 가능합니다.`

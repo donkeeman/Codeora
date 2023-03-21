@@ -143,8 +143,10 @@ const WriteCode = () => {
     const addTagHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (tagRef.current) {
             if (event.key === " " || event.key === "Enter") {
+                event.preventDefault();
                 if (posting.tag.length < variables.TAG_MAX_COUNT) {
-                    posting.tag.push(tagRef.current.value.trim());
+                    tagRef.current.value.trim().length > 0 &&
+                        posting.tag.push(tagRef.current.value.trim());
                     setPosting({ ...posting });
                 } else {
                     alert(
