@@ -30,7 +30,6 @@ const Card = styled(Link)`
     overflow: hidden;
 `;
 
-// 페이지 완성되고 헤딩 수정
 const CardTitle = styled.h3`
     width: 100%;
     overflow: hidden;

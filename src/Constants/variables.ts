@@ -15,7 +15,7 @@ export const variables = {
     TITLE_MAX_COUNT: 20,
 
     // 코드의 최대 태그 개수
-    TAG_MAX_COUNT: 3,
+    TAG_MAX_COUNT: 4,
 
     // 헤더 컴포넌트의 높이
     HEADER_HEIGHT: 60,
