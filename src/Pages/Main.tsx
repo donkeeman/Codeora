@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useInfiniteQuery } from "react-query";
 import {
@@ -8,12 +8,17 @@ import {
     limit,
     orderBy,
     query,
+    QueryLimitConstraint,
+    QueryOrderByConstraint,
+    QueryStartAtConstraint,
     startAfter,
 } from "firebase/firestore";
 import styled from "styled-components";
 import {
     faArrowDownShortWide,
     faArrowUpShortWide,
+    faCircleExclamation,
+    faCircleXmark,
     faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import CodeCard from "../Components/CodeCard";
@@ -28,6 +33,7 @@ import { queryKeys } from "../Constants/queryKeys";
 import { variables } from "../Constants/variables";
 import ButtonLink from "../Components/ButtonLink";
 import Landing from "./Landing";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const MainWrapper = styled.section`
     width: 100%;
@@ -81,10 +87,11 @@ const OrderWrapper = styled.div`
     gap: 6px;
 `;
 
-const FieldPathSelect = styled.select`
+const QuerySelect = styled.select`
+    text-align: center;
     font-size: 16px;
-    border: 2px solid transparent;
-    padding: 2px 4px;
+    border-bottom: 2px solid transparent;
+    padding: 2px 0;
     &:focus-visible {
         outline-style: none;
         border-bottom-color: ${colors.mainColor};
@@ -93,20 +100,29 @@ const FieldPathSelect = styled.select`
 
 const SearchWrapper = styled.div`
     display: flex;
-    border: 3px solid gray;
-    border-radius: 6px;
     padding: 6px 4px;
+    gap: 6px;
+`;
+
+const SearchInputWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid gray;
     &:focus-within {
-        border: 3px solid ${colors.mainColor};
+        border-bottom-color: ${colors.mainColor};
     }
 `;
 
 const SearchInput = styled.input`
     text-align: left;
-    outline-style: none;
     position: relative;
+    font-size: 16px;
+    padding: 2px 4px;
     &::-webkit-search-cancel-button {
         -webkit-appearance: none;
+    }
+    &:focus-visible {
+        outline-style: none;
     }
 `;
 
@@ -146,6 +162,7 @@ const NoCodeWrapper = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    gap: 10px;
 `;
 
 const NoCodeMessage = styled.p`
@@ -154,30 +171,31 @@ const NoCodeMessage = styled.p`
 `;
 
 const Main = () => {
+    const [filterData, setFilterData] = useState({
+        fieldPath: "title",
+        text: "",
+    });
     const userData = useRecoilValue(currentUserState);
     const [orderData, setOrderData] = useRecoilState(currentOrderState);
+    const searchSelectRef = useRef<HTMLSelectElement>(null);
+    const searchInputRef = useRef<HTMLInputElement>(null);
     const observeTargetRef = useRef(null);
 
     const getCodeList = async (pageParam: DocumentData | undefined) => {
         if (userData) {
-            const codeQuery = pageParam
-                ? query(
-                      collection(db, `user/${userData.uid}/codes`),
-                      orderBy(
-                          orderData.fieldPath,
-                          orderData.isDesc ? "desc" : "asc"
-                      ),
-                      limit(variables.CODE_LIMIT),
-                      startAfter(pageParam)
-                  )
-                : query(
-                      collection(db, `user/${userData.uid}/codes`),
-                      orderBy(
-                          orderData.fieldPath,
-                          orderData.isDesc ? "desc" : "asc"
-                      ),
-                      limit(variables.CODE_LIMIT)
-                  );
+            const queryOptions: (
+                | QueryOrderByConstraint
+                | QueryLimitConstraint
+                | QueryStartAtConstraint
+            )[] = [
+                orderBy(orderData.fieldPath, orderData.isDesc ? "desc" : "asc"),
+                limit(variables.CODE_LIMIT),
+            ];
+            pageParam && queryOptions.push(startAfter(pageParam));
+            const codeQuery = query(
+                collection(db, `user/${userData.uid}/codes`),
+                ...queryOptions
+            );
             const codeSnapshot = await getDocs(codeQuery);
             return {
                 data: codeSnapshot.docs,
@@ -209,10 +227,10 @@ const Main = () => {
         event: React.ChangeEvent<HTMLSelectElement>
     ) => {
         setOrderData({ ...orderData, fieldPath: event.target.value });
-        await queryClient.cancelQueries({
+        await queryClient.invalidateQueries({
             queryKey: queryKeys.code,
         });
-        refetch();
+        await refetch();
     };
 
     const directionHandler = async () => {
@@ -220,10 +238,28 @@ const Main = () => {
             ...orderData,
             isDesc: !orderData.isDesc,
         });
-        await queryClient.cancelQueries({
+        await queryClient.invalidateQueries({
             queryKey: queryKeys.code,
         });
-        refetch();
+        await refetch();
+    };
+
+    const inputClearHandler = async () => {
+        if (searchInputRef.current) {
+            searchInputRef.current.value = "";
+            setFilterData({ ...filterData, text: "" });
+            await refetch();
+        }
+    };
+
+    const searchHandler = async () => {
+        if (searchSelectRef.current && searchInputRef.current) {
+            setFilterData({
+                fieldPath: searchSelectRef.current.value,
+                text: searchInputRef.current.value,
+            });
+            await refetch();
+        }
     };
 
     useEffect(() => {
@@ -261,7 +297,7 @@ const Main = () => {
                                 >
                                     정렬 기준
                                 </label>
-                                <FieldPathSelect
+                                <QuerySelect
                                     id="fleidPath"
                                     defaultValue={orderData.fieldPath}
                                     onChange={fieldPathHandler}
@@ -271,7 +307,7 @@ const Main = () => {
                                     </option>
                                     <option value="title">제목</option>
                                     <option value="language">언어</option>
-                                </FieldPathSelect>
+                                </QuerySelect>
                                 <IconButton
                                     icon={
                                         orderData.isDesc
@@ -288,35 +324,95 @@ const Main = () => {
                                 />
                             </OrderWrapper>
                             <SearchWrapper>
-                                <SearchInput type="search" name="searchInput" />
-                                <IconButton
-                                    icon={faSearch}
-                                    message="검색"
-                                    onClickFunction={() => {}}
-                                />
+                                <QuerySelect
+                                    id="where"
+                                    defaultValue="title"
+                                    ref={searchSelectRef}
+                                >
+                                    <option value="title">제목</option>
+                                    <option value="description">설명</option>
+                                    <option value="tag">태그</option>
+                                    <option value="language">언어</option>
+                                </QuerySelect>
+                                <SearchInputWrapper>
+                                    <SearchInput
+                                        type="search"
+                                        name="searchInput"
+                                        ref={searchInputRef}
+                                        onKeyDown={(event) => {
+                                            if (event.key === "Enter") {
+                                                searchHandler();
+                                            }
+                                        }}
+                                        onChange={(event) => {
+                                            if (!event.target.value) {
+                                                inputClearHandler();
+                                            }
+                                        }}
+                                    />
+                                    <IconButton
+                                        icon={faCircleXmark}
+                                        message="검색어 초기화"
+                                        subMessage="초기화"
+                                        onClickFunction={inputClearHandler}
+                                        size="sm"
+                                    />
+                                    <IconButton
+                                        icon={faSearch}
+                                        message="검색"
+                                        onClickFunction={searchHandler}
+                                    />
+                                </SearchInputWrapper>
                             </SearchWrapper>
                         </QueryWrapper>
                         <CodeList>
                             <>
                                 {codeList.pages.map((page) => {
-                                    const codePage = page?.data;
-                                    return codePage?.map((doc) => {
-                                        const codeData = doc.data();
-                                        return (
-                                            <li key={doc.id} className="card">
-                                                <CodeCard
-                                                    id={doc.id}
-                                                    title={codeData.title}
-                                                    description={
-                                                        codeData.description
-                                                    }
-                                                    tags={codeData.tag}
-                                                    language={codeData.language}
-                                                    date={codeData.timestamp.toDate()}
-                                                />
-                                            </li>
+                                    let codePage = page?.data;
+                                    if (filterData.text.length > 0) {
+                                        codePage = codePage?.filter(
+                                            (doc: DocumentData) =>
+                                                doc
+                                                    .data()
+                                                    [
+                                                        filterData.fieldPath
+                                                    ].includes(filterData.text)
                                         );
-                                    });
+                                    }
+                                    return codePage && codePage.length > 0 ? (
+                                        codePage.map((doc) => {
+                                            const codeData = doc.data();
+                                            return (
+                                                <li
+                                                    key={doc.id}
+                                                    className="card"
+                                                >
+                                                    <CodeCard
+                                                        id={doc.id}
+                                                        title={codeData.title}
+                                                        description={
+                                                            codeData.description
+                                                        }
+                                                        tags={codeData.tag}
+                                                        language={
+                                                            codeData.language
+                                                        }
+                                                        date={codeData.timestamp.toDate()}
+                                                    />
+                                                </li>
+                                            );
+                                        })
+                                    ) : (
+                                        <NoCodeWrapper>
+                                            <FontAwesomeIcon
+                                                icon={faCircleExclamation}
+                                                size="10x"
+                                            />
+                                            <NoCodeMessage>
+                                                검색 결과가 없습니다.
+                                            </NoCodeMessage>
+                                        </NoCodeWrapper>
+                                    );
                                 })}
                                 {hasNextPage && (
                                     <ObserveLi ref={observeTargetRef}>
@@ -328,6 +424,10 @@ const Main = () => {
                     </>
                 ) : (
                     <NoCodeWrapper>
+                        <FontAwesomeIcon
+                            icon={faCircleExclamation}
+                            size="10x"
+                        />
                         <NoCodeMessage>저장된 코드가 없습니다.</NoCodeMessage>
                         <NoCodeMessage>코드를 작성해 보세요!</NoCodeMessage>
                         <ButtonLink message={"코드 작성하기"} to="/write" />
