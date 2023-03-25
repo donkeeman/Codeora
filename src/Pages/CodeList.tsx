@@ -252,7 +252,6 @@ const CodeList = () => {
                 fieldPath: searchSelectRef.current.value,
                 text: searchInputRef.current.value,
             });
-            await refetch();
         }
     };
 
@@ -333,6 +332,7 @@ const CodeList = () => {
                                     <SearchInput
                                         type="search"
                                         name="searchInput"
+                                        autoComplete="off"
                                         ref={searchInputRef}
                                         onKeyDown={(event) => {
                                             if (event.key === "Enter") {
