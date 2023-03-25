@@ -121,15 +121,18 @@ const WriteCode = () => {
                     );
                 }
                 break;
+            case autoCloseMap.get(currentTextArea.value[start - 1]):
+                event.preventDefault();
+                break;
             default:
                 if (autoCloseMap.has(event.key)) {
                     currentTextArea.setRangeText(
-                        autoCloseMap.get(event.key)!,
+                        currentTextArea.value.substring(start, end) +
+                            autoCloseMap.get(event.key)!,
                         start,
                         end,
                         "start"
                     );
-                    setPosting({ ...posting, code: currentTextArea.value });
                 }
                 break;
         }
