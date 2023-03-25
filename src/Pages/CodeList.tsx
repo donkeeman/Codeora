@@ -374,7 +374,8 @@ const CodeList = () => {
                                                     ].includes(filterData.text)
                                         );
                                     }
-                                    return codePage && codePage.length > 0 ? (
+                                    return (
+                                        codePage &&
                                         codePage.map((doc) => {
                                             const codeData = doc.data();
                                             return (
@@ -397,16 +398,6 @@ const CodeList = () => {
                                                 </li>
                                             );
                                         })
-                                    ) : (
-                                        <NoCodeWrapper>
-                                            <FontAwesomeIcon
-                                                icon={faCircleExclamation}
-                                                size="10x"
-                                            />
-                                            <NoCodeMessage>
-                                                검색 결과가 없습니다.
-                                            </NoCodeMessage>
-                                        </NoCodeWrapper>
                                     );
                                 })}
                                 {hasNextPage && (
