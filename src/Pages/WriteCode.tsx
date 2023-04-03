@@ -98,15 +98,14 @@ const WriteCode = () => {
                 const prevLine = currentTextArea.value
                     .substring(0, start)
                     .split("\n")
-                    .pop()
-                    ?.trimEnd();
+                    .pop();
                 const indent = prevLine?.match(/\t/g) || [];
+                event.preventDefault();
                 if (
                     autoCloseMap.has(currentTextArea.value[start - 1]) &&
                     autoCloseMap.get(currentTextArea.value[start - 1]) ===
                         currentTextArea.value[start]
                 ) {
-                    event.preventDefault();
                     currentTextArea.setRangeText(
                         `\n${indent.join("")}\t\n${indent.join("")}`,
                         start,
@@ -115,6 +114,13 @@ const WriteCode = () => {
                     );
                     currentTextArea.selectionStart -= indent.length + 1;
                     currentTextArea.selectionEnd -= indent.length + 1;
+                } else {
+                    currentTextArea.setRangeText(
+                        `\n${indent.join("")}`,
+                        start,
+                        end,
+                        "end"
+                    );
                 }
                 break;
             case "Backspace":
