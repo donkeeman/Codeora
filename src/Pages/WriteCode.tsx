@@ -95,15 +95,26 @@ const WriteCode = () => {
                 currentTextArea.setRangeText("\t", start, end, "end");
                 break;
             case "Enter":
+                const prevLine = currentTextArea.value
+                    .substring(0, start)
+                    .split("\n")
+                    .pop()
+                    ?.trimEnd();
+                const indent = prevLine?.match(/\t/g) || [];
                 if (
                     autoCloseMap.has(currentTextArea.value[start - 1]) &&
                     autoCloseMap.get(currentTextArea.value[start - 1]) ===
                         currentTextArea.value[start]
                 ) {
                     event.preventDefault();
-                    currentTextArea.setRangeText("\n\t\n", start, end, "end");
-                    currentTextArea.selectionStart -= 1;
-                    currentTextArea.selectionEnd -= 1;
+                    currentTextArea.setRangeText(
+                        `\n${indent.join("")}\t\n${indent.join("")}`,
+                        start,
+                        end,
+                        "end"
+                    );
+                    currentTextArea.selectionStart -= indent.length + 1;
+                    currentTextArea.selectionEnd -= indent.length + 1;
                 }
                 break;
             case "Backspace":
