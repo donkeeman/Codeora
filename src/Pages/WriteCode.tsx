@@ -123,6 +123,8 @@ const WriteCode = () => {
                 break;
             case autoCloseMap.get(currentTextArea.value[start - 1]):
                 event.preventDefault();
+                currentTextArea.selectionStart += 1;
+                currentTextArea.selectionEnd += 1;
                 break;
             default:
                 if (autoCloseMap.has(event.key)) {
