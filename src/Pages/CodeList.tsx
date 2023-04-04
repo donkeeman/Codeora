@@ -382,6 +382,20 @@ const CodeList = () => {
                         </QueryWrapper>
                         <List>
                             <>
+                                {!codeList.pages.reduce(
+                                    (a, page) => a + page?.data?.length!,
+                                    0
+                                ) && (
+                                    <NoCodeWrapper>
+                                        <FontAwesomeIcon
+                                            icon={faCircleExclamation}
+                                            size="10x"
+                                        />
+                                        <NoCodeMessage>
+                                            검색 결과가 없습니다.
+                                        </NoCodeMessage>
+                                    </NoCodeWrapper>
+                                )}
                                 {codeList.pages.map((page) => {
                                     const codePage = page?.data;
                                     return (
