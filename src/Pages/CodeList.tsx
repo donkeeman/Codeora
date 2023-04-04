@@ -214,6 +214,25 @@ const CodeList = () => {
                 (lastPage?.size < variables.CODE_LIMIT
                     ? null
                     : lastPage.lastDocument),
+            select: (codeList) => ({
+                pageParams: codeList.pageParams,
+                pages: codeList.pages.map((page) => {
+                    const filteredPageData =
+                        filterData.text.length > 0
+                            ? page?.data.filter((doc) =>
+                                  doc
+                                      .data()
+                                      [filterData.fieldPath].includes(
+                                          filterData.text
+                                      )
+                              )
+                            : page?.data;
+                    return {
+                        ...page,
+                        data: filteredPageData,
+                    };
+                }),
+            }),
         }
     );
 
@@ -252,6 +271,7 @@ const CodeList = () => {
                 fieldPath: searchSelectRef.current.value,
                 text: searchInputRef.current.value,
             });
+            await refetch();
         }
     };
 
@@ -281,7 +301,7 @@ const CodeList = () => {
         <MainWrapper>
             <h2 className="a11y-hidden">코드 리스트</h2>
             {codeList &&
-                (codeList.pages[0]?.data.length! > 0 ? (
+                (codeList.pages[0]?.data ? (
                     <>
                         <QueryWrapper>
                             <OrderWrapper>
@@ -363,17 +383,7 @@ const CodeList = () => {
                         <List>
                             <>
                                 {codeList.pages.map((page) => {
-                                    let codePage = page?.data;
-                                    if (filterData.text.length > 0) {
-                                        codePage = codePage?.filter(
-                                            (doc: DocumentData) =>
-                                                doc
-                                                    .data()
-                                                    [
-                                                        filterData.fieldPath
-                                                    ].includes(filterData.text)
-                                        );
-                                    }
+                                    const codePage = page?.data;
                                     return (
                                         codePage &&
                                         codePage.map((doc) => {
