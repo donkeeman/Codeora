@@ -301,7 +301,7 @@ const CodeList = () => {
         <MainWrapper>
             <h2 className="a11y-hidden">코드 리스트</h2>
             {codeList &&
-                (codeList.pages[0]?.data ? (
+                (codeList.pages[0]?.size! > 0 ? (
                     <>
                         <QueryWrapper>
                             <OrderWrapper>
