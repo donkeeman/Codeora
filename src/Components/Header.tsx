@@ -167,7 +167,12 @@ const Header = () => {
                         }
                     }}
                 >
-                    <img src={process.env.PUBLIC_URL + logoPath} alt="코더라" />
+                    <img
+                        src={process.env.PUBLIC_URL + logoPath}
+                        alt="코더라"
+                        width={200}
+                        height={30}
+                    />
                 </Link>
             </Logo>
             <NavWrapper>
