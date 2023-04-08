@@ -349,8 +349,15 @@ const CodeList = () => {
                                     <option value="language">언어</option>
                                 </QuerySelect>
                                 <SearchInputWrapper>
+                                    <label
+                                        htmlFor="searchInput"
+                                        className="a11y-hidden"
+                                    >
+                                        검색하기
+                                    </label>
                                     <SearchInput
                                         type="search"
+                                        id="searchInput"
                                         name="searchInput"
                                         autoComplete="off"
                                         ref={searchInputRef}
