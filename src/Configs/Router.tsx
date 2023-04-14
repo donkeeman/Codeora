@@ -1,26 +1,26 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import App from "../App";
-import CodeDetail from "../Pages/CodeDetail";
-import EditCode from "../Pages/EditCode";
-import Main from "../Pages/Main";
-import NotFound from "../Pages/NotFound";
-import SignIn from "../Pages/SignIn";
-import SignUp from "../Pages/SignUp";
-import SuccessSignUp from "../Pages/SignUpSuccess";
-import WriteCode from "../Pages/WriteCode";
 import { currentUserState } from "./atoms";
+import App from "../App";
+import Loading from "../Components/Loading";
+
+const CodeDetail = lazy(() => import("../Pages/CodeDetail"));
+const EditCode = lazy(() => import("../Pages/EditCode"));
+const Main = lazy(() => import("../Pages/Main"));
+const NotFound = lazy(() => import("../Pages/NotFound"));
+const SignIn = lazy(() => import("../Pages/SignIn"));
+const SignUp = lazy(() => import("../Pages/SignUp"));
+const SignUpSuccess = lazy(() => import("../Pages/SignUpSuccess"));
+const WriteCode = lazy(() => import("../Pages/WriteCode"));
 
 const PrivateRoutes = () => {
     const userData = useRecoilValue(currentUserState);
-
     return userData ? <Outlet /> : <Navigate to="/signin" replace />;
 };
 
 const PublicRoutes = () => {
     const userData = useRecoilValue(currentUserState);
-
     return userData ? <Navigate to="/" replace /> : <Outlet />;
 };
 
@@ -31,10 +31,18 @@ const Router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Main />,
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <Main />
+                    </Suspense>
+                ),
             },
             {
-                element: <PrivateRoutes />,
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <PrivateRoutes />
+                    </Suspense>
+                ),
                 children: [
                     { path: "write", element: <WriteCode /> },
                     {
@@ -45,11 +53,15 @@ const Router = createBrowserRouter([
                 ],
             },
             {
-                element: <PublicRoutes />,
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <PublicRoutes />
+                    </Suspense>
+                ),
                 children: [
                     { path: "signin", element: <SignIn /> },
                     { path: "signup", element: <SignUp /> },
-                    { path: "signup-success", element: <SuccessSignUp /> },
+                    { path: "signup-success", element: <SignUpSuccess /> },
                 ],
             },
             { path: "*", element: <NotFound /> },

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { lazy } from "react";
 import { useRecoilValue } from "recoil";
 import { currentUserState } from "../Configs/atoms";
-import CodeList from "./CodeList";
-import Landing from "./Landing";
+
+const CodeList = lazy(() => import("./CodeList"));
+const Landing = lazy(() => import("./Landing"));
 
 const Main = () => {
     const userData = useRecoilValue(currentUserState);

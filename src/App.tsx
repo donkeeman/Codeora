@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
+import { Outlet } from "react-router";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { useRecoilState, useRecoilValue } from "recoil";
-import Loading from "./Components/Loading";
 import Header from "./Components/Header";
+import Loading from "./Components/Loading";
 import { currentUserState, persistLoginState } from "./Configs/atoms";
 import GlobalStyle from "./Configs/GlobalStyle";
-import { Outlet } from "react-router";
 
 const App = () => {
     const [userData, setUserData] = useRecoilState(currentUserState);
